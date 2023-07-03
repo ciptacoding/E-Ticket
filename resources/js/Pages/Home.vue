@@ -55,7 +55,7 @@ defineProps({
 
                         <DropdownLink
                             v-if="$page.props.auth.user.role === 'admin'"
-                            :href="route('dashboard')"
+                            :href="route('users.index')"
                         >
                             Dashboard
                         </DropdownLink>

@@ -32,10 +32,10 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('users.index')"
+                                    :active="route().current('users.index')"
                                 >
-                                    Dashboard
+                                    Users
                                 </NavLink>
                             </div>
                         </div>
@@ -70,17 +70,15 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
-                                            :href="route('profile.edit')"
-                                        >
-                                            Profile
-                                        </DropdownLink>
-                                        <DropdownLink
                                             v-if="
                                                 $page.props.auth.user.role ===
                                                 'admin'
                                             "
-                                            :href="route('home')"
+                                            :href="route('profile.edit')"
                                         >
+                                            Profile
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('home')">
                                             Homepage
                                         </DropdownLink>
                                         <DropdownLink
@@ -148,10 +146,10 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :href="route('users.index')"
+                            :active="route().current('users.index')"
                         >
-                            Dashboard
+                            Users
                         </ResponsiveNavLink>
                     </div>
 
