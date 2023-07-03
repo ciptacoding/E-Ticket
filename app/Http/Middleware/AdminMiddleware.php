@@ -22,6 +22,7 @@ class AdminMiddleware
         }
 
         // if the user is not an admin, return a 403 Forbidden response
+        // abort(403, 'Unauthorized.');
         return redirect('/');
     }
 }
