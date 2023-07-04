@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';
