@@ -12,7 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')
+                        ->paginate(5);
 
         return Inertia::render(
             'Dashboard/Users/Index',

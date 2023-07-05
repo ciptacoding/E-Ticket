@@ -1,5 +1,6 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
+import Pagination from "@/Components/Pagination.vue";
 import { Link, Head, router } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -29,7 +30,9 @@ const deleteUser = (id) => {
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="shadow-md rounded-md">
-                        <div class="relative overflow-x-auto rounded-md">
+                        <div
+                            class="relative overflow-x-auto rounded-md py-6 bg-white"
+                        >
                             <table
                                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
                             >
@@ -56,7 +59,7 @@ const deleteUser = (id) => {
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="user in users"
+                                        v-for="user in users.data"
                                         :key="user.id"
                                         class="bg-white border-b"
                                     >
@@ -87,6 +90,7 @@ const deleteUser = (id) => {
                                     </tr>
                                 </tbody>
                             </table>
+                            <Pagination :links="users.links" />
                         </div>
                     </div>
                 </div>
