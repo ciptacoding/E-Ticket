@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,5 +35,11 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+
+Route::middleware(['admin', 'auth', 'verified'])->group(function () {
+    Route::resource('posts', PostController::class);
+});
+
+
 
 require __DIR__.'/auth.php';

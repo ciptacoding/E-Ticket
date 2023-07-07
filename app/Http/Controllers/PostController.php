@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Inertia::render(
+            'Dashboard/Posts/Index', 
+            [
+                'posts' => Post::query()
+                ->when($request->input('search'), function($query, $search){
+                    $query->where('title', 'like', '%'.$search.'%')
+                    ->orWhere('excerpt', 'like', '%'.$search.'%')
+                    ->orWhere('body', 'like', '%'.$search.'%');
+                })->paginate(6)->withQueryString(),
+                'filters' => $request->only(['search'])
+            ]
+        );
     }
 
     /**

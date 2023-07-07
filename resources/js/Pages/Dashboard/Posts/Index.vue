@@ -5,7 +5,7 @@ import { Head, router } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
 
 const props = defineProps({
-    users: {
+    posts: {
         type: Object,
         default: () => ({}),
     },
@@ -19,7 +19,7 @@ let search = ref(props.filters.search);
 
 watch(search, (value) => {
     router.get(
-        "/users",
+        "/posts",
         { search: value },
         {
             preserveState: true,
@@ -28,21 +28,29 @@ watch(search, (value) => {
     );
 });
 
-const deleteUser = (id) => {
-    if (confirm("Are you sure ?")) {
-        router.delete(`/users/${id}`);
-    }
+const truncatePostBody = (post) => {
+    let body = stripTags(post.body);
+    return body.length > 10 ? body.substring(0, 10) + "..." : body;
+};
+
+const truncateExcerpt = (post) => {
+    let excerpt = stripTags(post.excerpt);
+    return excerpt.length > 10 ? excerpt.substring(0, 10) + "..." : excerpt;
+};
+
+const stripTags = (text) => {
+    return text.replace(/(<([^>]+)>)/gi, "");
 };
 </script>
 
 <template>
     <div>
-        <Head title="Dashboard | Users" />
+        <Head title="Dashboard | Posts" />
 
         <DashboardLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard Users
+                    Dashboard Posts
                 </h2>
             </template>
 
@@ -70,13 +78,16 @@ const deleteUser = (id) => {
                                 >
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            Username
+                                            Title
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Email
+                                            Date
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Role
+                                            Excerpt
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Body
                                         </th>
                                         <th
                                             scope="col"
@@ -88,28 +99,31 @@ const deleteUser = (id) => {
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="user in users.data"
-                                        :key="user.id"
+                                        v-for="post in posts.data"
+                                        :key="post.id"
                                         class="bg-white border-b"
                                     >
                                         <th
                                             scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                         >
-                                            {{ user.name }}
+                                            {{ post.title }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{ user.email }}
+                                            {{ post.date_post }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ user.role }}
+                                            {{ truncateExcerpt(post) }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ truncatePostBody(post) }}
                                         </td>
                                         <td
                                             class="px-6 py-4 flex justify-center"
                                         >
                                             <button
                                                 @click.prevent="
-                                                    deleteUser(`${user.id}`)
+                                                    deleteUser(`${post.id}`)
                                                 "
                                                 class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-xs px-4 py-2"
                                             >
@@ -119,7 +133,7 @@ const deleteUser = (id) => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <Pagination :links="users.links" />
+                            <Pagination :links="posts.links" />
                         </div>
                     </div>
                 </div>
