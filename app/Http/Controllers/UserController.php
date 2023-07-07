@@ -10,15 +10,20 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id', 'desc')
-                        ->paginate(5);
+        // $users = User::orderBy('id', 'desc')
+        //                 ->paginate(5);
 
         return Inertia::render(
             'Dashboard/Users/Index',
             [
-                'users' => $users
+                'users' => User::query()
+                ->when($request->input('search'), function($query, $search){
+                    $query->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%');
+                })->paginate(6)->withQueryString(),
+                'filters' => $request->only(['search'])
             ]
         );
     }

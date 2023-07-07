@@ -29,6 +29,7 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div
+                                v-if="$page.props.auth.user.role === 'admin'"
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
                             >
                                 <NavLink
@@ -36,6 +37,13 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('users.index')"
                                 >
                                     Users
+                                </NavLink>
+
+                                <NavLink
+                                    :href="route('users.index')"
+                                    :active="route().current('users.index')"
+                                >
+                                    Posts
                                 </NavLink>
                             </div>
                         </div>

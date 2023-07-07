@@ -1,12 +1,32 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
+import TextInput from "@/Components/TextInput.vue";
 import { Link, Head, router } from "@inertiajs/vue3";
+import { watch, ref } from "vue";
 
 const props = defineProps({
     users: {
         type: Object,
+        default: () => ({}),
     },
+    filters: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
+let search = ref(props.filters.search);
+
+watch(search, (value) => {
+    router.get(
+        "/users",
+        { search: value },
+        {
+            preserveState: true,
+            replace: true,
+        }
+    );
 });
 
 const deleteUser = (id) => {
@@ -33,6 +53,14 @@ const deleteUser = (id) => {
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
+                            <div class="mb-4">
+                                <input
+                                    type="text"
+                                    v-model="search"
+                                    placeholder="Search..."
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/6 p-2.5 ml-4"
+                                />
+                            </div>
                             <table
                                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
                             >
