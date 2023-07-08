@@ -1,8 +1,9 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head, router, Link } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
+import { Icon } from "@iconify/vue";
 
 const props = defineProps({
     posts: {
@@ -60,15 +61,21 @@ const stripTags = (text) => {
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <div class="mb-4">
+                            <div class="mb-4 flex justify-between">
                                 <input
                                     id="search"
                                     name="search"
                                     type="text"
                                     v-model="search"
                                     placeholder="Search..."
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/6 p-2.5 ml-4"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/6 p-2.5 ml-4 h-[41px]"
                                 />
+
+                                <Link
+                                    class="mr-4 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                                    :href="route('posts.create')"
+                                    >Add New Post
+                                </Link>
                             </div>
                             <table
                                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -119,15 +126,29 @@ const stripTags = (text) => {
                                             {{ truncatePostBody(post) }}
                                         </td>
                                         <td
-                                            class="px-6 py-4 flex justify-center"
+                                            class="px-6 py-4 flex justify-center gap-2"
                                         >
+                                            <button>
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:eye-scan-line-duotone"
+                                                />
+                                            </button>
+                                            <button>
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:gallery-edit-bold"
+                                                />
+                                            </button>
                                             <button
                                                 @click.prevent="
                                                     deleteUser(`${post.id}`)
                                                 "
-                                                class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-xs px-4 py-2"
                                             >
-                                                Delete
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:trash-bin-minimalistic-outline"
+                                                />
                                             </button>
                                         </td>
                                     </tr>

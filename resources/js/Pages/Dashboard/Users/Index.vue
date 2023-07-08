@@ -3,6 +3,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Head, router } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
+import { Icon } from "@iconify/vue";
 
 const props = defineProps({
     users: {
@@ -111,9 +112,11 @@ const deleteUser = (id) => {
                                                 @click.prevent="
                                                     deleteUser(`${user.id}`)
                                                 "
-                                                class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-xs px-4 py-2"
                                             >
-                                                Delete
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:trash-bin-minimalistic-outline"
+                                                />
                                             </button>
                                         </td>
                                     </tr>

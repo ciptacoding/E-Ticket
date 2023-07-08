@@ -40,6 +40,4 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::resource('posts', PostController::class);
 });
 
-
-
 require __DIR__.'/auth.php';
