@@ -79,7 +79,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return Inertia::render('Dashboard/Posts/Edit', ['post' => $post]);
     }
 
     /**
@@ -87,7 +88,45 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validate form
+        $validated = $request->validate([
+            'title' => 'required|min:10|max:255',
+			'excerpt' => 'required|max:255|min:10',
+			'date_post' => 'required|date',
+			'body' => 'required|min:20'
+        ]);
+
+		$post = Post::findOrFail($id);
+		
+		//check if image is uploaded
+		if ($request->hasFile('image')) {
+            
+			//upload gambar baru
+			$image = $request->file('image');
+			$image->store('images');
+			
+			//hapus gambar lama
+            Storage::delete($post->image);
+
+			//update data ke database
+			$post->update([
+				'title'     => $request->title,
+				'image'     => $image->hashName(),
+				'excerpt'   => $request->excerpt,
+				'date_post' => $request->date_post,
+				'body' => strip_tags($request->body),
+		  	]);
+		} else {
+			//jika tidak ada image baru di upload
+			$post->update([
+				'title'     => $request->title,
+				'excerpt'   => $request->excerpt,
+				'date_post' => $request->date_post,
+				'body' => strip_tags($request->body),
+		  	]);
+
+		}
+		return redirect()->route('posts.index')->with('success', 'Post Has Been Updated!');
     }
 
     /**

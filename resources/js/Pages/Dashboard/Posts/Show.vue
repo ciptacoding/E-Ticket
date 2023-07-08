@@ -29,13 +29,28 @@ const props = defineProps({
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <img
-                                :src="`/storage/${post.image}`"
-                                alt="Image Post"
-                            />
-                            <p>{{ post.title }}</p>
-                            <p>{{ post.date_post }}</p>
-                            <p>{{ post.body }}</p>
+                            <button>
+                                <Link :href="route('posts.index')">
+                                    <Icon
+                                        class="ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
+                                        icon="solar:round-arrow-left-outline"
+                                    />
+                                </Link>
+                            </button>
+                            <div
+                                class="flex flex-col justify-center items-center mx-12"
+                            >
+                                <p class="text-xl font-bold mb-2">
+                                    {{ post.title }}
+                                </p>
+                                <img
+                                    class="h-[20rem] mb-2"
+                                    :src="`/storage/${post.image}`"
+                                    alt="Image Post"
+                                />
+                                <p class="mb-2">{{ post.date_post }}</p>
+                                <p>{{ post.body }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

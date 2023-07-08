@@ -39,6 +39,10 @@ const deletePost = (id) => {
     }
 };
 
+const updatePost = (id) => {
+    router.get(`posts/${id}/edit`);
+};
+
 const truncatePostBody = (post) => {
     let body = stripTags(post.body);
     return body.length > 10 ? body.substring(0, 10) + "..." : body;
@@ -152,7 +156,11 @@ const stripTags = (text) => {
                                                     icon="solar:eye-scan-line-duotone"
                                                 />
                                             </button>
-                                            <button>
+                                            <button
+                                                @click.prevent="
+                                                    updatePost(`${post.id}`)
+                                                "
+                                            >
                                                 <Icon
                                                     class="text-3xl"
                                                     icon="solar:gallery-edit-bold"
