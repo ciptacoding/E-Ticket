@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -21,7 +22,7 @@ class PostController extends Controller
                     $query->where('title', 'like', '%'.$search.'%')
                     ->orWhere('excerpt', 'like', '%'.$search.'%')
                     ->orWhere('body', 'like', '%'.$search.'%');
-                })->paginate(6)->withQueryString(),
+                })->orderByDESC('date_post')->paginate(6)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );
@@ -40,7 +41,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+			'title' => 'required|min:10|max:255',
+			'image' => 'image|file|max:2048|mimes:png,jpg,jpeg',
+			'excerpt' => 'required|max:255|min:10',
+			'date_post' => 'required|date',
+			'body' => 'required|min:20'
+		]);
+
+        $image_path = '';
+        if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('images');
+        }
+
+        Post::create([
+            'title' => $request->title,
+            'image' => $image_path,
+            'excerpt' => $request->excerpt,
+            'date_post' => $request->date_post,
+            'body' => $request->body
+        ]);
+ 
+		return redirect()->route('posts.index')->with('success', 'Post Has Been Created!');
     }
 
     /**
@@ -48,7 +70,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return Inertia::render('Dashboard/Posts/Show', ['post' => $post]);
     }
 
     /**
@@ -72,6 +95,13 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+		if($post->image) {
+			Storage::delete($post->image);
+		}
+
+		$post->delete();
+		return redirect()->route('posts.index')->with('success', 'Post Has Been Deleted!');
     }
 }

@@ -6,11 +6,15 @@ import { Icon } from "@iconify/vue";
 
 const form = useForm({
     title: "",
-    image: "",
+    image: null,
     date_post: "",
     excerpt: "",
     body: "",
 });
+
+const submit = () => {
+    form.post("/posts");
+};
 </script>
 
 <template>
@@ -20,7 +24,7 @@ const form = useForm({
         <DashboardLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard Posts
+                    Create New Post
                 </h2>
             </template>
 
@@ -33,13 +37,13 @@ const form = useForm({
                             <button>
                                 <Link :href="route('posts.index')">
                                     <Icon
-                                        class="ml-4 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
+                                        class="ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
                                         icon="solar:round-arrow-left-outline"
                                     />
                                 </Link>
                             </button>
 
-                            <form class="mx-8 my-5">
+                            <form class="mx-8 my-5" @submit.prevent="submit">
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label
@@ -49,13 +53,19 @@ const form = useForm({
                                             Title
                                         </label>
                                         <input
+                                            v-model="form.title"
                                             type="text"
                                             id="title"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Input Title"
+                                            placeholder="Write your title..."
                                             required
                                         />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.title"
+                                        />
                                     </div>
+
                                     <div>
                                         <label
                                             for="image"
@@ -63,13 +73,35 @@ const form = useForm({
                                             >Image</label
                                         >
                                         <input
-                                            type="text"
+                                            @input="
+                                                form.image =
+                                                    $event.target.files[0]
+                                            "
+                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                                            aria-describedby="file_input_help"
                                             id="image"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Input Image"
+                                            type="file"
                                             required
                                         />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.image"
+                                        />
+                                        <progress
+                                            v-if="form.progress"
+                                            :value="form.progress.percentage"
+                                            max="100"
+                                        >
+                                            {{ form.progress.percentage }}%
+                                        </progress>
+                                        <p
+                                            class="mt-1 text-sm text-gray-500"
+                                            id="file_input_help"
+                                        >
+                                            PNG, JPG, JPEG (MAX. 2MB).
+                                        </p>
                                     </div>
+
                                     <div>
                                         <label
                                             for="date_post"
@@ -77,13 +109,18 @@ const form = useForm({
                                             >Date
                                         </label>
                                         <input
-                                            type="text"
+                                            v-model="form.date_post"
+                                            type="date"
                                             id="date_post"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Flowbite"
                                             required
                                         />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.date_post"
+                                        />
                                     </div>
+
                                     <div>
                                         <label
                                             for="excerpt"
@@ -91,15 +128,20 @@ const form = useForm({
                                             >Excerpt</label
                                         >
                                         <input
-                                            type="tel"
+                                            v-model="form.excerpt"
+                                            type="text"
                                             id="excerpt"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="123-45-678"
-                                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                            placeholder="Write your excerpt..."
                                             required
+                                        />
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.excerpt"
                                         />
                                     </div>
                                 </div>
+
                                 <div class="mb-6">
                                     <label
                                         for="message"
@@ -107,11 +149,16 @@ const form = useForm({
                                         >Content</label
                                     >
                                     <textarea
+                                        v-model="form.body"
                                         id="message"
                                         rows="4"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Write your thoughts here..."
                                     ></textarea>
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.body"
+                                    />
                                 </div>
 
                                 <button

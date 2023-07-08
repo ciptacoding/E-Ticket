@@ -29,6 +29,16 @@ watch(search, (value) => {
     );
 });
 
+const showPost = (id) => {
+    router.get(`posts/${id}`);
+};
+
+const deletePost = (id) => {
+    if (confirm("Are you sure ?")) {
+        router.delete(`posts/${id}`);
+    }
+};
+
 const truncatePostBody = (post) => {
     let body = stripTags(post.body);
     return body.length > 10 ? body.substring(0, 10) + "..." : body;
@@ -72,9 +82,13 @@ const stripTags = (text) => {
                                 />
 
                                 <Link
-                                    class="mr-4 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                                    class="mr-4 flex items-center gap-1 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
                                     :href="route('posts.create')"
-                                    >Add New Post
+                                    ><Icon
+                                        icon="solar:add-circle-linear"
+                                        class="text-xl"
+                                    />
+                                    Add New Post
                                 </Link>
                             </div>
                             <table
@@ -128,7 +142,11 @@ const stripTags = (text) => {
                                         <td
                                             class="px-6 py-4 flex justify-center gap-2"
                                         >
-                                            <button>
+                                            <button
+                                                @click.prevent="
+                                                    showPost(`${post.id}`)
+                                                "
+                                            >
                                                 <Icon
                                                     class="text-3xl"
                                                     icon="solar:eye-scan-line-duotone"
@@ -142,7 +160,7 @@ const stripTags = (text) => {
                                             </button>
                                             <button
                                                 @click.prevent="
-                                                    deleteUser(`${post.id}`)
+                                                    deletePost(`${post.id}`)
                                                 "
                                             >
                                                 <Icon
