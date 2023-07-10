@@ -89,7 +89,7 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         //validate form
-        $validated = $request->validate([
+        $validated_data = $request->validate([
             'title' => 'required|min:10|max:255',
 			'excerpt' => 'required|max:255|min:10',
 			'date_post' => 'required|date',
@@ -100,32 +100,24 @@ class PostController extends Controller
 		
 		//check if image is uploaded
 		if ($request->hasFile('image')) {
-            
+            $validated_data['image'] = $request->validate([
+                'image' => 'image|file|max:2048|mimes:png,jpg,jpeg',
+            ]);
 			//upload gambar baru
 			$image = $request->file('image');
 			$image->store('images');
 			
 			//hapus gambar lama
-            Storage::delete($post->image);
+             Storage::delete($post->image);
 
 			//update data ke database
-			$post->update([
-				'title'     => $request->title,
-				'image'     => $image->hashName(),
-				'excerpt'   => $request->excerpt,
-				'date_post' => $request->date_post,
-				'body' => strip_tags($request->body),
-		  	]);
+			$post->update($validated_data);
 		} else {
 			//jika tidak ada image baru di upload
-			$post->update([
-				'title'     => $request->title,
-				'excerpt'   => $request->excerpt,
-				'date_post' => $request->date_post,
-				'body' => strip_tags($request->body),
-		  	]);
+			$post->update($validated_data);
 
 		}
+
 		return redirect()->route('posts.index')->with('success', 'Post Has Been Updated!');
     }
 

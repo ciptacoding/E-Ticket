@@ -26,12 +26,12 @@ const submit = () => {
 
 <template>
     <div>
-        <Head title="Dv ashboard | Create Post" />
+        <Head title="Dashboard | Edit Post" />
 
         <DashboardLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Create New Post
+                    Update Post
                 </h2>
             </template>
 
