@@ -2,9 +2,10 @@
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import { Head, Link, usePage } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import NavbarLink from "@/Components/NavbarLink.vue";
-import { computed } from "vue";
+import Pagination from "@/Components/Pagination.vue";
+import { Icon } from "@iconify/vue";
 
 defineProps({
     canLogin: {
@@ -30,8 +31,9 @@ defineProps({
                 <div
                     class="backdrop-opacity-10 backdrop-invert bg-black/40 bg-cover h-[35rem] w-full lg:h-screen"
                 >
+                    <!-- web view -->
                     <nav
-                        class="absolute top-0 left-0 right-0 w-full bg-transparent"
+                        class="hidden lg:block absolute top-0 left-0 right-0 w-full bg-transparent"
                     >
                         <div
                             class="flex justify-between h-24 items-center px-8 sm:px-28"
@@ -169,6 +171,12 @@ defineProps({
                             </div>
                         </div>
                     </nav>
+                    <!-- web view -->
+
+                    <!-- mobile view -->
+                    <nav class="lg:hidden"></nav>
+                    <!-- mobile view -->
+
                     <div class="p-8 lg:px-28 flex flex-col">
                         <h1
                             class="mt-24 sm:mt-32 lg:mt-[14rem] mb-2 text-white text-2xl font-bold md:text-center md:w-9/12 md:mx-auto md:text-4xl lg:text-5xl xl:leading-[4rem]"
@@ -191,52 +199,56 @@ defineProps({
 
             <!-- post section -->
             <div class="px-8 sm:px-28 mt-10">
-                <div class="grid grid-cols-3">
-                    <div
-                        class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    >
-                        <img class="rounded-t-lg" />
+                <h1
+                    class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
+                >
+                    <Icon
+                        class="text-2xl sm:text-3xl inline"
+                        icon="solar:notebook-bold"
+                    />
+                    <span>Latest News</span>
+                </h1>
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-10"
+                >
+                    <div v-for="post in posts.data" :key="post.id">
+                        <div
+                            class="card hover:translate-y-1 hover:scale-105 transition delay-75 duration-300 ease-in-out"
+                        >
+                            <img
+                                v-if="post.image"
+                                :src="`/storage/${post.image}`"
+                                alt="Image-Post"
+                                class="rounded-t-md"
+                            />
 
-                        <div class="p-5">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Noteworthy technology acquisitions 2021
-                            </h5>
+                            <img
+                                v-else
+                                class="rounded-t-md"
+                                src="https://source.unsplash.com/800x500/?mountain"
+                                alt="news"
+                            />
 
-                            <p
-                                class="mb-3 font-normal text-gray-700 dark:text-gray-400"
-                            >
-                                Here are the biggest enterprise technology
-                                acquisitions of 2021 so far, in reverse
-                                chronological order.
-                            </p>
-                            <a
-                                href="#"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                                Read more
-                                <svg
-                                    class="w-3.5 h-3.5 ml-2"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 10"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                                    />
-                                </svg>
-                            </a>
+                            <div class="p-6">
+                                <p class="text-sm mb-4">
+                                    {{ post.date_post }}
+                                </p>
+                                <h1 class="text-lg font-bold mb-2">
+                                    {{ post.title }}
+                                </h1>
+                                <p class="text-gray-600 truncate">
+                                    {{ post.excerpt }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <Pagination
+                    :links="posts.links"
+                    :next_page_url="posts.next_page_url"
+                    :prev_page_url="posts.prev_page_url"
+                />
             </div>
-
             <!-- post section -->
         </div>
     </div>
