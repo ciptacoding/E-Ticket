@@ -7,5 +7,5 @@ html {
 }
 
 .card {
-    @apply bg-white rounded-md shadow-lg h-full cursor-pointer;
+    @apply bg-white rounded-lg shadow-lg h-full cursor-pointer;
 }

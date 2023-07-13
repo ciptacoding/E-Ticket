@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         $posts = Post::orderByDESC('date_post')->paginate(6);
 
-        return Inertia::render('Home', [
+        return Inertia::render('Frontend/Home/Index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'posts' => $posts
