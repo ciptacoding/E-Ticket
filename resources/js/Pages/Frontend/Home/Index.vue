@@ -132,6 +132,7 @@ defineProps({
             </section>
             <!-- post section -->
 
+            <!-- comment section -->
             <section class="px-4 sm:px-12 lg:px-28 mt-10">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex gap-2 items-center"
@@ -144,6 +145,7 @@ defineProps({
                 </h1>
                 <Comment />
             </section>
+            <!-- comment Section -->
 
             <!-- footer -->
             <!-- <section>
