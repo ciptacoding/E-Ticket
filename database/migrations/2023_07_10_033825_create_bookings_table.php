@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique();
             $table->string('name');
             $table->text('address');
             $table->string('phone');
-            $table->integer('qty');
+            $table->enum('gender', ['Male', 'Female']);
             $table->bigInteger('total_price');
             $table->enum('status', ['Unpaid', 'Paid']); 
             $table->timestamps();
