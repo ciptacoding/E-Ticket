@@ -48,6 +48,14 @@ const showingNavigationDropdown = ref(false);
                                     >
                                         Posts
                                     </NavLink>
+                                    <NavLink
+                                        :href="route('blacklists.index')"
+                                        :active="
+                                            route().current('blacklists.index')
+                                        "
+                                    >
+                                        Blacklists
+                                    </NavLink>
                                 </div>
                             </div>
 

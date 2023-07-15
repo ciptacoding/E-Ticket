@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlacklistController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,10 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::resource('posts', PostController::class);
+});
+
+Route::middleware(['admin', 'auth', 'verified'])->group(function (){
+    Route::resource('blacklists', BlacklistController::class);
 });
 
 require __DIR__.'/auth.php';
