@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-    <div v-if="links.length > 2">
+    <div v-if="links.length > 3">
         <!-- web view -->
         <div class="hidden sm:flex flex-wrap mb-1 mt-2 mr-4 justify-end">
             <template v-for="(link, k) in links" :key="k">

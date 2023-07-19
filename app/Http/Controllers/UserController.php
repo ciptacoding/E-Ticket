@@ -12,6 +12,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // $blacklist = User::find(1)->blacklist;
+        // dd($blacklist);
         return Inertia::render(
             'Dashboard/Users/Index',
             [

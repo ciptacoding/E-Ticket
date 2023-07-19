@@ -29,10 +29,6 @@ watch(search, (value) => {
     );
 });
 
-const showBlacklist = (id) => {
-    router.get(`blacklists/${id}`);
-};
-
 const deleteBlacklist = (id) => {
     if (confirm("Are you sure ?")) {
         router.delete(`blacklists/${id}`);
@@ -45,8 +41,8 @@ const updateBlacklist = (id) => {
 
 const truncateDescription = (blacklist) => {
     let description = stripTags(blacklist.description);
-    return description.length > 10
-        ? description.substring(0, 10) + "..."
+    return description.length > 30
+        ? description.substring(0, 30) + "..."
         : description;
 };
 
@@ -144,18 +140,7 @@ const stripTags = (text) => {
                                             class="px-6 py-4 flex justify-center gap-2"
                                         >
                                             <button
-                                                @click.prevent="
-                                                    showBlacklist(
-                                                        `${blacklist.id}`
-                                                    )
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:eye-scan-line-duotone"
-                                                />
-                                            </button>
-                                            <button
+                                                title="Update"
                                                 @click.prevent="
                                                     updateBlacklist(
                                                         `${blacklist.id}`
@@ -168,6 +153,7 @@ const stripTags = (text) => {
                                                 />
                                             </button>
                                             <button
+                                                title="Delete"
                                                 @click.prevent="
                                                     deleteBlacklist(
                                                         `${blacklist.id}`
