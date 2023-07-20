@@ -1,14 +1,16 @@
 <script setup>
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
 import Pagination from "@/Components/Pagination.vue";
 import { Icon } from "@iconify/vue";
 import NavbarWeb from "@/Components/NavbarWeb.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
+import Footer from "./Partials/Footer.vue";
 import Posts from "./Partials/Posts.vue";
 import Chart from "./Partials/Chart.vue";
 import Comment from "./Partials/Comment.vue";
+import { watch, ref } from "vue";
 
-defineProps({
+const props = defineProps({
     canLogin: {
         type: Boolean,
     },
@@ -18,7 +20,39 @@ defineProps({
     posts: {
         type: Object,
     },
+    blacklists: {
+        type: Object,
+    },
+    filters: {
+        type: Object,
+        default: () => ({}),
+    },
 });
+
+let search = ref(props.filters.search);
+
+watch(search, (value) => {
+    router.get(
+        "/",
+        { search: value },
+        {
+            preserveState: true,
+            replace: true,
+            preserveScroll: true,
+        }
+    );
+});
+
+const truncateDescription = (blacklist) => {
+    let description = stripTags(blacklist.description);
+    return description.length > 20
+        ? description.substring(0, 20) + "..."
+        : description;
+};
+
+const stripTags = (text) => {
+    return text.replace(/(<([^>]+)>)/gi, "");
+};
 </script>
 
 <template>
@@ -132,6 +166,84 @@ defineProps({
             </section>
             <!-- post section -->
 
+            <!-- blacklist section -->
+            <section class="px-4 sm:px-12 lg:px-28 mt-10">
+                <h1
+                    class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
+                >
+                    <Icon
+                        class="text-2xl sm:text-3xl inline"
+                        icon="solar:notebook-bold"
+                    />
+                    <span>Blacklist Information</span>
+                </h1>
+                <div class="max-w-7xl mx-auto">
+                    <div class="shadow-md rounded-md">
+                        <div
+                            class="relative overflow-x-auto rounded-md py-6 bg-white"
+                        >
+                            <div class="mb-4 flex justify-between">
+                                <input
+                                    id="search"
+                                    name="search"
+                                    type="text"
+                                    v-model="search"
+                                    placeholder="Search..."
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/3 sm:w-2/4 lg:w-2/6 p-2.5 ml-4 h-[41px]"
+                                />
+                            </div>
+                            <table
+                                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                            >
+                                <thead
+                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                                >
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Full Name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Start Date
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            End Date
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Description
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        v-for="blacklist in blacklists.data"
+                                        :key="blacklist.id"
+                                        class="bg-white border-b"
+                                    >
+                                        <th
+                                            scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                        >
+                                            {{ blacklist.full_name }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ blacklist.start_date }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ blacklist.end_date }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ truncateDescription(blacklist) }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <Pagination :links="blacklists.links" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- blacklist section -->
+
             <!-- comment section -->
             <section class="px-4 sm:px-12 lg:px-28 mt-10">
                 <h1
@@ -148,6 +260,7 @@ defineProps({
             <!-- comment Section -->
 
             <!-- footer -->
+            <Footer />
             <!-- <section>
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d63157.250638938305!2d115.42681237730598!3d-8.369343796767494!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd21de884ee574b%3A0xb964752c9cf9e475!2sBase%20Camp%20Gunung%20Agung%20Via%20Edelweis!5e0!3m2!1sid!2sid!4v1689256382568!5m2!1sid!2sid"

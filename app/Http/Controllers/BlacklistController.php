@@ -34,7 +34,9 @@ class BlacklistController extends Controller
      */
     public function create()
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')
+        ->whereNull('blacklist_id')
+        ->get();
         return Inertia::render('Dashboard/Blacklists/Create', [
             'users' => $users
         ]);
@@ -53,13 +55,18 @@ class BlacklistController extends Controller
 			'description' => 'required|min:10'
 		]);
 
-        Blacklist::create([
-            'full_name' => $request->full_name,
-            'user_id' => $request->user_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'description' => $request->description
-        ]);
+        $user = User::findOrFail($request->user_id);
+
+        $blacklist = new Blacklist();
+        $blacklist->full_name = $request->full_name;
+        $blacklist->user_id = $request->user_id;
+        $blacklist->start_date = $request->start_date;
+        $blacklist->end_date = $request->end_date;
+        $blacklist->description = $request->description;
+        $blacklist->save();
+
+        $user->blacklist_id = $blacklist->id;
+        $user->save();
 
         return redirect()->route('blacklists.index')->with('success', 'Blacklists Has Been Created!');
     }
@@ -67,7 +74,7 @@ class BlacklistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Blacklist $blacklist)
+    public function show(string $id)
     {
         //
     }
@@ -75,25 +82,60 @@ class BlacklistController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blacklist $blacklist)
+    public function edit(string $id)
     {
-        //
+        $users = User::where('role', 'user')
+        ->get();
+
+        $blacklist = Blacklist::findOrFail($id);
+        return Inertia::render('Dashboard/Blacklists/Edit', [
+            'users' => $users,
+            'blacklist' => $blacklist
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blacklist $blacklist)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+			'full_name' => 'required|min:2',
+			'user_id' => 'required',
+			'start_date' => 'required|date',
+			'end_date' => 'required|date',
+			'description' => 'required|min:10'
+		]);
+
+        $blacklist = Blacklist::findOrFail($id);
+        $blacklist->full_name = $request->full_name;
+        $blacklist->user_id = $request->user_id;
+        $blacklist->start_date = $request->start_date;
+        $blacklist->end_date = $request->end_date;
+        $blacklist->description = $request->description;
+        $blacklist->save();
+
+        $user = User::findOrFail($request->user_id);
+        $user->blacklist_id = $blacklist->id;
+        $user->save();
+
+        return redirect()->route('blacklists.index')->with('success', 'Blacklist has been updated and associated with the user!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blacklist $blacklist)
+    public function destroy(string $id)
     {
-        Blacklist::destroy($blacklist->id);
+        $blacklist = Blacklist::findOrFail($id);
+
+        $user = User::where('blacklist_id', $blacklist->id)->first();
+        if ($user) {
+            $user->blacklist_id = null;
+            $user->save();
+        }
+        
+        $blacklist->delete();
         return redirect()->route('blacklists.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -29,23 +29,26 @@ onMounted(() => {
     document.body.appendChild(selectScript);
 });
 
-defineProps({
+const props = defineProps({
     users: {
         type: Array,
         default: () => [],
     },
+    blacklist: {
+        type: Object,
+    },
 });
 
 const form = useForm({
-    full_name: "",
-    user_id: "",
-    start_date: "",
-    end_date: "",
-    description: "",
+    full_name: props.blacklist.full_name,
+    user_id: props.blacklist.user_id,
+    start_date: props.blacklist.start_date,
+    end_date: props.blacklist.end_date,
+    description: props.blacklist.description,
 });
 
 const submit = () => {
-    form.post("/blacklists");
+    form.put(`/blacklists/${props.blacklist.id}`);
 };
 </script>
 
@@ -56,7 +59,7 @@ const submit = () => {
         <DashboardLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Create New Blacklist
+                    Update Blacklist
                 </h2>
             </template>
 
@@ -89,12 +92,13 @@ const submit = () => {
                                             data-te-select-init
                                             data-te-select-filter="true"
                                             v-model="form.user_id"
+                                            disabled
                                         >
                                             <option value="-">
                                                 Select username
                                             </option>
                                             <option
-                                                v-for="user in users"
+                                                v-for="user in props.users"
                                                 :key="user.id"
                                                 :value="user.id"
                                             >
