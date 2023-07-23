@@ -147,7 +147,7 @@ const stripTags = (text) => {
             <!-- Activity Section -->
 
             <!-- post section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-10">
+            <section class="px-4 sm:px-12 lg:px-28 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
                 >
@@ -167,7 +167,7 @@ const stripTags = (text) => {
             <!-- post section -->
 
             <!-- blacklist section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-10">
+            <section class="px-4 sm:px-12 lg:px-28 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
                 >
@@ -245,7 +245,7 @@ const stripTags = (text) => {
             <!-- blacklist section -->
 
             <!-- comment section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-10">
+            <section class="px-4 sm:px-12 lg:px-28 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex gap-2 items-center"
                 >
@@ -261,16 +261,6 @@ const stripTags = (text) => {
 
             <!-- footer -->
             <Footer />
-            <!-- <section>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d63157.250638938305!2d115.42681237730598!3d-8.369343796767494!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd21de884ee574b%3A0xb964752c9cf9e475!2sBase%20Camp%20Gunung%20Agung%20Via%20Edelweis!5e0!3m2!1sid!2sid!4v1689256382568!5m2!1sid!2sid"
-                    class="w-full h-[400px] sm:h-[500px]"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-            </section> -->
             <!-- footer -->
         </div>
     </div>
