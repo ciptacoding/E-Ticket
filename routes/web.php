@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BlacklistController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,10 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function (){
     Route::resource('blacklists', BlacklistController::class);
+});
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
 });
 
 require __DIR__.'/auth.php';

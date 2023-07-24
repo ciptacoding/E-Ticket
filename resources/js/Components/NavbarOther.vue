@@ -3,7 +3,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
-import NavbarLink from "@/Components/NavbarLink.vue";
+import NavbarLinkOther from "@/Components/NavbarLinkOther.vue";
 
 defineProps({
     canLogin: {
@@ -17,7 +17,7 @@ defineProps({
 
 <template>
     <div>
-        <nav class="absolute top-0 left-0 right-0 w-full bg-transparent">
+        <nav class="absolute top-0 left-0 right-0 w-full bg-white">
             <div
                 class="flex justify-between h-24 items-center px-4 sm:px-12 lg:px-28"
             >
@@ -29,39 +29,37 @@ defineProps({
                         <ApplicationLogo
                             class="block h-8 md:h-12 w-auto fill-current"
                         />
-                        <p
-                            class="text-white text-base md:text-xl md:font-semibold"
-                        >
+                        <p class="text-base md:text-xl md:font-semibold">
                             E - Ticketing
                         </p>
                     </Link>
                 </div>
                 <div class="hidden lg:block justify-self-center">
-                    <ul class="flex gap-10 text-white text-xl font-semibold">
-                        <NavbarLink
+                    <ul class="flex gap-10 text-xl font-semibold">
+                        <NavbarLinkOther
                             :href="route('home')"
                             :active="route().current('home')"
                         >
                             Home
-                        </NavbarLink>
-                        <NavbarLink
+                        </NavbarLinkOther>
+                        <NavbarLinkOther
                             :href="route('booking.index')"
                             :active="route().current('booking.index')"
                         >
                             Booking
-                        </NavbarLink>
-                        <NavbarLink
+                        </NavbarLinkOther>
+                        <NavbarLinkOther
                             :href="route('users.index')"
                             :active="route().current('users.index')"
                         >
                             Quota
-                        </NavbarLink>
-                        <NavbarLink
+                        </NavbarLinkOther>
+                        <NavbarLinkOther
                             :href="route('users.index')"
                             :active="route().current('users.index')"
                         >
                             Suggestions
-                        </NavbarLink>
+                        </NavbarLinkOther>
                     </ul>
                 </div>
                 <div class="justify-self-end text-sm md:text-xl">
@@ -73,7 +71,7 @@ defineProps({
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="md:font-semibold inline-flex items-center border border-transparent rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                class="md:font-semibold inline-flex items-center border border-transparent rounded-md hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {{ $page.props.auth.user.name }}
 
@@ -123,17 +121,14 @@ defineProps({
                         </template>
 
                         <template v-else>
-                            <Link
-                                :href="route('login')"
-                                class="font-semibold text-white"
-                            >
+                            <Link :href="route('login')" class="font-semibold">
                                 Log in
                             </Link>
 
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
-                                class="ml-4 font-semibold text-white"
+                                class="ml-4 font-semibold"
                             >
                                 Register
                             </Link>
