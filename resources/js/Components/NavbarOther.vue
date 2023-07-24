@@ -29,7 +29,9 @@ defineProps({
                         <ApplicationLogo
                             class="block h-8 md:h-12 w-auto fill-current"
                         />
-                        <p class="text-base md:text-xl md:font-semibold">
+                        <p
+                            class="text-base text-gray-700 md:text-xl md:font-semibold"
+                        >
                             E - Ticketing
                         </p>
                     </Link>
@@ -71,7 +73,7 @@ defineProps({
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="md:font-semibold inline-flex items-center border border-transparent rounded-md hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                class="md:font-semibold inline-flex items-center border border-transparent rounded-md text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {{ $page.props.auth.user.name }}
 
@@ -121,14 +123,17 @@ defineProps({
                         </template>
 
                         <template v-else>
-                            <Link :href="route('login')" class="font-semibold">
+                            <Link
+                                :href="route('login')"
+                                class="font-semibold text-gray-700"
+                            >
                                 Log in
                             </Link>
 
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
-                                class="ml-4 font-semibold"
+                                class="ml-4 font-semibold text-gray-700"
                             >
                                 Register
                             </Link>

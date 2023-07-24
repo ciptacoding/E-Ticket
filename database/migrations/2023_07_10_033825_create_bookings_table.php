@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('kode')->unique();
-            $table->string('name');
+            $table->foreignId('user_id')->unique();
+            $table->date('check_in');
+            $table->date('check_out');
+            $table->string('full_name');
             $table->text('address');
             $table->string('phone');
             $table->enum('gender', ['Male', 'Female']);

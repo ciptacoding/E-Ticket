@@ -14,8 +14,8 @@ const props = defineProps({
 
 const classes = computed(() =>
     props.active
-        ? "inline-flex items-center border-b-2 border-black font-semibold"
-        : "inline-flex items-center border-b-2 border-transparent font-semibold"
+        ? "inline-flex items-center border-b-2 border-black text-gray-700 font-semibold"
+        : "inline-flex items-center border-b-2 border-transparent text-gray-700 font-semibold"
 );
 </script>
 
