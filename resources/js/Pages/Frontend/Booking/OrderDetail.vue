@@ -80,7 +80,7 @@ const handlePayment = () => {
             <!-- navbar mobile view -->
             <NavbarOther :can-login="canLogin" :can-register="canRegister" />
 
-            <div class="pt-32 lg:pt-44">
+            <div class="pt-28 lg:pt-44">
                 <div class="w-full lg:w-9/12 mx-auto px-4 sm:px-12 lg:px-28">
                     <div class="shadow-md rounded-md">
                         <div
@@ -154,7 +154,7 @@ const handlePayment = () => {
                 </div>
             </div>
 
-            <Footer class="bottom-0 sm:absolute w-full" />
+            <Footer class="bottom-0 hidden lg:block sm:absolute w-full" />
         </div>
     </div>
 </template>
