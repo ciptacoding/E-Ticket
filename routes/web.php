@@ -44,6 +44,7 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function (){
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
 });
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@ import Pagination from "@/Components/Pagination.vue";
 import { Icon } from "@iconify/vue";
 import NavbarWeb from "@/Components/NavbarWeb.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
-import Footer from "./Partials/Footer.vue";
+import Footer from "@/Components/Footer.vue";
 import Posts from "./Partials/Posts.vue";
 import Chart from "./Partials/Chart.vue";
 import Comment from "./Partials/Comment.vue";
