@@ -40,6 +40,8 @@ class BookingController extends Controller
             ),
             'customer_details' => array(
                 'first_name' => $booking->full_name,
+                'last_name' => $booking->username,
+                'email' => $booking->email,
                 'phone' => $booking->phone,
             ),
         );

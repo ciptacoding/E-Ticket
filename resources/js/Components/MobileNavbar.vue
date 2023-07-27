@@ -13,7 +13,10 @@ import { Icon } from "@iconify/vue";
                     <Icon icon="ri:home-3-line" class="text-2xl" />
                     <p>Home</p>
                 </Link>
-                <Link :href="route('home')" class="flex flex-col items-center">
+                <Link
+                    :href="route('booking.index')"
+                    class="flex flex-col items-center"
+                >
                     <Icon icon="ri:ticket-2-line" class="text-2xl" />
                     <p>Booking</p>
                 </Link>
