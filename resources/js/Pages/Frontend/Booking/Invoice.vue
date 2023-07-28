@@ -1,9 +1,8 @@
 <script setup>
 import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
-import { onMounted } from "vue";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 

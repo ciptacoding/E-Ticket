@@ -7,7 +7,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/app.js',
-                'resources/css/app.css'
+                'resources/css/app.css',
             ],
             refresh: true,
         }),
@@ -21,6 +21,6 @@ export default defineConfig({
         }),
     ],
     build: {
-        
+        chunkSizeWarningLimit: 1000,
     }
 });
