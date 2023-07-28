@@ -41,9 +41,6 @@ const download = async () => {
         console.error("Error while dynamically importing modules:", error);
     }
 };
-
-// Call the download function when needed
-download();
 </script>
 
 <template>
