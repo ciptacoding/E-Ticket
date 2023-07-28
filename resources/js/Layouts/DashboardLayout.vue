@@ -175,6 +175,18 @@ const showingNavigationDropdown = ref(false);
                             >
                                 Users
                             </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('posts.index')"
+                                :active="route().current('posts.index')"
+                            >
+                                Posts
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('blacklists.index')"
+                                :active="route().current('blacklists.index')"
+                            >
+                                Blacklists
+                            </ResponsiveNavLink>
                         </div>
 
                         <!-- Responsive Settings Options -->
