@@ -50,8 +50,9 @@ const handlePayment = () => {
     window.snap.pay(transactionToken, {
         onSuccess: (result) => {
             /* You may add your own implementation here */
-            alert("Payment success!");
-            console.log(result);
+            // alert("Payment success!");
+            // console.log(result);
+            window.location.href = `/invoice/${props.booking.id}`;
         },
         onPending: (result) => {
             /* You may add your own implementation here */
