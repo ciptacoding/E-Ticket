@@ -57,12 +57,12 @@ const handlePayment = () => {
         onPending: (result) => {
             /* You may add your own implementation here */
             alert("Waiting for your payment!");
-            console.log(result);
+            // console.log(result);
         },
         onError: (result) => {
             /* You may add your own implementation here */
             alert("Payment failed!");
-            console.log(result);
+            // console.log(result);
         },
         onClose: () => {
             /* You may add your own implementation here */
