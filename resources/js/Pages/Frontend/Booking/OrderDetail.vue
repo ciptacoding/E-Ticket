@@ -154,7 +154,7 @@ const handlePayment = () => {
                 </div>
             </div>
 
-            <Footer class="bottom-0 hidden lg:block sm:absolute w-full" />
+            <Footer class="bottom-0 lg:absolute sm:block w-full" />
         </div>
     </div>
 </template>

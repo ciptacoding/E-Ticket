@@ -21,8 +21,33 @@ class BookingController extends Controller
 
     public function pay(Request $request)
     {
-        $request->request->add(['total_price' => 25000, 'status' => 'Unpaid']);
-        $booking = Booking::create($request->all());  
+        $request->validate([
+            'check_in' => 'date|required',
+            'check_out' => 'date|required',
+            'full_name' => 'min:2|max:100|required',
+            'address' => 'required|max:100',
+            'phone' => 'required|min:5',
+            'gender' => 'required'
+        ]);
+
+        if($request->blacklist_id !== null)
+        {
+            return redirect()->route('booking.index')->with('failed', 'Your account has been blacklist');
+        }
+
+        $booking = Booking::create([
+            'user_id' => $request->user_id,
+            'username' => $request->username,
+            'email' => $request->email,
+            'check_in' => $request->check_in,
+            'check_out' => $request->check_out,
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'total_price' => 25000,
+            'status' => 'Unpaid',
+        ]);  
         
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -56,6 +81,30 @@ class BookingController extends Controller
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'clientKey' => $clientKey
+        ]);
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if($hashed == $request->signature_key){
+            if($request->transaction_status == 'capture' || 'settlement'){
+                $booking = Booking::find($request->order_id);
+                $booking->update(['status' => 'Paid']);
+            }
+        }
+
+    }
+
+    public function invoice($id)
+    {
+        $booking = Booking::find($id);
+        return Inertia::render('Frontend/Booking/Invoice', 
+        [
+            'booking' => $booking,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
         ]);
     }
 }

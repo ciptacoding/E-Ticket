@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('blacklists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique();
-            $table->string('username');
-            $table->string('email');
             $table->string('full_name');
             $table->text('description');
             $table->date('start_date');
