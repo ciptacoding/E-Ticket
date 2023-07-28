@@ -3,8 +3,6 @@ import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 const props = defineProps({
     canLogin: {
@@ -18,15 +16,34 @@ const props = defineProps({
     },
 });
 
-const download = () => {
-    window.html2canvas = html2canvas;
-    var doc = new jsPDF("p", "pt", "a3");
-    doc.html(document.querySelector("#tiket"), {
-        callback: function (pdf) {
-            pdf.save("tiket.pdf");
-        },
-    });
+const download = async () => {
+    try {
+        // Dynamically import html2canvas and jspdf
+        const { default: html2canvas } = await import("html2canvas");
+        const { default: jsPDF } = await import("jspdf");
+
+        // Assign html2canvas to the window object so that it is available globally
+        window.html2canvas = html2canvas;
+
+        // Create the jsPDF instance
+        const doc = new jsPDF("p", "pt", "a3");
+
+        // Wait for html2canvas to be available globally
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        // Perform the document rendering once html2canvas is available
+        doc.html(document.querySelector("#tiket"), {
+            callback: function (pdf) {
+                pdf.save("tiket.pdf");
+            },
+        });
+    } catch (error) {
+        console.error("Error while dynamically importing modules:", error);
+    }
 };
+
+// Call the download function when needed
+download();
 </script>
 
 <template>
