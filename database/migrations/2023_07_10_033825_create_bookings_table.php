@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('phone');
             $table->enum('gender', ['Male', 'Female']);
             $table->bigInteger('total_price');
-            $table->enum('status', ['Unpaid', 'Paid']); 
+            $table->enum('status', ['Unpaid', 'Paid']);
+            $table->enum('status_entrance', ['-', 'Check In', 'Check Out', 'Blacklist']);
             $table->timestamps();
         });
     }

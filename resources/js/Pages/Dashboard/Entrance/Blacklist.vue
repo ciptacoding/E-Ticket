@@ -3,35 +3,60 @@ import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import { Head, router, Link, useForm } from "@inertiajs/vue3";
 import { Icon } from "@iconify/vue";
+import { onMounted, ref } from "vue";
+
+onMounted(() => {
+    function multipleAttributes(element, attributes) {
+        Object.keys(attributes).forEach((attr) => {
+            element.setAttribute(attr, attributes[attr]);
+        });
+    }
+
+    const attributes = {
+        href: "https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css",
+        rel: "stylesheet",
+    };
+
+    let selectLink = document.createElement("link");
+    multipleAttributes(selectLink, attributes);
+    document.head.appendChild(selectLink);
+
+    let selectScript = document.createElement("script");
+    selectScript.setAttribute(
+        "src",
+        "https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"
+    );
+    document.body.appendChild(selectScript);
+});
 
 const props = defineProps({
-    post: {
+    data: {
         type: Object,
         default: () => ({}),
     },
 });
 
 const form = useForm({
-    title: props.post.title,
-    image: props.post.image,
-    date_post: props.post.date_post,
-    excerpt: props.post.excerpt,
-    body: props.post.body,
+    full_name: props.data.full_name,
+    user_id: props.data.user_id,
+    start_date: "",
+    end_date: "",
+    description: "",
 });
 
 const submit = () => {
-    form.put(`/posts/${props.post.id}`);
+    form.post("/blacklists");
 };
 </script>
 
 <template>
     <div>
-        <Head title="Dashboard | Edit Post" />
+        <Head title="Dashboard | Create Blacklist" />
 
         <DashboardLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Update Post
+                    Update Blacklist
                 </h2>
             </template>
 
@@ -42,7 +67,7 @@ const submit = () => {
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
                             <button>
-                                <Link :href="route('posts.index')">
+                                <Link :href="route('entrance.index')">
                                     <Icon
                                         class="ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
                                         icon="solar:round-arrow-left-outline"
@@ -54,116 +79,110 @@ const submit = () => {
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label
-                                            for="title"
+                                            for="user_id"
                                             class="block mb-2 text-sm font-medium text-gray-900"
                                         >
-                                            Title
+                                            Select Username
+                                        </label>
+                                        <select
+                                            id="user_id"
+                                            data-te-select-init
+                                            data-te-select-filter="true"
+                                            v-model="form.user_id"
+                                            disabled
+                                        >
+                                            <option value="-">
+                                                Select username
+                                            </option>
+                                            <option
+                                                :key="form.user_id"
+                                                :value="form.user_id"
+                                            >
+                                                {{ props.data.username }}
+                                            </option>
+                                        </select>
+                                        <InputError
+                                            class="mt-2"
+                                            :message="form.errors.user_id"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            for="full_name"
+                                            class="block mb-2 text-sm font-medium text-gray-900"
+                                        >
+                                            Full Name
                                         </label>
                                         <input
-                                            v-model="form.title"
+                                            v-model="form.full_name"
                                             type="text"
-                                            id="title"
+                                            id="full_name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Write your title..."
+                                            placeholder="Write your full name..."
                                             required
                                         />
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.title"
+                                            :message="form.errors.full_name"
                                         />
                                     </div>
 
                                     <div>
                                         <label
-                                            for="image"
+                                            for="start_date"
                                             class="block mb-2 text-sm font-medium text-gray-900"
-                                            >Image</label
+                                            >Start Date</label
                                         >
                                         <input
-                                            @input="
-                                                form.image =
-                                                    $event.target.files[0]
-                                            "
-                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                                            aria-describedby="file_input_help"
-                                            id="image"
-                                            type="file"
-                                        />
-                                        <InputError
-                                            class="mt-2"
-                                            :message="form.errors.image"
-                                        />
-                                        <progress
-                                            v-if="form.progress"
-                                            :value="form.progress.percentage"
-                                            max="100"
-                                        >
-                                            {{ form.progress.percentage }}%
-                                        </progress>
-                                        <p
-                                            class="mt-1 text-sm text-gray-500"
-                                            id="file_input_help"
-                                        >
-                                            PNG, JPG, JPEG (MAX. 2MB).
-                                        </p>
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            for="date_post"
-                                            class="block mb-2 text-sm font-medium text-gray-900"
-                                            >Date
-                                        </label>
-                                        <input
-                                            v-model="form.date_post"
+                                            v-model="form.start_date"
                                             type="date"
-                                            id="date_post"
+                                            id="start_date"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             required
                                         />
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.date_post"
+                                            :message="form.errors.start_date"
                                         />
                                     </div>
 
                                     <div>
                                         <label
-                                            for="excerpt"
+                                            for="end_date"
                                             class="block mb-2 text-sm font-medium text-gray-900"
-                                            >Excerpt</label
-                                        >
+                                            >End Date
+                                        </label>
                                         <input
-                                            v-model="form.excerpt"
-                                            type="text"
-                                            id="excerpt"
+                                            v-model="form.end_date"
+                                            type="date"
+                                            id="end_date"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Write your excerpt..."
                                             required
                                         />
                                         <InputError
                                             class="mt-2"
-                                            :message="form.errors.excerpt"
+                                            :message="form.errors.end_date"
                                         />
                                     </div>
                                 </div>
 
                                 <div class="mb-6">
                                     <label
-                                        for="message"
+                                        for="description"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >Content</label
+                                        >Description</label
                                     >
                                     <textarea
-                                        v-model="form.body"
-                                        id="message"
+                                        v-model="form.description"
+                                        id="description"
                                         rows="4"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Write your thoughts here..."
+                                        placeholder="Write description here..."
                                     ></textarea>
                                     <InputError
                                         class="mt-2"
-                                        :message="form.errors.body"
+                                        :message="form.errors.description"
                                     />
                                 </div>
 

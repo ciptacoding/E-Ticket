@@ -47,6 +47,7 @@ class BookingController extends Controller
             'gender' => $request->gender,
             'total_price' => 25000,
             'status' => 'Unpaid',
+            'status_entrance' => '-',
         ]);  
         
         // Set your Merchant Server Key

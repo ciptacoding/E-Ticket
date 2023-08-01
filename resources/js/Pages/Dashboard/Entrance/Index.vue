@@ -25,6 +25,18 @@ watch(search, (value) => {
         { preserveState: true, replace: true }
     );
 });
+
+const checkin = (id) => {
+    router.post(`/checkin`, { id: id });
+};
+
+const checkout = (id) => {
+    router.post(`/checkout`, { id: id });
+};
+
+const blacklist = (id) => {
+    router.post("entrance", { id: id });
+};
 </script>
 
 <template>
@@ -105,18 +117,45 @@ watch(search, (value) => {
                                         <td class="px-6 py-4">
                                             {{ entrance.check_out }}
                                         </td>
-                                        <td class="px-6 py-4"></td>
+                                        <td class="px-6 py-4">
+                                            {{ entrance.status_entrance }}
+                                        </td>
                                         <td
-                                            class="px-6 py-4 flex justify-center"
+                                            class="px-6 py-4 flex gap-2 justify-center"
                                         >
                                             <button
+                                                title="Check In"
                                                 @click.prevent="
                                                     checkin(`${entrance.id}`)
                                                 "
                                             >
                                                 <Icon
                                                     class="text-3xl"
-                                                    icon="solar:eye-scan-line-duotone"
+                                                    icon="solar:user-check-outline"
+                                                    color="#26c968"
+                                                />
+                                            </button>
+                                            <button
+                                                title="Check Out"
+                                                @click.prevent="
+                                                    checkout(`${entrance.id}`)
+                                                "
+                                            >
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:user-minus-outline"
+                                                    color="#cf1717"
+                                                />
+                                            </button>
+                                            <button
+                                                title="Blacklist"
+                                                @click.prevent="
+                                                    blacklist(`${entrance.id}`)
+                                                "
+                                            >
+                                                <Icon
+                                                    class="text-3xl"
+                                                    icon="solar:user-block-outline"
                                                 />
                                             </button>
                                         </td>

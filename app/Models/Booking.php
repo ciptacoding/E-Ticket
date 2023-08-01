@@ -18,9 +18,4 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function entrance()
-    {
-        return $this->hasOne(Entrance::class);
-    }
-
 }
