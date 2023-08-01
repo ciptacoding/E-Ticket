@@ -1,7 +1,6 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import { Head, router, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import { Icon } from "@iconify/vue";
 
 const props = defineProps({

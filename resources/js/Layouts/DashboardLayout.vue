@@ -33,7 +33,7 @@ const showingNavigationDropdown = ref(false);
                                     v-if="
                                         $page.props.auth.user.role === 'admin'
                                     "
-                                    class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
+                                    class="hidden space-x-8 lg:-my-px lg:ml-10 lg:flex"
                                 >
                                     <NavLink
                                         :href="route('users.index')"
@@ -56,10 +56,26 @@ const showingNavigationDropdown = ref(false);
                                     >
                                         Blacklists
                                     </NavLink>
+                                    <NavLink
+                                        :href="route('transaction.index')"
+                                        :active="
+                                            route().current('transaction.index')
+                                        "
+                                    >
+                                        Transaction
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('entrance.index')"
+                                        :active="
+                                            route().current('entrance.index')
+                                        "
+                                    >
+                                        Entrance
+                                    </NavLink>
                                 </div>
                             </div>
 
-                            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                            <div class="hidden lg:flex lg:items-center lg:ml-6">
                                 <!-- Settings Dropdown -->
                                 <div class="ml-3 relative">
                                     <Dropdown align="right" width="48">
@@ -118,7 +134,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Hamburger -->
-                            <div class="-mr-2 flex items-center sm:hidden">
+                            <div class="-mr-2 flex items-center lg:hidden">
                                 <button
                                     @click="
                                         showingNavigationDropdown =
@@ -166,7 +182,7 @@ const showingNavigationDropdown = ref(false);
                             block: showingNavigationDropdown,
                             hidden: !showingNavigationDropdown,
                         }"
-                        class="sm:hidden"
+                        class="lg:hidden"
                     >
                         <div class="pt-2 pb-3 space-y-1">
                             <ResponsiveNavLink
@@ -186,6 +202,18 @@ const showingNavigationDropdown = ref(false);
                                 :active="route().current('blacklists.index')"
                             >
                                 Blacklists
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('transaction.index')"
+                                :active="route().current('transaction.index')"
+                            >
+                                Transaction
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('entrance.index')"
+                                :active="route().current('entrance.index')"
+                            >
+                                Entrance
                             </ResponsiveNavLink>
                         </div>
 

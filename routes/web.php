@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BlacklistController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\EntranceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +24,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
+    Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,10 +50,13 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function (){
     Route::resource('blacklists', BlacklistController::class);
 });
 
-Route::middleware(['auth'])->group(function (){
-    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
-    Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
-    Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
+Route::middleware(['auth', 'admin'])->group(function (){
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction.show');
+});
+
+Route::middleware(['auth','admin'])->group(function (){
+    Route::get('/entrance', [EntranceController::class, 'index'])->name('entrance.index');
 });
 
 require __DIR__.'/auth.php';
