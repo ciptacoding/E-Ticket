@@ -99,6 +99,9 @@ const stripTags = (text) => {
                                             Full Name
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Username
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             Start Date
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -127,6 +130,9 @@ const stripTags = (text) => {
                                         >
                                             {{ blacklist.full_name }}
                                         </th>
+                                        <td class="px-6 py-4">
+                                            {{ blacklist.user.name }}
+                                        </td>
                                         <td class="px-6 py-4">
                                             {{ blacklist.start_date }}
                                         </td>

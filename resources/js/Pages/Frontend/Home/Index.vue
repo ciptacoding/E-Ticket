@@ -23,6 +23,9 @@ const props = defineProps({
     blacklists: {
         type: Object,
     },
+    suggestions: {
+        type: Object,
+    },
     filters: {
         type: Object,
         default: () => ({}),
@@ -45,8 +48,8 @@ watch(search, (value) => {
 
 const truncateDescription = (blacklist) => {
     let description = stripTags(blacklist.description);
-    return description.length > 20
-        ? description.substring(0, 20) + "..."
+    return description.length > 40
+        ? description.substring(0, 40) + "..."
         : description;
 };
 
@@ -205,6 +208,9 @@ const stripTags = (text) => {
                                             Full Name
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Username
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             Start Date
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -227,6 +233,9 @@ const stripTags = (text) => {
                                         >
                                             {{ blacklist.full_name }}
                                         </th>
+                                        <td class="px-6 py-4">
+                                            {{ blacklist.user.name }}
+                                        </td>
                                         <td class="px-6 py-4">
                                             {{ blacklist.start_date }}
                                         </td>
@@ -257,7 +266,7 @@ const stripTags = (text) => {
                     />
                     <span>Comment From Users</span>
                 </h1>
-                <Comment />
+                <Comment :suggestions="suggestions" />
             </section>
             <!-- comment Section -->
 

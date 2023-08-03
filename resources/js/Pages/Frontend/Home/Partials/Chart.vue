@@ -33,7 +33,7 @@ export default {
                 datasets: [
                     {
                         label: "Statistics Today",
-                        backgroundColor: "#f87979",
+                        backgroundColor: "#3b82f6",
                         data: [749, 478, 271],
                     },
                 ],

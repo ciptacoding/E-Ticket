@@ -1,7 +1,7 @@
 <script setup>
 import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
-import { Head, router, useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 import InputError from "@/Components/InputError.vue";
 
@@ -184,7 +184,7 @@ const submit = () => {
                                     type="submit"
                                     class="mr-4 flex items-center gap-1 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
                                 >
-                                    Pay Now
+                                    Checkout
                                 </button>
                             </form>
                         </div>

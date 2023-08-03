@@ -8,6 +8,7 @@ use App\Http\Controllers\BlacklistController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EntranceController;
+use App\Http\Controllers\SuggestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,11 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
+});
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('/suggestion', [SuggestionController::class, 'index'])->name('suggestion.index');
+    Route::post('/suggestion', [SuggestionController::class, 'store'])->name('suggestion.store');
 });
 
 Route::middleware('auth')->group(function () {

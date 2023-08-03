@@ -57,8 +57,8 @@ defineProps({
                             Quota
                         </NavbarLinkOther>
                         <NavbarLinkOther
-                            :href="route('users.index')"
-                            :active="route().current('users.index')"
+                            :href="route('suggestion.index')"
+                            :active="route().current('suggestion.index')"
                         >
                             Suggestions
                         </NavbarLinkOther>

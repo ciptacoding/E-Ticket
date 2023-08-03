@@ -1,7 +1,12 @@
 <script setup>
 import { Carousel, Navigation, Slide } from "vue3-carousel";
-
 import "vue3-carousel/dist/carousel.css";
+
+defineProps({
+    suggestions: {
+        type: Object,
+    },
+});
 </script>
 
 <template>
@@ -9,10 +14,10 @@ import "vue3-carousel/dist/carousel.css";
         <!-- web view -->
         <div class="hidden lg:block">
             <Carousel :items-to-show="3.5" :wrap-around="true">
-                <Slide v-for="slide in 10" :key="slide">
+                <Slide v-for="suggestion in suggestions" :key="suggestion.id">
                     <div class="carousel__item">
                         <div
-                            class="bg-white mx-1 lg:mx-5 rounded-lg shadow-lg p-8 grid grid-cols-1 justify-center"
+                            class="bg-white mx-1 lg:mx-5 rounded-lg shadow-lg p-8 grid grid-cols-1 justify-center mb-2"
                         >
                             <div class="flex justify-center">
                                 <img
@@ -22,12 +27,10 @@ import "vue3-carousel/dist/carousel.css";
                                 />
                             </div>
 
-                            <h1 class="font-bold mb-1">David Maulana</h1>
-                            <p>
-                                "Saya sangat senang sekali dengan adanya sistem
-                                ini saya sangat terbantu dari segi pemesanan
-                                tiket"
-                            </p>
+                            <h1 class="font-bold mb-1">
+                                {{ suggestion.user.name }}
+                            </h1>
+                            <p>"{{ suggestion.comment }}"</p>
                         </div>
                     </div>
                 </Slide>

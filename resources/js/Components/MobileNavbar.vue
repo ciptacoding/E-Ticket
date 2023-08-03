@@ -24,7 +24,10 @@ import { Icon } from "@iconify/vue";
                     <Icon icon="ri:calendar-check-line" class="text-2xl" />
                     <p>Quota</p>
                 </Link>
-                <Link :href="route('home')" class="flex flex-col items-center">
+                <Link
+                    :href="route('suggestion.index')"
+                    class="flex flex-col items-center"
+                >
                     <Icon icon="ri:mail-add-line" class="text-2xl" />
                     <p>Suggest</p>
                 </Link>

@@ -14,12 +14,12 @@ class BlacklistController extends Controller
      */
     public function index(Request $request)
     {   
-        // $users = Blacklist::find(1)->user;
-        // dd($users);
+      
+        $blacklists = Blacklist::query()->with('user');
         return Inertia::render(
             'Dashboard/Blacklists/Index', 
             [
-                'blacklists' => Blacklist::query()
+                'blacklists' => $blacklists
                 ->when($request->input('search'), function($query, $search){
                     $query->where('full_name', 'like', '%'.$search.'%')
                     ->orWhere('description', 'like', '%'.$search.'%');
