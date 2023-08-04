@@ -51,8 +51,8 @@ defineProps({
                             Booking
                         </NavbarLink>
                         <NavbarLink
-                            :href="route('users.index')"
-                            :active="route().current('users.index')"
+                            :href="route('quota.index')"
+                            :active="route().current('quota.index')"
                         >
                             Quota
                         </NavbarLink>

@@ -62,7 +62,7 @@ const showingNavigationDropdown = ref(false);
                                             route().current('transaction.index')
                                         "
                                     >
-                                        Transaction
+                                        Transactions
                                     </NavLink>
                                     <NavLink
                                         :href="route('entrance.index')"
@@ -70,7 +70,15 @@ const showingNavigationDropdown = ref(false);
                                             route().current('entrance.index')
                                         "
                                     >
-                                        Entrance
+                                        Entrances
+                                    </NavLink>
+                                    <NavLink
+                                        :href="route('suggestions.index')"
+                                        :active="
+                                            route().current('suggestions.index')
+                                        "
+                                    >
+                                        Suggestions
                                     </NavLink>
                                 </div>
                             </div>
@@ -207,13 +215,19 @@ const showingNavigationDropdown = ref(false);
                                 :href="route('transaction.index')"
                                 :active="route().current('transaction.index')"
                             >
-                                Transaction
+                                Transactions
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('entrance.index')"
                                 :active="route().current('entrance.index')"
                             >
-                                Entrance
+                                Entrances
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('suggestions.index')"
+                                :active="route().current('suggestions.index')"
+                            >
+                                Suggestions
                             </ResponsiveNavLink>
                         </div>
 

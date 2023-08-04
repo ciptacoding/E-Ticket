@@ -8,7 +8,9 @@ use App\Http\Controllers\BlacklistController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EntranceController;
+use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\SuggestionController;
+use App\Http\Controllers\DashboardSuggestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +32,11 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/quota', [QuotaController::class, 'index'])->name('quota.index');
+    Route::post('/quota', [QuotaController::class, 'check'])->name('quota.check');
 });
 
 Route::middleware(['auth'])->group(function (){
@@ -66,6 +73,11 @@ Route::middleware(['auth','admin'])->group(function (){
     Route::post('/checkin', [EntranceController::class, 'checkin'])->name('entrance.checkin');
     Route::post('/checkout', [EntranceController::class, 'checkout'])->name('entrance.checkout');
     Route::post('/entrance', [EntranceController::class, 'blacklist'])->name('entrance.blacklist');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/suggestions', [DashboardSuggestionController::class, 'index'])->name('suggestions.index');
+    Route::delete('/suggestions/{id}', [DashboardSuggestionController::class, 'delete'])->name('suggestions.delete');
 });
 
 require __DIR__.'/auth.php';

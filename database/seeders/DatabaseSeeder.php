@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Blacklist;
 use App\Models\Suggestion;
+use App\Models\Booking;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,5 +35,6 @@ class DatabaseSeeder extends Seeder
         User::factory(30)->create();
         Post::factory(30)->create();
         Suggestion::factory(20)->create();
+        Booking::factory(40)->create();
     }
 }
