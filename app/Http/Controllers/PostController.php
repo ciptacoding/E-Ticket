@@ -42,6 +42,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required',
 			'title' => 'required|min:10|max:255',
 			'image' => 'image|file|max:2048|mimes:png,jpg,jpeg',
 			'excerpt' => 'required|max:255|min:10',
@@ -55,6 +56,7 @@ class PostController extends Controller
         }
 
         Post::create([
+            'user_id' => $request->user_id,
             'title' => $request->title,
             'image' => $image_path,
             'excerpt' => $request->excerpt,
@@ -90,6 +92,7 @@ class PostController extends Controller
     {
         //validate form
         $validated_data = $request->validate([
+            'user_id' => 'required',
             'title' => 'required|min:10|max:255',
 			'excerpt' => 'required|max:255|min:10',
 			'date_post' => 'required|date',

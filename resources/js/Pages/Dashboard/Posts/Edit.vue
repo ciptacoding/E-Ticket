@@ -1,7 +1,7 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import { Head, router, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import { Icon } from "@iconify/vue";
 
 const props = defineProps({
@@ -12,6 +12,7 @@ const props = defineProps({
 });
 
 const form = useForm({
+    user_id: props.post.user_id,
     title: props.post.title,
     image: props.post.image,
     date_post: props.post.date_post,

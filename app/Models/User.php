@@ -49,6 +49,11 @@ class User extends Authenticatable
         'role' => 'user'
     ];
 
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+    
     public function blacklist(): HasOne
     {
         return $this->hasOne(Blacklist::class);
