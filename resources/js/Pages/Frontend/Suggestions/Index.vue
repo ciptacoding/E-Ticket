@@ -4,6 +4,16 @@ import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 import InputError from "@/Components/InputError.vue";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "center",
+        y: "top",
+    },
+});
 
 const props = defineProps({
     canLogin: {
@@ -26,6 +36,7 @@ const form = useForm({
 const submit = () => {
     form.post("/suggestion");
     form.reset();
+    notyf.success("Your suggestion has been sending");
 };
 </script>
 

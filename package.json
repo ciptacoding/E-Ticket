@@ -23,6 +23,7 @@
         "chart.js": "^4.3.0",
         "html2canvas": "^1.4.1",
         "jspdf": "^2.5.1",
+        "notyf": "^3.10.0",
         "vue-chartjs": "^5.2.0",
         "vue3-carousel": "^0.3.1"
     }

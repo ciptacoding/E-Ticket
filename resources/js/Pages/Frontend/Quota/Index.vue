@@ -52,6 +52,8 @@ const weatherIcon = computed(() => {
                 return "/img/clear.png";
             case "Rain":
                 return "/img/rain.png";
+            case "Drizzle":
+                return "/img/rain.png";
             case "Snow":
                 return "/img/snow.png";
             case "Clouds":

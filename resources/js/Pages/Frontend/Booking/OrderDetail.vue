@@ -4,6 +4,33 @@ import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head, router } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 import { onMounted } from "vue";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "center",
+        y: "top",
+    },
+    types: [
+        {
+            type: "warning",
+            background: "orange",
+            icon: {
+                className: "material-icons",
+                tagName: "i",
+                text: "warning",
+            },
+        },
+        {
+            type: "error",
+            background: "indianred",
+            duration: 3000,
+            dismissible: true,
+        },
+    ],
+});
 
 const props = defineProps({
     canLogin: {
@@ -49,24 +76,26 @@ const handlePayment = () => {
 
     window.snap.pay(transactionToken, {
         onSuccess: (result) => {
-            /* You may add your own implementation here */
             // alert("Payment success!");
             // console.log(result);
             window.location.href = `/invoice/${props.booking.id}`;
         },
         onPending: (result) => {
-            /* You may add your own implementation here */
-            alert("Waiting for your payment!");
             // console.log(result);
+            notyf.open({
+                type: "warning",
+                message: "waiting for your payment",
+            });
         },
         onError: (result) => {
-            /* You may add your own implementation here */
-            alert("Payment failed!");
             // console.log(result);
+            notyf.error("Payment failed!");
         },
         onClose: () => {
-            /* You may add your own implementation here */
-            alert("You closed the popup without finishing the payment");
+            notyf.open({
+                type: "warning",
+                message: "You closed the popup without finishing the payment",
+            });
         },
     });
 };

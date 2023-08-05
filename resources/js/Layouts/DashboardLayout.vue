@@ -6,6 +6,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
+import Footer from "@/Components/Footer.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -192,7 +193,10 @@ const showingNavigationDropdown = ref(false);
                         }"
                         class="lg:hidden"
                     >
-                        <div class="pt-2 pb-3 space-y-1">
+                        <div
+                            v-if="$page.props.auth.user.role === 'admin'"
+                            class="pt-2 pb-3 space-y-1"
+                        >
                             <ResponsiveNavLink
                                 :href="route('users.index')"
                                 :active="route().current('users.index')"
@@ -249,6 +253,9 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('profile.edit')"
                                 >
                                     Profile
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink :href="route('home')">
+                                    Homepage
                                 </ResponsiveNavLink>
                                 <ResponsiveNavLink
                                     :href="route('logout')"

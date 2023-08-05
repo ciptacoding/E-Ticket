@@ -1,9 +1,11 @@
 <script setup>
 import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 import InputError from "@/Components/InputError.vue";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 const props = defineProps({
     canLogin: {
@@ -30,8 +32,28 @@ const form = useForm({
     gender: "",
 });
 
-const submit = () => {
-    form.post("/booking");
+const submit = async () => {
+    try {
+        form.post("/booking");
+
+        // Wait for a short delay to check if props.flash.message has a value
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // Check if props.flash.message has a value
+        if (usePage().props.flash.message !== null) {
+            const notyf = new Notyf({
+                duration: 3000,
+                position: {
+                    x: "center",
+                    y: "top",
+                },
+            });
+            notyf.error(usePage().props.flash.message);
+            usePage().props.flash.message = null; //set props to null after showing notyf
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    }
 };
 </script>
 
@@ -50,6 +72,17 @@ const submit = () => {
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
+                            <h1 class="text-center font-bold text-xl mb-2">
+                                Book Your Ticket
+                            </h1>
+                            <p
+                                class="text-sm text-center px-8 text-gray-600 mb-6"
+                            >
+                                Note: Please make sure your check-in and
+                                check-out dates are correct and make sure the
+                                quota is still available.
+                            </p>
+
                             <form class="mx-8 my-5" @submit.prevent="submit">
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>

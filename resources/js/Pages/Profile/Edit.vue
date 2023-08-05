@@ -3,7 +3,21 @@ import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import DeleteUserForm from "./Partials/DeleteUserForm.vue";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "center",
+        y: "top",
+    },
+});
+
+if (usePage().props.flash.message !== null) {
+    notyf.success(usePage().props.flash.message);
+}
 
 defineProps({
     mustVerifyEmail: {

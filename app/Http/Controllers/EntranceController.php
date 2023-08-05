@@ -12,7 +12,10 @@ class EntranceController extends Controller
     {
         $query = Booking::query()->where('status', 'Paid');
         $entrances = $query->when($request->input('search'), function ($query, $search) {
-            $query->where('full_name', 'like', '%' . $search . '%');
+            $query->where('full_name', 'like', '%' . $search . '%')
+            ->orWhere('check_in', 'like', '%'.$search.'%')
+            ->orWhere('check_out', 'like', '%'.$search.'%')
+            ->orWhere('status_entrance', 'like', '%'.$search.'%');
         })->paginate(6)->withQueryString();
 
         return Inertia::render('Dashboard/Entrance/Index',

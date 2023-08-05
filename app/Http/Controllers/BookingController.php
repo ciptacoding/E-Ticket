@@ -32,7 +32,12 @@ class BookingController extends Controller
 
         if($request->blacklist_id !== null)
         {
-            return redirect()->route('booking.index')->with('failed', 'Your account has been blacklist');
+            return redirect()->route('booking.index')->with('message', 'Your account has been blacklist');
+        }
+
+        $checkIn = Booking::where('check_in', $request->check_in)->count();
+        if($checkIn >= 100){
+            return redirect()->route('booking.index')->with('message', 'Quota full! please  make sure the check-in date is still available on the Quota menu');
         }
 
         $booking = Booking::create([
