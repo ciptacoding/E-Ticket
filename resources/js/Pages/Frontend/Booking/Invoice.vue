@@ -26,7 +26,7 @@ const download = async () => {
         window.html2canvas = html2canvas;
 
         // Create the jsPDF instance
-        const doc = new jsPDF("p", "pt", "a3");
+        const doc = new jsPDF("l", "pt", "a3");
 
         // Wait for html2canvas to be available globally
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -52,10 +52,8 @@ const download = async () => {
             <!-- navbar mobile view -->
             <NavbarOther :can-login="canLogin" :can-register="canRegister" />
 
-            <div class="pt-32 lg:pt-44">
-                <div
-                    class="w-full lg:w-[1050px] mx-auto px-4 sm:px-12 lg:px-28"
-                >
+            <div class="py-28 lg:py-32">
+                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:w-[1050px]">
                     <button
                         @click="download"
                         class="flex items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
@@ -191,7 +189,7 @@ const download = async () => {
                 </div>
             </div>
 
-            <Footer class="bottom-0 lg:absolute sm:block w-full" />
+            <Footer class="bottom-0 md:absolute sm:block w-full" />
         </div>
     </div>
 </template>

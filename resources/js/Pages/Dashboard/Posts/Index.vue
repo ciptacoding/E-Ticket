@@ -45,12 +45,12 @@ const updatePost = (id) => {
 
 const truncatePostBody = (post) => {
     let body = stripTags(post.body);
-    return body.length > 10 ? body.substring(0, 10) + "..." : body;
+    return body.length > 20 ? body.substring(0, 20) + "..." : body;
 };
 
 const truncateExcerpt = (post) => {
     let excerpt = stripTags(post.excerpt);
-    return excerpt.length > 10 ? excerpt.substring(0, 10) + "..." : excerpt;
+    return excerpt.length > 20 ? excerpt.substring(0, 20) + "..." : excerpt;
 };
 
 const stripTags = (text) => {
@@ -70,7 +70,7 @@ const stripTags = (text) => {
             </template>
 
             <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"

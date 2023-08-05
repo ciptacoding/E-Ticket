@@ -102,8 +102,8 @@ onMounted(searchWeather);
             <!-- navbar mobile view -->
             <NavbarOther :can-login="canLogin" :can-register="canRegister" />
 
-            <div class="pt-32 lg:pt-44">
-                <div class="w-full mx-auto px-4 sm:px-12 lg:px-28">
+            <div class="py-28 lg:py-32">
+                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -332,7 +332,7 @@ onMounted(searchWeather);
                 </div>
             </div>
 
-            <Footer class="bottom-0 w-full" />
+            <Footer class="bottom-0 w-full md:absolute" />
         </div>
     </div>
 </template>

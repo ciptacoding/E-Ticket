@@ -80,9 +80,11 @@ const stripTags = (text) => {
                     />
                     <!-- navbar web view -->
 
-                    <div class="px-4 sm:px-12 lg:px-28 flex flex-col">
+                    <div
+                        class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col"
+                    >
                         <h1
-                            class="mt-36 sm:mt-48 lg:mt-[14rem] mb-2 text-white text-2xl font-bold md:text-center md:w-9/12 md:mx-auto md:text-4xl lg:text-5xl xl:leading-[4rem]"
+                            class="mt-36 sm:mt-48 lg:mt-[14rem] mb-2 text-white text-2xl font-bold md:text-center md:w-9/12 md:mx-auto md:text-4xl lg:text-5xl xl:leading-[4rem] 2xl:mt-[16rem] min-[1800px]:mt-[24rem]"
                         >
                             Mount Agung is a popular hiking destination for
                             adventurous travelers, offering stunning views of
@@ -103,7 +105,7 @@ const stripTags = (text) => {
             <!-- header section -->
 
             <!-- Activity Section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-10">
+            <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-10">
                 <div class="flex flex-col items-center mb-4">
                     <img
                         src="/img/trekking.png"
@@ -152,7 +154,7 @@ const stripTags = (text) => {
             <!-- Activity Section -->
 
             <!-- post section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-16">
+            <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
                 >
@@ -172,7 +174,7 @@ const stripTags = (text) => {
             <!-- post section -->
 
             <!-- blacklist section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-16">
+            <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
                 >
@@ -182,7 +184,7 @@ const stripTags = (text) => {
                     />
                     <span>Blacklist Information</span>
                 </h1>
-                <div class="max-w-7xl mx-auto">
+                <div class="w-full mx-auto">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -256,7 +258,7 @@ const stripTags = (text) => {
             <!-- blacklist section -->
 
             <!-- comment section -->
-            <section class="px-4 sm:px-12 lg:px-28 mt-16">
+            <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
                 <h1
                     class="text-2xl font-bold sm:text-3xl mb-5 flex gap-2 items-center"
                 >

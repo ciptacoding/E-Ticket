@@ -44,7 +44,7 @@ defineProps({
         <!-- mobile view -->
         <div class="block lg:hidden">
             <Carousel :items-to-show="1.5" :wrap-around="true">
-                <Slide v-for="slide in 10" :key="slide">
+                <Slide v-for="suggestion in suggestions" :key="suggestion.id">
                     <div class="carousel__item">
                         <div
                             class="bg-white mx-1 sm:mx-3 lg:mx-5 rounded-lg shadow-lg p-4 grid grid-cols-1 justify-center"
@@ -57,12 +57,10 @@ defineProps({
                                 />
                             </div>
 
-                            <h1 class="font-bold mb-1">David Maulana</h1>
-                            <p>
-                                "Saya sangat senang sekali dengan adanya sistem
-                                ini saya sangat terbantu dari segi pemesanan
-                                tiket"
-                            </p>
+                            <h1 class="font-bold mb-1">
+                                {{ suggestion.user.name }}
+                            </h1>
+                            <p>"{{ suggestion.comment }}"</p>
                         </div>
                     </div>
                 </Slide>

@@ -110,8 +110,8 @@ const handlePayment = () => {
             <!-- navbar mobile view -->
             <NavbarOther :can-login="canLogin" :can-register="canRegister" />
 
-            <div class="pt-28 lg:pt-44">
-                <div class="w-full lg:w-9/12 mx-auto px-4 sm:px-12 lg:px-28">
+            <div class="py-28 lg:py-32">
+                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:w-9/12">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -184,7 +184,7 @@ const handlePayment = () => {
                 </div>
             </div>
 
-            <Footer class="bottom-0 lg:absolute sm:block w-full" />
+            <Footer class="bottom-0 md:absolute sm:block w-full" />
         </div>
     </div>
 </template>
