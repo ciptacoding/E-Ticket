@@ -30,6 +30,15 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    total: {
+        type: Number,
+    },
+    female: {
+        type: Number,
+    },
+    male: {
+        type: Number,
+    },
 });
 
 let search = ref(props.filters.search);
@@ -61,10 +70,14 @@ const stripTags = (text) => {
 <template>
     <Head title="Mount Agung | Home" />
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-50">
             <!-- navbar mobile view -->
             <MobileNavbar />
             <!-- navbar mobile view -->
+
+            <!-- navbar web view -->
+            <NavbarWeb :can-login="canLogin" :can-register="canRegister" />
+            <!-- navbar web view -->
 
             <!-- header section -->
             <header
@@ -73,13 +86,6 @@ const stripTags = (text) => {
                 <div
                     class="backdrop-opacity-10 backdrop-invert bg-black/40 bg-cover h-[35rem] w-full lg:h-screen"
                 >
-                    <!-- navbar web view -->
-                    <NavbarWeb
-                        :can-login="canLogin"
-                        :can-register="canRegister"
-                    />
-                    <!-- navbar web view -->
-
                     <div
                         class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col"
                     >
@@ -127,27 +133,31 @@ const stripTags = (text) => {
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-male" class="text-4xl" />
                             <h1>
-                                749 <br />
+                                {{ props.total }}<br />
                                 Total
                             </h1>
                         </div>
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-male" class="text-4xl" />
                             <h1>
-                                478 <br />
+                                {{ props.male }} <br />
                                 Male
                             </h1>
                         </div>
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-female" class="text-4xl" />
                             <h1>
-                                271 <br />
+                                {{ props.female }} <br />
                                 Female
                             </h1>
                         </div>
                     </div>
                     <div class="flex justify-center md:w-2/4 mx-auto">
-                        <Chart />
+                        <Chart
+                            :female="props.female"
+                            :male="props.male"
+                            :total="props.total"
+                        />
                     </div>
                 </div>
             </section>
@@ -155,15 +165,17 @@ const stripTags = (text) => {
 
             <!-- post section -->
             <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-                <h1
-                    class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
-                >
+                <h1 class="text-2xl font-bold sm:text-3xl flex items-center">
                     <Icon
                         class="text-2xl sm:text-3xl inline"
                         icon="solar:notebook-bold"
                     />
                     <span>Latest News</span>
                 </h1>
+                <p class="text-gray-500 text-base mb-5">
+                    The latest news that provides up-to-date information for
+                    visitors who are interested in mountaineering.
+                </p>
                 <Posts :posts="posts" />
                 <Pagination
                     :links="posts.links"
@@ -175,17 +187,19 @@ const stripTags = (text) => {
 
             <!-- blacklist section -->
             <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-                <h1
-                    class="text-2xl font-bold sm:text-3xl mb-5 flex items-center"
-                >
+                <h1 class="text-2xl font-bold sm:text-3xl flex items-center">
                     <Icon
                         class="text-2xl sm:text-3xl inline"
                         icon="solar:notebook-bold"
                     />
                     <span>Blacklist Information</span>
                 </h1>
+                <p class="mb-5 text-gray-500 text-base">
+                    Here is a blacklist of some climbers who have violated the
+                    rules and regulations during the climbing expedition.
+                </p>
                 <div class="w-full mx-auto">
-                    <div class="shadow-md rounded-md">
+                    <div class="shadow rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
@@ -260,7 +274,7 @@ const stripTags = (text) => {
             <!-- comment section -->
             <section class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16">
                 <h1
-                    class="text-2xl font-bold sm:text-3xl mb-5 flex gap-2 items-center"
+                    class="text-2xl font-bold sm:text-3xl flex gap-2 items-center"
                 >
                     <Icon
                         class="text-2xl sm:text-3xl inline"
@@ -268,6 +282,10 @@ const stripTags = (text) => {
                     />
                     <span>Comment From Users</span>
                 </h1>
+                <p class="text-base mb-5 text-gray-500">
+                    You can write comments and suggestions in the suggestions
+                    menu so that we can conduct evaluations.
+                </p>
                 <Comment :suggestions="suggestions" />
             </section>
             <!-- comment Section -->

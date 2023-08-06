@@ -96,7 +96,7 @@ onMounted(searchWeather);
 <template>
     <Head title="Mount Agung | Quota" />
     <div>
-        <div class="bg-gray-100 min-h-screen relative">
+        <div class="bg-gray-50 min-h-screen relative">
             <!-- navbar mobile view -->
             <MobileNavbar />
             <!-- navbar mobile view -->
@@ -104,7 +104,7 @@ onMounted(searchWeather);
 
             <div class="py-28 lg:py-32">
                 <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="shadow-md rounded-md">
+                    <div class="shadow rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >

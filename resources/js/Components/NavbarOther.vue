@@ -17,7 +17,7 @@ defineProps({
 
 <template>
     <div>
-        <nav class="absolute top-0 left-0 right-0 w-full bg-white z-50">
+        <nav class="fixed top-0 left-0 right-0 w-full shadow bg-white z-50">
             <div
                 class="flex justify-between h-24 items-center max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8"
             >

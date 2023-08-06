@@ -17,7 +17,7 @@ defineProps({
                 <Slide v-for="suggestion in suggestions" :key="suggestion.id">
                     <div class="carousel__item">
                         <div
-                            class="bg-white mx-1 lg:mx-5 rounded-lg shadow-lg p-8 grid grid-cols-1 justify-center mb-2"
+                            class="bg-white mx-1 lg:mx-5 rounded-lg shadow p-8 grid grid-cols-1 justify-center mb-2"
                         >
                             <div class="flex justify-center">
                                 <img
@@ -47,7 +47,7 @@ defineProps({
                 <Slide v-for="suggestion in suggestions" :key="suggestion.id">
                     <div class="carousel__item">
                         <div
-                            class="bg-white mx-1 sm:mx-3 lg:mx-5 rounded-lg shadow-lg p-4 grid grid-cols-1 justify-center"
+                            class="bg-white mx-1 sm:mx-3 lg:mx-5 rounded-lg shadow p-4 grid grid-cols-1 justify-center"
                         >
                             <div class="flex justify-center">
                                 <img

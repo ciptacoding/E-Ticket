@@ -46,7 +46,7 @@ const download = async () => {
 <template>
     <Head title="Mount Agung | Booking" />
     <div>
-        <div class="bg-gray-100 min-h-screen relative">
+        <div class="bg-gray-50 min-h-screen relative">
             <!-- navbar mobile view -->
             <MobileNavbar />
             <!-- navbar mobile view -->
@@ -60,7 +60,7 @@ const download = async () => {
                     >
                         Download PDF
                     </button>
-                    <div class="shadow-md rounded-md" id="tiket">
+                    <div class="shadow rounded-md" id="tiket">
                         <div
                             class="relative overflow-x-auto p-3 sm:p-6 bg-[#3d5652]"
                         >

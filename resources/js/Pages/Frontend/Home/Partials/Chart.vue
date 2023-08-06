@@ -1,8 +1,4 @@
-<template>
-    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
-</template>
-
-<script>
+<script setup>
 import { Bar } from "vue-chartjs";
 import {
     Chart as ChartJS,
@@ -23,25 +19,34 @@ ChartJS.register(
     LinearScale
 );
 
-export default {
-    name: "BarChart",
-    components: { Bar },
-    data() {
-        return {
-            chartData: {
-                labels: ["Total", "Male", "Female"],
-                datasets: [
-                    {
-                        label: "Statistics Today",
-                        backgroundColor: "#3b82f6",
-                        data: [749, 478, 271],
-                    },
-                ],
-            },
-            chartOptions: {
-                responsive: true,
-            },
-        };
+const props = defineProps({
+    total: {
+        type: Number,
     },
+    male: {
+        type: Number,
+    },
+    female: {
+        type: Number,
+    },
+});
+
+const chartData = {
+    labels: ["Total", "Male", "Female"],
+    datasets: [
+        {
+            label: "Statistics Today",
+            backgroundColor: "#3b82f6",
+            data: [props.total, props.male, props.female],
+        },
+    ],
+};
+
+const chartOptions = {
+    responsive: true,
 };
 </script>
+
+<template>
+    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
+</template>
