@@ -68,7 +68,7 @@ class BlacklistController extends Controller
         $user->blacklist_id = $blacklist->id;
         $user->save();
 
-        return redirect()->route('blacklists.index')->with('success', 'Blacklists Has Been Created!');
+        return redirect()->route('blacklists.index')->with('message', 'Blacklists Has Been Created!');
     }
 
     /**
@@ -119,7 +119,7 @@ class BlacklistController extends Controller
         $user->blacklist_id = $blacklist->id;
         $user->save();
 
-        return redirect()->route('blacklists.index')->with('success', 'Blacklist has been updated and associated with the user!');
+        return redirect()->route('blacklists.index')->with('message', 'Blacklist has been updated and associated with the user!');
     }
 
     /**

@@ -28,11 +28,13 @@ class EntranceController extends Controller
     public function checkin(Request $request)
     {
         Booking::where('id', $request->id)->update(['status_entrance' => 'Check In']);
+        return back()->with('message', 'Check-In Successfully!');
     }
 
     public function checkout(Request $request)
     {
         Booking::where('id', $request->id)->update(['status_entrance' => 'Check Out']);
+        return back()->with('message', 'Check-Out Successfully!');
     }
 
     public function blacklist(Request $request)

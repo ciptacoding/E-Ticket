@@ -1,9 +1,20 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head, router, usePage } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
 import { Icon } from "@iconify/vue";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+import Swal from "sweetalert2";
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "center",
+        y: "top",
+    },
+});
 
 const props = defineProps({
     entrances: {
@@ -26,16 +37,62 @@ watch(search, (value) => {
     );
 });
 
-const checkin = (id) => {
-    router.post(`/checkin`, { id: id });
+const checkin = async (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Check-In!",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            router.post(`/checkin`, { id: id });
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            if (usePage().props.flash.message !== null) {
+                notyf.success(usePage().props.flash.message);
+                usePage().props.flash.message = null;
+            }
+        }
+    });
 };
 
-const checkout = (id) => {
-    router.post(`/checkout`, { id: id });
+const checkout = async (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Check-Out!",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            router.post(`/checkout`, { id: id });
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            if (usePage().props.flash.message !== null) {
+                notyf.success(usePage().props.flash.message);
+                usePage().props.flash.message = null;
+            }
+        }
+    });
 };
 
 const blacklist = (id) => {
-    router.post("entrance", { id: id });
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Blacklist!",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            router.post("/entrance", { id: id });
+        }
+    });
 };
 </script>
 
@@ -124,6 +181,18 @@ const blacklist = (id) => {
                                             class="px-6 py-4 flex gap-2 justify-center"
                                         >
                                             <button
+                                                :disabled="
+                                                    entrance.status_entrance ==
+                                                    '-'
+                                                        ? false
+                                                        : true
+                                                "
+                                                :class="
+                                                    entrance.status_entrance ==
+                                                    '-'
+                                                        ? ''
+                                                        : 'opacity-25 cursor-not-allowed'
+                                                "
                                                 title="Check In"
                                                 @click.prevent="
                                                     checkin(`${entrance.id}`)
@@ -136,6 +205,18 @@ const blacklist = (id) => {
                                                 />
                                             </button>
                                             <button
+                                                :disabled="
+                                                    entrance.status_entrance ==
+                                                    'Check In'
+                                                        ? false
+                                                        : true
+                                                "
+                                                :class="
+                                                    entrance.status_entrance ==
+                                                    'Check In'
+                                                        ? ''
+                                                        : 'opacity-25 cursor-not-allowed'
+                                                "
                                                 title="Check Out"
                                                 @click.prevent="
                                                     checkout(`${entrance.id}`)
@@ -148,6 +229,18 @@ const blacklist = (id) => {
                                                 />
                                             </button>
                                             <button
+                                                :disabled="
+                                                    entrance.status_entrance ==
+                                                    'Check In'
+                                                        ? false
+                                                        : true
+                                                "
+                                                :class="
+                                                    entrance.status_entrance ==
+                                                    'Check In'
+                                                        ? ''
+                                                        : 'opacity-25 cursor-not-allowed'
+                                                "
                                                 title="Blacklist"
                                                 @click.prevent="
                                                     blacklist(`${entrance.id}`)

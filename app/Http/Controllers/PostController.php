@@ -64,7 +64,7 @@ class PostController extends Controller
             'body' => $request->body
         ]);
  
-		return redirect()->route('posts.index')->with('success', 'Post Has Been Created!');
+		return redirect()->route('posts.index')->with('message', 'Post Has Been Created!');
     }
 
     /**
@@ -121,7 +121,7 @@ class PostController extends Controller
 
 		}
 
-		return redirect()->route('posts.index')->with('success', 'Post Has Been Updated!');
+		return redirect()->route('posts.index')->with('message', 'Post Has Been Updated!');
     }
 
     /**

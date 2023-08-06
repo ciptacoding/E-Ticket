@@ -1,9 +1,12 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, router, Link } from "@inertiajs/vue3";
+import { Head, router, Link, usePage } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
 import { Icon } from "@iconify/vue";
+import Swal from "sweetalert2";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 const props = defineProps({
     posts: {
@@ -34,9 +37,26 @@ const showPost = (id) => {
 };
 
 const deletePost = (id) => {
-    if (confirm("Are you sure ?")) {
-        router.delete(`posts/${id}`);
-    }
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete(`/posts/${id}`, {
+                onFinish: () =>
+                    Swal.fire(
+                        "Deleted!",
+                        "Your file has been deleted.",
+                        "success"
+                    ),
+            });
+        }
+    });
 };
 
 const updatePost = (id) => {
@@ -56,6 +76,18 @@ const truncateExcerpt = (post) => {
 const stripTags = (text) => {
     return text.replace(/(<([^>]+)>)/gi, "");
 };
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: "center",
+        y: "top",
+    },
+});
+
+if (usePage().props.flash.message !== null) {
+    notyf.success(usePage().props.flash.message);
+}
 </script>
 
 <template>
