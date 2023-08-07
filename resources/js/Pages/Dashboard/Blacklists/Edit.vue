@@ -63,7 +63,7 @@ const submit = () => {
                 </h2>
             </template>
 
-            <div class="py-12">
+            <div class="py-8">
                 <div class="max-w-[90rem] mx-auto sm:px-6 lg:px-8">
                     <div class="shadow-md rounded-md">
                         <div
