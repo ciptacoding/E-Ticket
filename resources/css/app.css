@@ -9,3 +9,15 @@ html {
 .card {
     @apply bg-white rounded-lg shadow h-full cursor-pointer;
 }
+
+.navbar-fixed {
+    @apply fixed bg-white shadow ease-in-out duration-700;
+}
+
+.t-black {
+    @apply text-gray-800;
+}
+
+.border-btm {
+    @apply border-b-2 border-black;
+}

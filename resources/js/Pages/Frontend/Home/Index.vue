@@ -8,7 +8,7 @@ import Footer from "@/Components/Footer.vue";
 import Posts from "./Partials/Posts.vue";
 import Chart from "./Partials/Chart.vue";
 import Comment from "./Partials/Comment.vue";
-import { watch, ref } from "vue";
+import { watch, ref, onMounted } from "vue";
 
 const props = defineProps({
     canLogin: {

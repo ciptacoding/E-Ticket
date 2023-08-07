@@ -4,6 +4,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
 import NavbarLink from "@/Components/NavbarLink.vue";
+import { ref, onMounted } from "vue";
 
 defineProps({
     canLogin: {
@@ -13,13 +14,33 @@ defineProps({
         type: Boolean,
     },
 });
+
+const isNavbarFixed = ref(false);
+const textBlack = ref(false);
+
+const handleScroll = () => {
+    if (window.scrollY > 40) {
+        isNavbarFixed.value = true;
+        textBlack.value = true;
+    } else {
+        isNavbarFixed.value = false;
+        textBlack.value = false;
+    }
+};
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+});
 </script>
 
 <template>
     <div>
-        <nav class="fixed top-0 left-0 right-0 w-full bg-transparent z-50">
+        <nav
+            :class="{ 'navbar-fixed': isNavbarFixed }"
+            class="absolute top-0 left-0 right-0 w-full bg-transparent z-50 ease-in-out duration-500"
+        >
             <div
-                class="flex justify-between h-24 items-center max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8"
+                class="flex justify-between h-20 items-center max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8"
             >
                 <div class="justify-self-start">
                     <Link
@@ -30,6 +51,7 @@ defineProps({
                             class="block h-8 md:h-12 w-auto fill-current"
                         />
                         <p
+                            :class="{ 't-black': textBlack }"
                             class="text-white text-base md:text-xl md:font-semibold"
                         >
                             E - Ticketing
@@ -73,6 +95,9 @@ defineProps({
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
+                                                :class="{
+                                                    't-black': textBlack,
+                                                }"
                                                 class="md:font-semibold inline-flex items-center border border-transparent rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {{ $page.props.auth.user.name }}
@@ -125,6 +150,7 @@ defineProps({
                         <template v-else>
                             <Link
                                 :href="route('login')"
+                                :class="{ 't-black': textBlack }"
                                 class="font-semibold text-white"
                             >
                                 Log in
@@ -133,6 +159,7 @@ defineProps({
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
+                                :class="{ 't-black': textBlack }"
                                 class="ml-4 font-semibold text-white"
                             >
                                 Register
