@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
         User::factory(30)->create();
         Post::factory(30)->create();
         Suggestion::factory(20)->create();
-        Booking::factory(100)->create();
+        Booking::factory(500)->create();
     }
 }

@@ -28,7 +28,7 @@ class BookingFactory extends Factory
             'gender' => fake()->randomElement(['Male','Female']),
             'total_price' => 25000,
             'status' => 'Paid',
-            'status_entrance' => 'Check In',
+            'status_entrance' => '-',
         ];
     }
 }

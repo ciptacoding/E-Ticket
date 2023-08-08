@@ -186,8 +186,10 @@ const stripTags = (text) => {
                                                 "
                                             >
                                                 <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:gallery-edit-bold"
+                                                    height="34"
+                                                    width="34"
+                                                    icon="mdi:square-edit-outline"
+                                                    color="#f59e0b"
                                                 />
                                             </button>
                                             <button
@@ -199,8 +201,10 @@ const stripTags = (text) => {
                                                 "
                                             >
                                                 <Icon
-                                                    class="text-3xl"
+                                                    height="32"
+                                                    width="32"
                                                     icon="solar:trash-bin-minimalistic-outline"
+                                                    color="#cf1717"
                                                 />
                                             </button>
                                         </td>

@@ -134,8 +134,10 @@ const deleteSuggestion = (id) => {
                                                 "
                                             >
                                                 <Icon
-                                                    class="text-3xl"
+                                                    height="32"
+                                                    width="32"
                                                     icon="solar:trash-bin-minimalistic-outline"
+                                                    color="#cf1717"
                                                 />
                                             </button>
                                         </td>
