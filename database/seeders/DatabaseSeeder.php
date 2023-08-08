@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
         DB::table('users')->insert([
-            'name' => 'Cipta Dwipajaya',
+            'name' => 'CiptaDwipajaya',
             'email' => 'ciptacoding@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'user',
