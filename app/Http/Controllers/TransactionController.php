@@ -15,8 +15,9 @@ class TransactionController extends Controller
             [
                 'transactions' => Booking::query()
                 ->when($request->input('search'), function($query, $search){
-                    $query->where('full_name', 'like', '%'.$search.'%');
-                })->paginate(6)->withQueryString(),
+                    $query->where('full_name', 'like', '%'.$search.'%')
+                    ->orWhere('status', 'like', '%'.$search.'%');
+                })->orderByDesc('check_in')->paginate(6)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );

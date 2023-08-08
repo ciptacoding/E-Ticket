@@ -10,7 +10,7 @@ class EntranceController extends Controller
 {
     public function index(Request $request, Booking $booking) 
     {
-        $query = Booking::query()->where('status', 'Paid');
+        $query = Booking::query()->orderByDesc('check_in')->where('status', 'Paid');
         $entrances = $query->when($request->input('search'), function ($query, $search) {
             $query->where('full_name', 'like', '%' . $search . '%')
             ->orWhere('check_in', 'like', '%'.$search.'%')
