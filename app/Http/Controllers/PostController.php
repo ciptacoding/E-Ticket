@@ -43,11 +43,11 @@ class PostController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-			'title' => 'required|min:10|max:255',
+			'title' => 'required|min:20|max:165',
 			'image' => 'image|file|max:2048|mimes:png,jpg,jpeg',
-			'excerpt' => 'required|max:255|min:10',
+			'excerpt' => 'required|max:165|min:20',
 			'date_post' => 'required|date',
-			'body' => 'required|min:20'
+			'body' => 'required|min:50'
 		]);
 
         $image_path = '';
@@ -93,10 +93,10 @@ class PostController extends Controller
         //validate form
         $validated_data = $request->validate([
             'user_id' => 'required',
-            'title' => 'required|min:10|max:255',
-			'excerpt' => 'required|max:255|min:10',
+            'title' => 'required|min:20|max:165',
+			'excerpt' => 'required|max:165|min:20',
 			'date_post' => 'required|date',
-			'body' => 'required|min:20'
+			'body' => 'required|min:50'
         ]);
 
 		$post = Post::findOrFail($id);

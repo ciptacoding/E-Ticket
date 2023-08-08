@@ -63,6 +63,10 @@ const updatePost = (id) => {
     router.get(`posts/${id}/edit`);
 };
 
+const truncatePostTitle = (post) => {
+    let body = stripTags(post.body);
+    return body.length > 20 ? body.substring(0, 20) + "..." : body;
+};
 const truncatePostBody = (post) => {
     let body = stripTags(post.body);
     return body.length > 20 ? body.substring(0, 20) + "..." : body;
@@ -164,7 +168,7 @@ if (usePage().props.flash.message !== null) {
                                             scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                         >
-                                            {{ post.title }}
+                                            {{ truncatePostTitle(post) }}
                                         </th>
                                         <td class="px-6 py-4">
                                             {{ post.date_post }}

@@ -4,6 +4,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
 import NavbarLinkOther from "@/Components/NavbarLinkOther.vue";
+import { ref, onMounted } from "vue";
 
 defineProps({
     canLogin: {
@@ -13,11 +14,28 @@ defineProps({
         type: Boolean,
     },
 });
+
+const isNavbarFixed = ref(false);
+
+const handleScroll = () => {
+    if (window.scrollY > 40) {
+        isNavbarFixed.value = true;
+    } else {
+        isNavbarFixed.value = false;
+    }
+};
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+});
 </script>
 
 <template>
     <div>
-        <nav class="fixed top-0 left-0 right-0 w-full shadow bg-white z-50">
+        <nav
+            :class="{ 'navbar-fixed': isNavbarFixed }"
+            class="fixed top-0 left-0 right-0 w-full bg-gray-100 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 shadow z-50"
+        >
             <div
                 class="flex justify-between h-20 items-center max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8"
             >

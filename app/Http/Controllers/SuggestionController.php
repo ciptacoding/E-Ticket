@@ -22,7 +22,7 @@ class SuggestionController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'comment' => 'required|min:10',
+            'comment' => 'required|min:10|max:170',
             'suggestion' => 'required|min:10'
         ]);
 

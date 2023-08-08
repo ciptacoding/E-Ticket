@@ -6,7 +6,7 @@ import { Icon } from "@iconify/vue";
 <template>
     <div>
         <nav
-            class="lg:hidden mt-5 py-4 px-3 sm:px-10 fixed bottom-0 left-0 right-0 w-full bg-white z-50 shadow"
+            class="lg:hidden mt-5 py-4 px-3 sm:px-10 fixed bottom-0 left-0 right-0 w-full bg-gray-100 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 z-50 shadow"
         >
             <div class="flex text-sm sm:text-xl gap-2 justify-between">
                 <Link :href="route('home')" class="flex flex-col items-center">

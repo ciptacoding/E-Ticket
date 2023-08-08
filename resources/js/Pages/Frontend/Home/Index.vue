@@ -84,7 +84,7 @@ const stripTags = (text) => {
                 class="bg-fixed bg-[url('/img/hero-image.jpg')] bg-cover h-[35rem] lg:h-screen"
             >
                 <div
-                    class="backdrop-opacity-10 backdrop-invert bg-black/40 bg-cover h-[35rem] w-full lg:h-screen"
+                    class="backdrop-opacity-10 backdrop-invert bg-black/30 bg-cover h-[35rem] w-full lg:h-screen"
                 >
                     <div
                         class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col"

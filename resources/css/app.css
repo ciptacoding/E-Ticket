@@ -11,7 +11,7 @@ html {
 }
 
 .navbar-fixed {
-    @apply fixed bg-white shadow ease-in-out duration-700;
+    @apply fixed bg-gray-100 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 shadow ease-in-out duration-500;
 }
 
 .t-black {

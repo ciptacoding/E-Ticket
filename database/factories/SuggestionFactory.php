@@ -18,8 +18,8 @@ class SuggestionFactory extends Factory
     {
         return [
             'user_id' => rand(2,8),
-            'comment' => fake()->sentence(10),
-            'suggestion' => fake()->sentence(10)
+            'comment' => fake()->sentence(20),
+            'suggestion' => fake()->sentence(20)
         ];
     }
 }

@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function index (Request $request)
     {
-        $posts = Post::orderByDESC('date_post')->paginate(6);
+        $posts = Post::with('user')->orderByDESC('date_post')->paginate(6);
         $suggestions = Suggestion::with('user')->get();
         $blacklists = Blacklist::query()->with('user');
         $total = Booking::where('status_entrance', 'Check In')->count();

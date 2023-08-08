@@ -31,21 +31,28 @@ const props = defineProps({
                             <button>
                                 <Link :href="route('posts.index')">
                                     <Icon
-                                        class="ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
+                                        class="ml-2 lg:ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
                                         icon="solar:round-arrow-left-outline"
                                     />
                                 </Link>
                             </button>
                             <div
-                                class="flex flex-col justify-center items-center mx-12"
+                                class="flex flex-col justify-center items-center mx-auto px-2 max-w-3xl"
                             >
                                 <p class="text-xl font-bold mb-2">
                                     {{ post.title }}
                                 </p>
                                 <img
-                                    class="h-[20rem] mb-2"
+                                    v-if="post.image"
+                                    class="rounded-lg h-64 sm:h-80 w-full object-cover mb-2"
                                     :src="`/storage/${post.image}`"
                                     alt="Image Post"
+                                />
+                                <img
+                                    v-else
+                                    class="rounded-lg h-64 sm:h-80 w-full object-cover mb-2"
+                                    src="https://source.unsplash.com/800x500/?mountain"
+                                    alt="news"
                                 />
                                 <p class="mb-2">{{ post.date_post }}</p>
                                 <p>{{ post.body }}</p>
