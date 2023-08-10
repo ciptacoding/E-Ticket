@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('blacklist_id')->unique()->nullable();
             $table->string('name')->unique();
             $table->string('email')->unique();
+            $table->string('nik')->unique();
             $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

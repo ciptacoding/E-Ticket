@@ -31,22 +31,35 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:15|min:8|unique:users,name',
+            'nik' => 'required|string|max:16|min:16|unique:users,nik',
             'email' => 'required|string|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $nik = $request->nik;
+        $result = \NikReader::read($nik);
+        
+        // dd($result);
+        if (true === $result->valid) {
+            $user = User::create([
+                'name' => $request->name,
+                'nik' => $request->nik,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        } else {
+            return back()->with('message', 'Nik not valid');
+        }
 
+        
         event(new Registered($user));
 
         // Auth::login($user);
+        // return redirect(RouteServiceProvider::HOME);
 
-        return redirect('/login')->with('message', 'Register Successfully!');
+        return redirect('/login')->with('message', 'Registered success! Please check your email address for email verification');
     }
 }

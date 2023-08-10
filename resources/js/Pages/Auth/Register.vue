@@ -4,19 +4,37 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 const form = useForm({
     name: "",
     email: "",
+    nik: "",
     password: "",
     password_confirmation: "",
 });
 
-const submit = () => {
-    form.post(route("register"), {
-        onFinish: () => form.reset("password", "password_confirmation"),
-    });
+const submit = async () => {
+    try {
+        form.post(route("register"));
+        form.reset("password", "password_confirmation");
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (usePage().props.flash.message !== null) {
+            const notyf = new Notyf({
+                duration: 3000,
+                position: {
+                    x: "center",
+                    y: "top",
+                },
+            });
+            notyf.error(usePage().props.flash.message);
+            usePage().props.flash.message = null; //set props to null after showing notyf
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    }
 };
 </script>
 
@@ -50,10 +68,24 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autocomplete="username"
+                    autocomplete="email"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="nik" value="NIK" />
+
+                <TextInput
+                    id="nik"
+                    type="number"
+                    class="mt-1 block w-full"
+                    v-model="form.nik"
+                    required
+                />
+
+                <InputError class="mt-2" :message="form.errors.nik" />
             </div>
 
             <div class="mt-4">
