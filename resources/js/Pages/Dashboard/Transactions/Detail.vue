@@ -62,7 +62,18 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                2. Fullname :
+                                                2. Order Date :
+                                            </th>
+                                            <td class="px-6 py-4">
+                                                {{ transaction.order_date }}
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white border-b">
+                                            <th
+                                                scope="row"
+                                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                            >
+                                                3. Fullname :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.full_name }}
@@ -73,7 +84,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                3. Username :
+                                                4. Username :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.username }}
@@ -84,7 +95,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                4. Email :
+                                                5. Email :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.email }}
@@ -95,7 +106,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                5. Check In :
+                                                6. Check In :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.check_in }}
@@ -106,7 +117,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                6. Check Out :
+                                                7. Check Out :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.check_out }}
@@ -117,7 +128,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                7. Address :
+                                                8. Address :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.address }}
@@ -128,7 +139,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                8. Phone :
+                                                9. Phone :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.phone }}
@@ -139,7 +150,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                9. Gender :
+                                                10. Gender :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.gender }}
@@ -150,7 +161,7 @@ const props = defineProps({
                                                 scope="row"
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                             >
-                                                10. Status :
+                                                11. Status :
                                             </th>
                                             <td class="px-6 py-4">
                                                 {{ transaction.status }}

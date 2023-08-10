@@ -42,8 +42,7 @@ class BookingController extends Controller
 
         $booking = Booking::create([
             'user_id' => $request->user_id,
-            'username' => $request->username,
-            'email' => $request->email,
+            'order_date' => $request->order_date,
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'full_name' => $request->full_name,
@@ -52,7 +51,6 @@ class BookingController extends Controller
             'gender' => $request->gender,
             'total_price' => 25000,
             'status' => 'Unpaid',
-            'status_entrance' => '-',
         ]);  
         
         // Set your Merchant Server Key

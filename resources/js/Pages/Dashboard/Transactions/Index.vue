@@ -69,6 +69,9 @@ const detail = (id) => {
                                             Order ID
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Order Date
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             Full Name
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -97,6 +100,9 @@ const detail = (id) => {
                                         >
                                             {{ transaction.id }}
                                         </th>
+                                        <td class="px-6 py-4">
+                                            {{ transaction.order_date }}
+                                        </td>
                                         <td class="px-6 py-4">
                                             {{ transaction.full_name }}
                                         </td>

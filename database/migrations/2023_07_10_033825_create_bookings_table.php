@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('username');
-            $table->string('email');
+            $table->date('order_date');
             $table->date('check_in');
             $table->date('check_out');
             $table->string('full_name');
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->enum('gender', ['Male', 'Female']);
             $table->bigInteger('total_price');
             $table->enum('status', ['Unpaid', 'Paid']);
-            $table->enum('status_entrance', ['-', 'Check In', 'Check Out', 'Blacklist']);
             $table->timestamps();
         });
     }

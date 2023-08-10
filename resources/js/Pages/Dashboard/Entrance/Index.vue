@@ -175,7 +175,9 @@ const blacklist = (id) => {
                                             {{ entrance.check_out }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ entrance.status_entrance }}
+                                            {{
+                                                entrance.status_entrance ?? "-"
+                                            }}
                                         </td>
                                         <td
                                             class="px-6 py-4 flex gap-2 justify-center"
@@ -183,13 +185,13 @@ const blacklist = (id) => {
                                             <button
                                                 :disabled="
                                                     entrance.status_entrance ==
-                                                    '-'
+                                                    null
                                                         ? false
                                                         : true
                                                 "
                                                 :class="
                                                     entrance.status_entrance ==
-                                                    '-'
+                                                    null
                                                         ? ''
                                                         : 'opacity-25 cursor-not-allowed'
                                                 "
