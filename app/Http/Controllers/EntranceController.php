@@ -15,9 +15,12 @@ class EntranceController extends Controller
         $entrances = $query->when($request->input('search'), function ($query, $search) {
             $query->where('full_name', 'like', '%' . $search . '%')
             ->orWhere('check_in', 'like', '%'.$search.'%')
-            ->orWhere('check_out', 'like', '%'.$search.'%')
-            ->orWhere('status_entrance', 'like', '%'.$search.'%');
-        })->paginate(6)->withQueryString();
+            ->orWhere('check_out', 'like', '%'.$search.'%');
+        })
+        ->when($request->input('date'), function($query, $date) {
+                $query->whereDate('check_in', $date);
+            })
+        ->paginate(6)->withQueryString();
 
         return Inertia::render('Dashboard/Entrance/Index',
         [
