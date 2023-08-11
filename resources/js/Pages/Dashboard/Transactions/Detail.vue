@@ -79,28 +79,7 @@ const props = defineProps({
                                                 {{ transaction.full_name }}
                                             </td>
                                         </tr>
-                                        <tr class="bg-white border-b">
-                                            <th
-                                                scope="row"
-                                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                                            >
-                                                4. Username :
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ transaction.username }}
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-white border-b">
-                                            <th
-                                                scope="row"
-                                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                                            >
-                                                5. Email :
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ transaction.email }}
-                                            </td>
-                                        </tr>
+
                                         <tr class="bg-white border-b">
                                             <th
                                                 scope="row"

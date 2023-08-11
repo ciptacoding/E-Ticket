@@ -18,8 +18,7 @@ class BookingFactory extends Factory
     {
         return [
             'user_id' => rand(2,20),
-            'username' => fake()->name(),
-            'email' => fake()->email(),
+            'order_date' => fake()->dateTimeThisMonth(),
             'check_in' => fake()->dateTimeThisMonth(),
             'check_out' => fake()->dateTimeThisMonth(),
             'full_name' => fake()->name(),

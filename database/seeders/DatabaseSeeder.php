@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         Post::factory(30)->create();
         Suggestion::factory(20)->create();
-        Booking::factory(500)->create();
+        // Booking::factory(500)->create();
     }
 }

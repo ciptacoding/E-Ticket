@@ -176,21 +176,26 @@ const blacklist = (id) => {
                                         </td>
                                         <td class="px-6 py-4">
                                             {{
-                                                entrance.status_entrance ?? "-"
+                                                entrance.entrance
+                                                    ? entrance.entrance
+                                                          .status_entrances
+                                                    : "-"
                                             }}
                                         </td>
-                                        <td
+                                        <!-- <td
                                             class="px-6 py-4 flex gap-2 justify-center"
                                         >
                                             <button
                                                 :disabled="
-                                                    entrance.status_entrance ==
+                                                    entrance.entrance
+                                                        .status_entrances ==
                                                     null
                                                         ? false
                                                         : true
                                                 "
                                                 :class="
-                                                    entrance.status_entrance ==
+                                                    entrance.entrance
+                                                        .status_entrances ==
                                                     null
                                                         ? ''
                                                         : 'opacity-25 cursor-not-allowed'
@@ -253,7 +258,7 @@ const blacklist = (id) => {
                                                     icon="solar:user-block-outline"
                                                 />
                                             </button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

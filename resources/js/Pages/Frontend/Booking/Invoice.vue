@@ -113,6 +113,13 @@ const download = async () => {
                                         <p
                                             class="text-xs xl:text-base text-gray-500"
                                         >
+                                            Order Date :
+                                            {{ booking.order_date }}
+                                        </p>
+
+                                        <p
+                                            class="text-xs xl:text-base text-gray-500"
+                                        >
                                             Full Name : {{ booking.full_name }}
                                         </p>
 

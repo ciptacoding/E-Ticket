@@ -42,7 +42,7 @@ class BookingController extends Controller
 
         $booking = Booking::create([
             'user_id' => $request->user_id,
-            'order_date' => $request->order_date,
+            'order_date' => date('Y-m-d'),
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'full_name' => $request->full_name,
