@@ -17,8 +17,12 @@ class TransactionController extends Controller
                 ->when($request->input('search'), function($query, $search){
                     $query->where('full_name', 'like', '%'.$search.'%')
                     ->orWhere('status', 'like', '%'.$search.'%');
-                })->orderByDesc('check_in')->paginate(6)->withQueryString(),
-                'filters' => $request->only(['search'])
+                })
+                ->when($request->input('date'), function($query, $date) {
+                    $query->whereDate('order_date', $date);
+                })
+                ->orderByDesc('order_date')->paginate(6)->withQueryString(),
+                'filters' => $request->only(['search', 'date'])
             ]
         );
     }

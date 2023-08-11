@@ -18,7 +18,8 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function deleteBlacklist($query){
-        $query->where('status_entrance', 'Blacklist')->delete();
+    public function entrance()
+    {
+        return $this->hasOne(Entrance::class);
     }
 }

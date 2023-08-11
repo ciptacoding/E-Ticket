@@ -2,7 +2,7 @@
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Head, router } from "@inertiajs/vue3";
-import { watch, ref } from "vue";
+import { watch, ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
 
 const props = defineProps({
@@ -17,11 +17,12 @@ const props = defineProps({
 });
 
 let search = ref(props.filters.search);
+let date = ref(props.filters.date);
 
-watch(search, (value) => {
+watch([search, date], ([searchValue, dateValue]) => {
     router.get(
         "/transaction",
-        { search: value },
+        { search: searchValue, date: dateValue },
         { preserveState: true, replace: true }
     );
 });
@@ -48,16 +49,31 @@ const detail = (id) => {
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <div class="mb-4">
-                                <input
-                                    id="search"
-                                    name="search"
-                                    type="text"
-                                    v-model="search"
-                                    placeholder="Search..."
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/6 p-2.5 ml-4"
-                                />
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 justify-between"
+                            >
+                                <div class="mb-4">
+                                    <input
+                                        id="search"
+                                        name="search"
+                                        type="text"
+                                        v-model="search"
+                                        placeholder="Search..."
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/3 p-2.5 ml-4"
+                                    />
+                                </div>
+                                <div class="mb-4 flex md:justify-end">
+                                    <input
+                                        v-model="date"
+                                        type="date"
+                                        id="start_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-2/3 lg:w-2/6 p-2.5 ml-4 md:ml-0 md:mr-4"
+                                        required
+                                        placeholder="filter"
+                                    />
+                                </div>
                             </div>
+
                             <table
                                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
                             >
@@ -67,6 +83,9 @@ const detail = (id) => {
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Order ID
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Order Date
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Full Name
@@ -97,6 +116,9 @@ const detail = (id) => {
                                         >
                                             {{ transaction.id }}
                                         </th>
+                                        <td class="px-6 py-4">
+                                            {{ transaction.order_date }}
+                                        </td>
                                         <td class="px-6 py-4">
                                             {{ transaction.full_name }}
                                         </td>

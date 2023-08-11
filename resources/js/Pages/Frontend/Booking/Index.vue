@@ -21,8 +21,6 @@ const props = defineProps({
 
 const form = useForm({
     user_id: props.auth.user.id,
-    username: props.auth.user.name,
-    email: props.auth.user.email,
     blacklist_id: props.auth.user.blacklist_id,
     check_in: "",
     check_out: "",

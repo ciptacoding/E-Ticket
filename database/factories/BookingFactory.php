@@ -17,9 +17,8 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(2,20),
-            'username' => fake()->name(),
-            'email' => fake()->email(),
+            'user_id' => rand(2,99),
+            'order_date' => fake()->dateTimeThisMonth(),
             'check_in' => fake()->dateTimeThisMonth(),
             'check_out' => fake()->dateTimeThisMonth(),
             'full_name' => fake()->name(),
@@ -27,8 +26,7 @@ class BookingFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'gender' => fake()->randomElement(['Male','Female']),
             'total_price' => 25000,
-            'status' => 'Paid',
-            'status_entrance' => '-',
+            'status' => fake()->randomElement(['Unpaid', 'Paid'])
         ];
     }
 }

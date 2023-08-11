@@ -1,9 +1,9 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import { Head, router, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import { Icon } from "@iconify/vue";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 
 onMounted(() => {
     function multipleAttributes(element, attributes) {

@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Blacklist;
 use App\Models\Suggestion;
 use App\Models\Booking;
+use App\Models\Entrance;
 
 class HomeController extends Controller
 {
@@ -17,17 +18,13 @@ class HomeController extends Controller
         $posts = Post::with('user')->orderByDESC('date_post')->paginate(6);
         $suggestions = Suggestion::with('user')->get();
         $blacklists = Blacklist::query()->with('user');
-        $total = Booking::where('status_entrance', 'Check In')->count();
-        $male = Booking::where('status_entrance', 'Check In')->where('gender', 'Male')->count();
-        $female = Booking::where('status_entrance', 'Check In')->where('gender', 'Female')->count();
+        $entrances= Entrance::where('status_entrances', 'Check In')->with('booking')->get();
         
         // dd($suggestions);
         return Inertia::render('Frontend/Home/Index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'total' => $total,
-            'male' => $male,
-            'female' => $female, 
+            'entrance' => $entrances, 
             'posts' => $posts,
             'suggestions' => $suggestions,
             'blacklists' => $blacklists

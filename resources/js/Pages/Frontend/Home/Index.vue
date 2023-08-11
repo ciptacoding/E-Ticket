@@ -30,14 +30,9 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    total: {
-        type: Number,
-    },
-    female: {
-        type: Number,
-    },
-    male: {
-        type: Number,
+    entrances: {
+        type: Object,
+        default: () => ({}),
     },
 });
 
@@ -133,21 +128,21 @@ const stripTags = (text) => {
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-male" class="text-4xl" />
                             <h1>
-                                {{ props.total }}<br />
+                                <!-- {{ props.total }}<br /> -->
                                 Total
                             </h1>
                         </div>
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-male" class="text-4xl" />
                             <h1>
-                                {{ props.male }} <br />
+                                <!-- {{ props.male }} <br /> -->
                                 Male
                             </h1>
                         </div>
                         <div class="flex items-center gap-1">
                             <Icon icon="et:profile-female" class="text-4xl" />
                             <h1>
-                                {{ props.female }} <br />
+                                <!-- {{ props.female }} <br /> -->
                                 Female
                             </h1>
                         </div>
