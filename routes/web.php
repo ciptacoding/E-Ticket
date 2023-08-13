@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
+    route::get('/history', [BookingController::class, 'transactionHistory'])->name('booking.history');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

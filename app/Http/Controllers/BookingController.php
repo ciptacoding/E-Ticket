@@ -111,4 +111,13 @@ class BookingController extends Controller
             'canRegister' => Route::has('register'),
         ]);
     }
+
+    public function transactionHistory(Request $request){
+        $booking = Booking::where('user_id', $request->id);
+        return Inertia::render('Frontend/Booking/History', [
+            'booking' => $booking,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    }
 }

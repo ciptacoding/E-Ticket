@@ -1,7 +1,7 @@
 <script setup>
 import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
-import { Head, useForm, usePage } from "@inertiajs/vue3";
+import { Head, useForm, usePage, router } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
 import InputError from "@/Components/InputError.vue";
 import { Notyf } from "notyf";
@@ -53,6 +53,10 @@ const submit = async () => {
         console.error("Error submitting form:", error);
     }
 };
+
+const transactionHistory = (userId) => {
+    router.get("/history", { id: userId });
+};
 </script>
 
 <template>
@@ -70,7 +74,9 @@ const submit = async () => {
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <h1 class="text-center font-bold text-xl mb-2">
+                            <h1
+                                class="text-center font-bold text-xl mt-16 sm:mt-8 mb-2"
+                            >
                                 Book Your Ticket
                             </h1>
                             <p
@@ -81,6 +87,14 @@ const submit = async () => {
                                 quota is still available.
                             </p>
 
+                            <button
+                                @click="
+                                    transactionHistory($page.props.auth.user.id)
+                                "
+                                class="absolute top-5 left-5 text-white bg-gray-800 hover:bg-gray-900 font-medium text-sm px-5 py-2.5 rounded-md"
+                            >
+                                Transactions History
+                            </button>
                             <form class="mx-8 my-5" @submit.prevent="submit">
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
