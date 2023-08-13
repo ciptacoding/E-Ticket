@@ -26,7 +26,7 @@ const download = async () => {
         window.html2canvas = html2canvas;
 
         // Create the jsPDF instance
-        const doc = new jsPDF("l", "pt", "a3");
+        const doc = new jsPDF("l", "pt", "a4");
 
         // Wait for html2canvas to be available globally
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -52,130 +52,139 @@ const download = async () => {
             <!-- navbar mobile view -->
             <NavbarOther :can-login="canLogin" :can-register="canRegister" />
 
-            <div class="py-28 lg:py-32">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:w-[1050px]">
+            <div
+                class="pt-28 lg:py-32 overflow-x-scroll min-[800px]:overflow-x-hidden"
+            >
+                <div
+                    class="max-w-[890px] mx-auto px-4 sm:px-6 w-[800px] lg:w-[890px]"
+                >
                     <button
                         @click="download"
                         class="flex items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
                     >
                         Download PDF
                     </button>
-                    <div class="shadow rounded-md" id="tiket">
+                    <div class="shadow-lg rounded-md" id="tiket">
                         <div
-                            class="relative overflow-x-auto p-3 sm:p-6 bg-[#3d5652]"
+                            class="relative overflow-x-auto p-3 sm:p-6 bg-white"
                         >
-                            <div class="bg-white rounded-lg">
+                            <div class="relative">
+                                <img
+                                    src="/img/background-tikets.jpg"
+                                    alt=""
+                                    class="bg-cover object-cover h-80 w-full"
+                                />
                                 <div
-                                    class="grid grid-cols-1 lg:grid-cols-3 p-2 lg:gap-2 xl:gap-4"
+                                    class="backdrop-opacity-10 backdrop-invert absolute top-0 left-0 right-0 bottom-0 p-4"
                                 >
+                                    <div class="flex justify-between">
+                                        <img
+                                            src="/img/logo-besakih.png"
+                                            alt="logo"
+                                            class="w-12"
+                                        />
+                                        <img
+                                            src="/img/Logo-org-bsk.png"
+                                            alt="logo"
+                                            class="w-12"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h1
+                                            class="text-center text-xl tracking-wide font-bold text-[#facc15]"
+                                        >
+                                            PENDAKIAN GUNUNG AGUNG BESAKIH
+                                        </h1>
+                                        <h1
+                                            class="underline text-center text-2xl font-bold text-white tracking-wide"
+                                        >
+                                            TIKET MASUK
+                                        </h1>
+                                    </div>
                                     <div
-                                        class="flex flex-col items-center mb-8"
+                                        class="mt-2 grid grid-cols-3 gap-4 justify-between"
                                     >
-                                        <p
-                                            class="text-xs text-gray-400 mb-5 xl:text-lg"
+                                        <div class="text-white">
+                                            <p
+                                                class="font-semibold text-black w-2/6 px-1 mb-1 pb-1 border border-black bg-white"
+                                            >
+                                                No. {{ booking.user_id }}
+                                            </p>
+                                            <p class="font-extralight text-sm">
+                                                Check-In {{ booking.check_in }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="text-white text-center font-semibold"
                                         >
-                                            Mountain Climbing
-                                        </p>
-                                        <h1
-                                            class="text-[#3d5652] text-2xl font-bold xl:text-3xl"
+                                            {{ booking.full_name }}
+                                            <p class="font-light text-sm mt-2">
+                                                Check-Out
+                                                {{ booking.check_out }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="relative justify-self-end pr-4"
                                         >
-                                            E-Ticket
-                                        </h1>
-                                        <h1
-                                            class="text-[#3d5652] text-2xl font-bold xl:text-3xl"
-                                        >
-                                            Agung Mountain
-                                        </h1>
-                                        <p
-                                            class="bg-yellow-500 px-4 py-2 text-white text-xs xl:text-sm rounded-lg mt-5"
-                                        >
-                                            Check-In {{ booking.check_in }}
-                                        </p>
-                                        <p
-                                            class="bg-yellow-500 px-4 py-2 text-white text-xs xl:text-sm rounded-lg mt-2"
-                                        >
-                                            Check-Out {{ booking.check_out }}
-                                            <br />
-                                        </p>
+                                            <img
+                                                src="/img/doorprices.png"
+                                                alt="doorprice"
+                                                class="w-32"
+                                            />
+                                            <h1
+                                                class="absolute top-5 pb-1 text-white text-2xl font-bold"
+                                            >
+                                                Rp. 25.000
+                                            </h1>
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col mb-8">
-                                        <h1
-                                            class="text-center text-lg xl:text-xl text-gray-500 font-bold mb-2"
-                                        >
-                                            Customer Identity
-                                        </h1>
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Order ID : {{ booking.id }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Order Date :
-                                            {{ booking.order_date }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Full Name : {{ booking.full_name }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Address : {{ booking.address }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Phone : {{ booking.phone }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Gender : {{ booking.gender }}
-                                        </p>
-
-                                        <p
-                                            class="text-xs xl:text-base text-gray-500"
-                                        >
-                                            Status : {{ booking.status }}
-                                        </p>
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <h1
-                                            class="text-center text-lg xl:text-xl text-gray-500 font-bold"
-                                        >
-                                            Information
-                                        </h1>
-                                        <p
-                                            class="text-sm xl:text-base text-gray-700"
-                                        >
-                                            1. This ticket must be shown to the
-                                            officer at check-in and check-out.
-                                        </p>
-                                        <p
-                                            class="text-sm xl:text-base text-gray-700"
-                                        >
-                                            2. This ticket is valid for one
-                                            person, one climb.
-                                        </p>
-                                        <p
-                                            class="text-sm xl:text-base text-gray-700"
-                                        >
-                                            3. Emergency Call : 085858038176
-                                        </p>
-                                        <p
-                                            class="text-sm xl:text-base text-gray-700"
-                                        >
-                                            4. Insurance : First Aid Kit &
-                                            Evacuation
-                                        </p>
+                                    <div
+                                        class="grid grid-cols-3 gap-8 justify-between"
+                                    >
+                                        <div>
+                                            <p
+                                                class="text-white font-bold tracking-wide"
+                                            >
+                                                PERHATIAN:
+                                            </p>
+                                            <p class="text-white text-xs">
+                                                Tiket ini wajib ditunjukkan
+                                                kepada petugas.
+                                            </p>
+                                            <p class="text-white text-xs">
+                                                Tiket ini berlaku untuk satu
+                                                orang satu kali pendakian.
+                                            </p>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p
+                                                class="text-white font-bold space-y-2 tracking-wide"
+                                            >
+                                                KONTAK DARURAT:
+                                            </p>
+                                            <p class="text-white text-xs">
+                                                085858038176
+                                            </p>
+                                            <p class="text-white text-xs">
+                                                085784511465
+                                            </p>
+                                            <p class="text-white text-xs">
+                                                081387581187
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-white font-bold tracking-wide"
+                                            >
+                                                ASURANSI:
+                                            </p>
+                                            <p class="text-white text-sm">
+                                                1. P 3 K
+                                            </p>
+                                            <p class="text-white text-sm">
+                                                2. Evakuasi
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -183,8 +192,6 @@ const download = async () => {
                     </div>
                 </div>
             </div>
-
-            <Footer class="bottom-0 md:absolute sm:block w-full" />
         </div>
     </div>
 </template>

@@ -176,7 +176,7 @@ const submit = async () => {
                                         <label
                                             for="start_date"
                                             class="block mb-2 text-sm font-medium text-gray-900"
-                                            >Start Date</label
+                                            >Check-In Date</label
                                         >
                                         <input
                                             v-model="form.check_in"
@@ -195,7 +195,7 @@ const submit = async () => {
                                         <label
                                             for="end_date"
                                             class="block mb-2 text-sm font-medium text-gray-900"
-                                            >End Date
+                                            >Check-Out Date
                                         </label>
                                         <input
                                             v-model="form.check_out"
