@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use App\Models\Booking;
 
 
@@ -40,8 +41,10 @@ class BookingController extends Controller
         if($checkIn >= 100){
             return redirect()->route('booking.index')->with('message', 'Quota full! please  make sure the check-in date is still available on the Quota menu');
         }
-
+        $strRandom = Str::random(30);
+        // dd($strRandom);
         $booking = Booking::create([
+            'order_update' => $strRandom,
             'user_id' => $request->user_id,
             'order_date' => date('Y-m-d'),
             'check_in' => $request->check_in,
@@ -70,8 +73,8 @@ class BookingController extends Controller
             ),
             'customer_details' => array(
                 'first_name' => $booking->full_name,
-                // 'last_name' => $request->username,
-                // 'email' => $request->email,
+                'last_name' => $request->username,
+                'email' => $request->email,
                 'phone' => $booking->phone,
             ),
         );
@@ -110,14 +113,17 @@ class BookingController extends Controller
         ]);
     }
 
+
     public function transactionPay(Request $request, $id)
     {
-        $booking = Booking::find($id);
-        // dd($booking); 
         if($request->blacklist_id !== null)
         {
             return redirect()->route('booking.index')->with('message', 'Your account has been blacklist');
         }
+
+        $booking = Booking::find($id);
+        $strRandom = Str::random(30);
+        $booking->update(['order_update' => $strRandom]);
 
         $checkIn = Booking::where('check_in', $booking->check_in)->count();
         if($checkIn >= 100){
@@ -135,7 +141,7 @@ class BookingController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $booking->id,
+                'order_id' => $booking->order_update,
                 'gross_amount' => $booking->total_price,
             ),
             'customer_details' => array(
@@ -165,7 +171,7 @@ class BookingController extends Controller
         $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
         if($hashed == $request->signature_key){
             if($request->transaction_status == 'capture' || 'settlement'){
-                $booking = Booking::find($request->order_id);
+                $booking = Booking::where('id', $request->order_id)->orWhere('order_update', $request->order_id);
                 $booking->update(['status' => 'Paid']);
             }
         }
