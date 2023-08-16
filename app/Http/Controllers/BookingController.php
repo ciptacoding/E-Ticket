@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Booking;
 
+
 class BookingController extends Controller
 {
     public function index(Request $request)
@@ -69,11 +70,81 @@ class BookingController extends Controller
             ),
             'customer_details' => array(
                 'first_name' => $booking->full_name,
+                // 'last_name' => $request->username,
+                // 'email' => $request->email,
+                'phone' => $booking->phone,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $clientKey = config('midtrans.client_key');
+        // dd($clientKey);
+        return Inertia::render('Frontend/Booking/OrderDetail', 
+        [
+            'booking' => $booking,
+            'snapToken' => $snapToken,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'clientKey' => $clientKey
+        ]);
+    }
+
+    public function invoice($id)
+    {
+        $booking = Booking::find($id);
+        return Inertia::render('Frontend/Booking/Invoice', 
+        [
+            'booking' => $booking,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    }
+
+    public function transactionHistory(Request $request, $id){
+        $booking = Booking::where('user_id', $id)->paginate(6);
+        // dd($booking);
+        return Inertia::render('Frontend/Booking/History', [
+            'bookings' => $booking,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    }
+
+    public function transactionPay(Request $request, $id)
+    {
+        $booking = Booking::find($id);
+        // dd($booking); 
+        if($request->blacklist_id !== null)
+        {
+            return redirect()->route('booking.index')->with('message', 'Your account has been blacklist');
+        }
+
+        $checkIn = Booking::where('check_in', $booking->check_in)->count();
+        if($checkIn >= 100){
+            return redirect()->route('booking.index')->with('message', 'Quota full! please  make sure the check-in date is still available on the Quota menu');
+        }
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $booking->id,
+                'gross_amount' => $booking->total_price,
+            ),
+            'customer_details' => array(
+                'first_name' => $booking->full_name,
                 'last_name' => $booking->username,
                 'email' => $booking->email,
                 'phone' => $booking->phone,
             ),
-        );
+        ); 
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $clientKey = config('midtrans.client_key');
@@ -99,25 +170,5 @@ class BookingController extends Controller
             }
         }
 
-    }
-
-    public function invoice($id)
-    {
-        $booking = Booking::find($id);
-        return Inertia::render('Frontend/Booking/Invoice', 
-        [
-            'booking' => $booking,
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-        ]);
-    }
-
-    public function transactionHistory(Request $request){
-        $booking = Booking::where('user_id', $request->id);
-        return Inertia::render('Frontend/Booking/History', [
-            'booking' => $booking,
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-        ]);
     }
 }

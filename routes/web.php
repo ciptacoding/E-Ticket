@@ -32,7 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
-    route::get('/history', [BookingController::class, 'transactionHistory'])->name('booking.history');
+    route::get('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionHistory'])->name('booking.history');
+    route::post('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionPay'])->name('booking.historyPay');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

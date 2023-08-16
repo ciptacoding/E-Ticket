@@ -21,6 +21,8 @@ const props = defineProps({
 
 const form = useForm({
     user_id: props.auth.user.id,
+    email: props.auth.user.email,
+    username: props.auth.user.name,
     blacklist_id: props.auth.user.blacklist_id,
     check_in: "",
     check_out: "",
@@ -55,7 +57,7 @@ const submit = async () => {
 };
 
 const transactionHistory = (userId) => {
-    router.get("/history", { id: userId });
+    router.get(`/history/003f90d9-57d2-40${userId}da-92fe-55f437a2fe57ae9`);
 };
 </script>
 
@@ -95,6 +97,7 @@ const transactionHistory = (userId) => {
                             >
                                 Transactions History
                             </button>
+
                             <form class="mx-8 my-5" @submit.prevent="submit">
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
