@@ -106,9 +106,9 @@ const download = async () => {
                                     >
                                         <div class="text-white">
                                             <p
-                                                class="font-semibold text-black w-2/6 px-1 mb-1 pb-1 border border-black bg-white"
+                                                class="text-xs text-black w-2/3 px-1 mb-1 pb-1 border border-black bg-white"
                                             >
-                                                No. {{ booking.user_id }}
+                                                No. {{ booking.id }}
                                             </p>
                                             <p class="font-extralight text-sm">
                                                 Check-In {{ booking.check_in }}
