@@ -11,6 +11,7 @@ use App\Http\Controllers\EntranceController;
 use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardSuggestionController;
+use APp\Http\Controllers\ScanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
     route::get('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionHistory'])->name('booking.history');
     route::post('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionPay'])->name('booking.historyPay');
+});
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
