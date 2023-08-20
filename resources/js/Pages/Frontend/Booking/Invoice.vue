@@ -3,6 +3,7 @@ import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head } from "@inertiajs/vue3";
 import Footer from "@/Components/Footer.vue";
+import VueQrcode from "@chenfengyuan/vue-qrcode";
 
 const props = defineProps({
     canLogin: {
@@ -79,15 +80,20 @@ const download = async () => {
                                 >
                                     <div class="flex justify-between">
                                         <img
-                                            src="/img/logo-besakih.png"
-                                            alt="logo"
-                                            class="w-12"
-                                        />
-                                        <img
                                             src="/img/Logo-org-bsk.png"
                                             alt="logo"
-                                            class="w-12"
+                                            class="w-12 h-12"
                                         />
+                                        <img
+                                            src="/img/logo-besakih.png"
+                                            alt="logo"
+                                            class="w-10 h-10"
+                                        />
+
+                                        <vue-qrcode
+                                            value="Hello, World!"
+                                            :options="{ width: 70 }"
+                                        ></vue-qrcode>
                                     </div>
                                     <div>
                                         <h1

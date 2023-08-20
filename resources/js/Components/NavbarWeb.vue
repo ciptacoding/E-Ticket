@@ -72,12 +72,7 @@ onMounted(() => {
                         >
                             Booking
                         </NavbarLink>
-                        <NavbarLink
-                            :href="route('scan.index')"
-                            :active="route().current('scan.index')"
-                        >
-                            Entrances
-                        </NavbarLink>
+
                         <NavbarLink
                             :href="route('quota.index')"
                             :active="route().current('quota.index')"
