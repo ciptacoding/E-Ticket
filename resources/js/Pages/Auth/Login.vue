@@ -7,6 +7,7 @@ import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
+import Swal from "sweetalert2";
 
 const notyf = new Notyf({
     duration: 5000,
@@ -17,7 +18,11 @@ const notyf = new Notyf({
 });
 
 if (usePage().props.flash.message !== null) {
-    notyf.success(usePage().props.flash.message);
+    Swal.fire({
+        icon: "warning",
+        title: "Registered Success, Please Check Your Email!",
+        text: usePage().props.flash.message,
+    });
 }
 
 defineProps({

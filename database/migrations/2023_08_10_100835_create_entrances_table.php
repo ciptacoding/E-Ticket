@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('booking_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('status_entrances')->nullable();
+            $table->enum('gender', ['Male', 'Female']);
             $table->timestamps();
         });
     }

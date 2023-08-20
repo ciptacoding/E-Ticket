@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Auth;
 
 
 class BookingController extends Controller
@@ -103,8 +104,10 @@ class BookingController extends Controller
         ]);
     }
 
-    public function transactionHistory(Request $request, $id){
-        $booking = Booking::where('user_id', $id)->paginate(6);
+    public function transactionHistory(Request $request){
+        $userId = Auth::user()->id;
+        // dd($userId);
+        $booking = Booking::where('user_id', $userId)->paginate(6);
         // dd($booking);
         return Inertia::render('Frontend/Booking/History', [
             'bookings' => $booking,
@@ -114,13 +117,13 @@ class BookingController extends Controller
     }
 
 
-    public function transactionPay(Request $request, $id)
+    public function transactionPay(Request $request)
     {
         if($request->blacklist_id !== null)
         {
             return redirect()->route('booking.index')->with('message', 'Your account has been blacklist');
         }
-
+        $id = $request->id;
         $booking = Booking::find($id);
         $strRandom = Str::random(30);
         $booking->update(['order_update' => $strRandom]);

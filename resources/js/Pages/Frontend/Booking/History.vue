@@ -27,7 +27,8 @@ const download = (id) => {
 };
 
 const handlePay = (id) => {
-    router.post(`/history/003f90d9-57d2-40${id}da-92fe-55f437a2fe57ae9`, {
+    router.post(`/history`, {
+        id: id,
         blacklist_id: props.auth.user.blacklist_id,
     });
 };
