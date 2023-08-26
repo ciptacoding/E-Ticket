@@ -37,11 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function (){
     route::post('/history', [BookingController::class, 'transactionPay'])->name('booking.historyPay');
 });
 
-Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
-    Route::post('/scan', [ScanController::class, 'checkIn'])->name('scan.checkIn');
-});
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quota', [QuotaController::class, 'index'])->name('quota.index');
     Route::post('/quota', [QuotaController::class, 'check'])->name('quota.check');
@@ -86,6 +81,11 @@ Route::middleware(['auth','admin','verified'])->group(function (){
 Route::middleware(['auth', 'admin','verified'])->group(function () {
     Route::get('/suggestions', [DashboardSuggestionController::class, 'index'])->name('suggestions.index');
     Route::delete('/suggestions/{id}', [DashboardSuggestionController::class, 'delete'])->name('suggestions.delete');
+});
+
+Route::middleware(['auth', 'admin', 'verified'])->group(function() {
+    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
+    Route::post('/scan', [ScanController::class, 'checkIn'])->name('scan.checkIn');
 });
 
 require __DIR__.'/auth.php';

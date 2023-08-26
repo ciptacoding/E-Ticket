@@ -87,7 +87,7 @@ const download = async () => {
                                         <img
                                             src="/img/logo-besakih.png"
                                             alt="logo"
-                                            class="w-10 h-10"
+                                            class="w-12 h-12"
                                         />
 
                                         <vue-qrcode
