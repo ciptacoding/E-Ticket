@@ -99,6 +99,7 @@ class BookingController extends Controller
         return Inertia::render('Frontend/Booking/Invoice', 
         [
             'booking' => $booking,
+            'bookingNumber' => $id,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);

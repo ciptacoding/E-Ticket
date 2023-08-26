@@ -31,19 +31,19 @@ class EntranceController extends Controller
 
     public function checkin(Request $request)
     {
-        Entrance::create(['booking_id'=> $request->id, 'status_entrances' => 'Check In']);
+        Entrance::create(['booking_id'=> $request->id, 'status_entrances' => 'Check In', 'gender' => $request->gender]);
         return back()->with('message', 'Check-In Successfully!');
     }
 
     public function checkout(Request $request)
     {
-        Booking::where('id', $request->id)->update(['status_entrance' => 'Check Out']);
+        Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Check Out']);
         return back()->with('message', 'Check-Out Successfully!');
     }
 
     public function blacklist(Request $request)
     {
-        Booking::where('id', $request->id)->update(['status_entrance' => 'Blacklist']);
+        Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Blacklist']);
 
         $data = Booking::findOrFail($request->id);
         return Inertia::render('Dashboard/Entrance/Blacklist',

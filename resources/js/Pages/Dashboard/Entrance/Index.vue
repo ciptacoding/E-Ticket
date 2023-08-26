@@ -38,7 +38,7 @@ watch([search, date], ([searchValue, dateValue]) => {
     );
 });
 
-const checkin = async (id) => {
+const checkin = async (id, gender) => {
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -49,7 +49,7 @@ const checkin = async (id) => {
         confirmButtonText: "Yes, Check-In!",
     }).then(async (result) => {
         if (result.isConfirmed) {
-            router.post(`/checkin`, { id: id });
+            router.post(`/checkin`, { id: id, gender: gender });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
@@ -197,83 +197,16 @@ const blacklist = (id) => {
                                                     : "-"
                                             }}
                                         </td>
-                                        <!-- <td
+                                        <td
                                             class="px-6 py-4 flex gap-2 justify-center"
                                         >
-                                            <button
-                                                :disabled="
-                                                    entrance.entrance
-                                                        .status_entrances ==
-                                                    null
-                                                        ? false
-                                                        : true
-                                                "
-                                                :class="
-                                                    entrance.entrance
-                                                        .status_entrances ==
-                                                    null
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
-                                                "
-                                                title="Check In"
-                                                @click.prevent="
-                                                    checkin(`${entrance.id}`)
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-check-outline"
-                                                    color="#26c968"
-                                                />
+                                            <button @click.prevent="checkin(entrance.id, entrance.gender)" class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg">
+                                                In
                                             </button>
-                                            <button
-                                                :disabled="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? false
-                                                        : true
-                                                "
-                                                :class="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
-                                                "
-                                                title="Check Out"
-                                                @click.prevent="
-                                                    checkout(`${entrance.id}`)
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-minus-outline"
-                                                    color="#cf1717"
-                                                />
-                                            </button>
-                                            <button
-                                                :disabled="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? false
-                                                        : true
-                                                "
-                                                :class="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
-                                                "
-                                                title="Blacklist"
-                                                @click.prevent="
-                                                    blacklist(`${entrance.id}`)
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-block-outline"
-                                                />
-                                            </button>
-                                        </td> -->
+                                            <button @click.prevent="checkout(entrance.id)" class="text-xs bg-red-500 text-white px-3 py-2 rounded-lg">Out</button>
+                                            <button @click.prevent="blacklist(entrance.id)" class="text-xs bg-black text-white px-3 py-2 rounded-lg">Blacklist</button>
+                                                
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

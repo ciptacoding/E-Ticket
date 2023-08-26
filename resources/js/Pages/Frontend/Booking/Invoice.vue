@@ -2,7 +2,7 @@
 import NavbarOther from "@/Components/NavbarOther.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head } from "@inertiajs/vue3";
-import Footer from "@/Components/Footer.vue";
+import { ref } from "vue";
 import VueQrcode from "@chenfengyuan/vue-qrcode";
 
 const props = defineProps({
@@ -15,7 +15,13 @@ const props = defineProps({
     booking: {
         type: Object,
     },
+    bookingNumber: {
+        type: String,
+    }
 });
+
+const value = props.bookingNumber;
+console.log(value.toString())
 
 const download = async () => {
     try {
@@ -89,9 +95,8 @@ const download = async () => {
                                             alt="logo"
                                             class="w-12 h-12"
                                         />
-
                                         <vue-qrcode
-                                            value="Hello, World!"
+                                            :value="value"
                                             :options="{ width: 70 }"
                                         ></vue-qrcode>
                                     </div>
@@ -112,7 +117,7 @@ const download = async () => {
                                     >
                                         <div class="text-white">
                                             <p
-                                                class="text-xs text-black w-2/3 px-1 mb-1 pb-1 border border-black bg-white"
+                                                class="text-xs text-black w-9/12 px-1 mb-1 pb-1 border border-black bg-white"
                                             >
                                                 No. {{ booking.id }}
                                             </p>
