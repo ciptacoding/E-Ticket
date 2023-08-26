@@ -200,11 +200,13 @@ const blacklist = (id) => {
                                         <td
                                             class="px-6 py-4 flex gap-2 justify-center"
                                         >
-                                            <button @click.prevent="checkin(entrance.id, entrance.gender)" class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg">
-                                                In
+                                            <button v-if="entrance.entrance === null" @click.prevent="checkin(entrance.id, entrance.gender)" class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg">
+                                                Check-In
                                             </button>
-                                            <button @click.prevent="checkout(entrance.id)" class="text-xs bg-red-500 text-white px-3 py-2 rounded-lg">Out</button>
-                                            <button @click.prevent="blacklist(entrance.id)" class="text-xs bg-black text-white px-3 py-2 rounded-lg">Blacklist</button>
+                                            <button v-if="entrance.entrance && entrance.entrance
+                                                          .status_entrances == 'Check In'" @click.prevent="checkout(entrance.id)" class="text-xs bg-red-500 text-white px-3 py-2 rounded-lg">Check-Out</button>
+                                            <button v-if="entrance.entrance && entrance.entrance
+                                                          .status_entrances == 'Check Out'" @click.prevent="blacklist(entrance.id)" class="text-xs bg-black text-white px-5 py-2 rounded-lg">Blacklist</button>
                                                 
                                         </td>
                                     </tr>

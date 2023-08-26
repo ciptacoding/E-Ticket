@@ -45,7 +45,8 @@ class EntranceController extends Controller
     {
         Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Blacklist']);
 
-        $data = Booking::findOrFail($request->id);
+        $data = Booking::with('user')->findOrFail($request->id);
+        // dd($data);
         return Inertia::render('Dashboard/Entrance/Blacklist',
         [
             'data' => $data

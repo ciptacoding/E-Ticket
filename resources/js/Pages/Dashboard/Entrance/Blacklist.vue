@@ -98,7 +98,7 @@ const submit = () => {
                                                 :key="form.user_id"
                                                 :value="form.user_id"
                                             >
-                                                {{ props.data.username }}
+                                                {{ props.data.user.name }}
                                             </option>
                                         </select>
                                         <InputError

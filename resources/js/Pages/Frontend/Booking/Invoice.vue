@@ -20,8 +20,7 @@ const props = defineProps({
     }
 });
 
-const value = props.bookingNumber;
-console.log(value.toString())
+const value = ref(props.bookingNumber);
 
 const download = async () => {
     try {

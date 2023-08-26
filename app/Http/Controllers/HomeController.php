@@ -18,7 +18,7 @@ class HomeController extends Controller
         $posts = Post::with('user')->orderByDESC('date_post')->paginate(6);
         $suggestions = Suggestion::with('user')->get();
         $blacklists = Blacklist::query()->with('user');
-        $entrances= Entrance::where('status_entrances', 'Check In')->with('booking')->get();
+        $entrances= Entrance::where('status_entrances', 'Check In')->get();
         
         // dd($suggestions);
         return Inertia::render('Frontend/Home/Index', [
