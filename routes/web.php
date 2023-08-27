@@ -75,7 +75,6 @@ Route::middleware(['auth','admin','verified'])->group(function (){
     Route::get('/entrance', [EntranceController::class, 'index'])->name('entrance.index');
     Route::post('/checkin', [EntranceController::class, 'checkin'])->name('entrance.checkin');
     Route::post('/checkout', [EntranceController::class, 'checkout'])->name('entrance.checkout');
-    Route::post('/entrance', [EntranceController::class, 'blacklist'])->name('entrance.blacklist');
 });
 
 Route::middleware(['auth', 'admin','verified'])->group(function () {

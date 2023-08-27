@@ -28,7 +28,7 @@ const props = defineProps({
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <button>
+                            <button class="pl-4">
                                 <Link :href="route('posts.index')">
                                     <Icon
                                         class="ml-2 lg:ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"

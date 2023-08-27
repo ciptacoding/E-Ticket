@@ -38,7 +38,7 @@ watch([search, date], ([searchValue, dateValue]) => {
     );
 });
 
-const checkin = async (id, gender) => {
+const checkin = async (id, gender, userId) => {
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -49,7 +49,7 @@ const checkin = async (id, gender) => {
         confirmButtonText: "Yes, Check-In!",
     }).then(async (result) => {
         if (result.isConfirmed) {
-            router.post(`/checkin`, { id: id, gender: gender });
+            router.post(`/checkin`, { id: id, gender: gender, userId: userId });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
@@ -76,22 +76,6 @@ const checkout = async (id) => {
                 notyf.success(usePage().props.flash.message);
                 usePage().props.flash.message = null;
             }
-        }
-    });
-};
-
-const blacklist = (id) => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Blacklist!",
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            router.post("/entrance", { id: id });
         }
     });
 };
@@ -200,14 +184,46 @@ const blacklist = (id) => {
                                         <td
                                             class="px-6 py-4 flex gap-2 justify-center"
                                         >
-                                            <button v-if="entrance.entrance === null" @click.prevent="checkin(entrance.id, entrance.gender)" class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg">
+                                            <button
+                                                v-if="
+                                                    entrance.entrance === null
+                                                "
+                                                @click.prevent="
+                                                    checkin(
+                                                        entrance.id,
+                                                        entrance.gender,
+                                                        entrance.user_id
+                                                    )
+                                                "
+                                                class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg"
+                                            >
                                                 Check-In
                                             </button>
-                                            <button v-if="entrance.entrance && entrance.entrance
-                                                          .status_entrances == 'Check In'" @click.prevent="checkout(entrance.id)" class="text-xs bg-red-500 text-white px-3 py-2 rounded-lg">Check-Out</button>
-                                            <button v-if="entrance.entrance && entrance.entrance
-                                                          .status_entrances == 'Check Out'" @click.prevent="blacklist(entrance.id)" class="text-xs bg-black text-white px-5 py-2 rounded-lg">Blacklist</button>
-                                                
+                                            <button
+                                                v-if="
+                                                    entrance.entrance &&
+                                                    entrance.entrance
+                                                        .status_entrances ==
+                                                        'Check In'
+                                                "
+                                                @click.prevent="
+                                                    checkout(entrance.id)
+                                                "
+                                                class="text-xs bg-red-500 text-white px-3 py-2 rounded-lg"
+                                            >
+                                                Check-Out
+                                            </button>
+                                            <p
+                                                v-if="
+                                                    entrance.entrance &&
+                                                    entrance.entrance
+                                                        .status_entrances ==
+                                                        'Check Out'
+                                                "
+                                                class="font-medium"
+                                            >
+                                                Finished
+                                            </p>
                                         </td>
                                     </tr>
                                 </tbody>

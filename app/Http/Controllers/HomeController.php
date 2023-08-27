@@ -24,7 +24,9 @@ class HomeController extends Controller
         return Inertia::render('Frontend/Home/Index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'entrance' => $entrances, 
+            'total' => $entrances->count(),
+            'male' => $entrances->where('gender', 'Male')->count(),
+            'female' => $entrances->where('gender', 'Female')->count(),
             'posts' => $posts,
             'suggestions' => $suggestions,
             'blacklists' => $blacklists

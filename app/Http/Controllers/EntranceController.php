@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Entrance;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class EntranceController extends Controller
 {
-    public function index(Request $request, Booking $booking) 
+    public function index(Request $request) 
     {
         $query = Booking::query()->with('entrance')->orderByDesc('check_in')->where('status', 'Paid');
         $entrances = $query->when($request->input('search'), function ($query, $search) {
@@ -31,7 +32,7 @@ class EntranceController extends Controller
 
     public function checkin(Request $request)
     {
-        Entrance::create(['booking_id'=> $request->id, 'status_entrances' => 'Check In', 'gender' => $request->gender]);
+        Entrance::create(['booking_id'=> $request->id, 'user_id' => $request->userId, 'status_entrances' => 'Check In', 'gender' => $request->gender]);
         return back()->with('message', 'Check-In Successfully!');
     }
 
@@ -39,17 +40,5 @@ class EntranceController extends Controller
     {
         Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Check Out']);
         return back()->with('message', 'Check-Out Successfully!');
-    }
-
-    public function blacklist(Request $request)
-    {
-        Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Blacklist']);
-
-        $data = Booking::with('user')->findOrFail($request->id);
-        // dd($data);
-        return Inertia::render('Dashboard/Entrance/Blacklist',
-        [
-            'data' => $data
-        ]);
     }
 }
