@@ -21,3 +21,15 @@ html {
 .border-btm {
     @apply border-b-2 border-black;
 }
+
+#reader__scan_region {
+    @apply flex justify-center;
+}
+
+#html5-qrcode-button-camera-start {
+    @apply bg-black text-white rounded-md px-4 py-2 my-2;
+}
+
+#html5-qrcode-button-camera-stop {
+    @apply bg-black text-white rounded-md px-4 py-2 my-2;
+}

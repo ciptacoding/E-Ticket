@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Entrance;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -40,5 +40,24 @@ class EntranceController extends Controller
     {
         Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Check Out']);
         return back()->with('message', 'Check-Out Successfully!');
+    }
+
+    public function scan()
+    {
+        return Inertia::render('Dashboard/Entrance/Scan');
+    }
+
+    public function store(Request $request)
+    {
+        if(DB::table('entrances')->where('booking_id', $request->bookingNumber)->exists())
+        {
+            Entrance::where('booking_id', $request->bookingNumber)->update(['status_entrances' => 'Check Out']);
+            return redirect('/entrance')->with('message', 'Check-Out Successfully!');
+        }else{
+            $data = Booking::findOrfail($request->bookingNumber);
+            Entrance::create(['booking_id'=> $data->id, 'user_id' => $data->user_id, 'status_entrances' => 'Check In', 'gender' => $data->gender]);
+            return redirect('/entrance')->with('message', 'Check-In Successfully!');
+        }
+
     }
 }

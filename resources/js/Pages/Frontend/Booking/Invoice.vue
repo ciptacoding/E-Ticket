@@ -17,7 +17,7 @@ const props = defineProps({
     },
     bookingNumber: {
         type: String,
-    }
+    },
 });
 
 const value = ref(props.bookingNumber);
@@ -116,7 +116,7 @@ const download = async () => {
                                     >
                                         <div class="text-white">
                                             <p
-                                                class="text-xs text-black w-9/12 px-1 mb-1 pb-1 border border-black bg-white"
+                                                class="text-xs text-black w-[80%] px-1 mb-1 pb-1 border border-black bg-white"
                                             >
                                                 No. {{ booking.id }}
                                             </p>

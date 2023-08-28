@@ -75,16 +75,13 @@ Route::middleware(['auth','admin','verified'])->group(function (){
     Route::get('/entrance', [EntranceController::class, 'index'])->name('entrance.index');
     Route::post('/checkin', [EntranceController::class, 'checkin'])->name('entrance.checkin');
     Route::post('/checkout', [EntranceController::class, 'checkout'])->name('entrance.checkout');
+    Route::get('/entrance/scan', [EntranceController::class, 'scan'])->name('entrance.scan');
+    Route::post('/scan', [EntranceController::class, 'store'])->name('entrance.store');
 });
 
 Route::middleware(['auth', 'admin','verified'])->group(function () {
     Route::get('/suggestions', [DashboardSuggestionController::class, 'index'])->name('suggestions.index');
     Route::delete('/suggestions/{id}', [DashboardSuggestionController::class, 'delete'])->name('suggestions.delete');
-});
-
-Route::middleware(['auth', 'admin', 'verified'])->group(function() {
-    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
-    Route::post('/scan', [ScanController::class, 'checkIn'])->name('scan.checkIn');
 });
 
 require __DIR__.'/auth.php';

@@ -1,8 +1,8 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, router, usePage } from "@inertiajs/vue3";
-import { watch, ref, onMounted } from "vue";
+import { Head, router, usePage, Link } from "@inertiajs/vue3";
+import { watch, ref } from "vue";
 import { Icon } from "@iconify/vue";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -50,7 +50,7 @@ const checkin = async (id, gender, userId) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             router.post(`/checkin`, { id: id, gender: gender, userId: userId });
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
                 usePage().props.flash.message = null;
@@ -71,7 +71,7 @@ const checkout = async (id) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             router.post(`/checkout`, { id: id });
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
                 usePage().props.flash.message = null;
@@ -101,7 +101,7 @@ const checkout = async (id) => {
                             <div
                                 class="grid grid-cols-1 md:grid-cols-2 justify-between"
                             >
-                                <div class="mb-4">
+                                <div class="mb-4 flex">
                                     <input
                                         id="search"
                                         name="search"
@@ -110,13 +110,22 @@ const checkout = async (id) => {
                                         placeholder="Search..."
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/3 p-2.5 ml-4"
                                     />
+                                    <Link
+                                        class="ml-4 flex items-center gap-1 text-white bg-black hover:bg-gradient-to-br font-medium rounded-lg text-sm p-2.5 text-center"
+                                        :href="route('entrance.scan')"
+                                        ><Icon
+                                            icon="mdi:line-scan"
+                                            class="text-xl"
+                                        />
+                                        Scan
+                                    </Link>
                                 </div>
-                                <div class="mb-4 flex md:justify-end">
+                                <div class="mb-4 gap-2 flex md:justify-end">
                                     <input
                                         v-model="date"
                                         type="date"
                                         id="start_date"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-2/3 lg:w-2/6 p-2.5 ml-4 md:ml-0 md:mr-4"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black w-2/3 lg:w-2/6 ml-4 md:ml-0 md:mr-4"
                                         required
                                         placeholder="filter"
                                     />
