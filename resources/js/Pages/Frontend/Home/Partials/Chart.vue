@@ -36,7 +36,7 @@ const chartData = {
     datasets: [
         {
             label: "Statistics Today",
-            backgroundColor: "#3b82f6",
+            backgroundColor: "#DF6951",
             data: [props.total, props.male, props.female],
         },
     ],

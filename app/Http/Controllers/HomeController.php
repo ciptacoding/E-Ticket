@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function index (Request $request)
     {
-        $posts = Post::with('user')->orderByDESC('date_post')->paginate(6);
+        $posts = Post::with('user')->orderByDESC('date_post')->paginate(8);
         $suggestions = Suggestion::with('user')->get();
         $blacklists = Blacklist::query()->with('user');
         $entrances= Entrance::where('status_entrances', 'Check In')->get();
@@ -33,7 +33,7 @@ class HomeController extends Controller
                 ->when($request->input('search'), function($query, $search){
                     $query->where('full_name', 'like', '%'.$search.'%')
                     ->orWhere('description', 'like', '%'.$search.'%');
-                })->orderByDESC('id')->paginate(6)->withQueryString(),
+                })->orderByDESC('id')->paginate(8)->withQueryString(),
             'filters' => $request->only(['search'])
         ]);
     }

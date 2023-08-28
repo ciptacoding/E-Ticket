@@ -55,7 +55,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="space-y-6 py-4">
+        <form @submit.prevent="submit" class="py-4">
             <div>
                 <InputLabel for="email" value="Email" />
 
@@ -87,10 +87,19 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex justify-end mt-8">
+                <PrimaryButton
+                    class="w-full text-center"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Login
+                </PrimaryButton>
+            </div>
+            <div class="flex items-center justify-end mt-4 space-x-4">
                 <Link
                     :href="route('register')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
                     Don't have account?
                 </Link>
@@ -98,18 +107,10 @@ const submit = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="ml-4 underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
-                    Forgot your password?
+                    Forgot password?
                 </Link>
-
-                <PrimaryButton
-                    class="ml-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>

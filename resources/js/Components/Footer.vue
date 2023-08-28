@@ -1,8 +1,8 @@
 <template>
     <div>
-        <footer class="bg-white rounded-lg shadow mb-20 mt-20 lg:mt-24 lg:mb-0">
+        <footer class="bg-white shadow mb-20 lg:mb-0">
             <div
-                class="w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:flex md:items-center md:justify-between"
+                class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:flex md:items-center md:justify-between"
             >
                 <span
                     class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
