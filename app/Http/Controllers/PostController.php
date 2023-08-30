@@ -22,7 +22,7 @@ class PostController extends Controller
                     $query->where('title', 'like', '%'.$search.'%')
                     ->orWhere('excerpt', 'like', '%'.$search.'%')
                     ->orWhere('body', 'like', '%'.$search.'%');
-                })->orderByDESC('date_post')->paginate(6)->withQueryString(),
+                })->orderByDESC('date_post')->paginate(10)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );

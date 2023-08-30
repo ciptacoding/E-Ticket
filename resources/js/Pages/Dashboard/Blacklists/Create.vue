@@ -3,33 +3,10 @@ import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { Icon } from "@iconify/vue";
-import { onMounted } from "vue";
+import "vue-search-select/dist/VueSearchSelect.css";
+import { ModelSelect } from "vue-search-select";
 
-onMounted(() => {
-    function multipleAttributes(element, attributes) {
-        Object.keys(attributes).forEach((attr) => {
-            element.setAttribute(attr, attributes[attr]);
-        });
-    }
-
-    const attributes = {
-        href: "https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css",
-        rel: "stylesheet",
-    };
-
-    let selectLink = document.createElement("link");
-    multipleAttributes(selectLink, attributes);
-    document.head.appendChild(selectLink);
-
-    let selectScript = document.createElement("script");
-    selectScript.setAttribute(
-        "src",
-        "https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"
-    );
-    document.body.appendChild(selectScript);
-});
-
-defineProps({
+const props = defineProps({
     users: {
         type: Array,
         default: () => [],
@@ -47,6 +24,11 @@ const form = useForm({
 const submit = () => {
     form.post("/blacklists");
 };
+
+const options = props.users.map((user) => ({
+    value: `${user.id}`,
+    text: user.name,
+}));
 </script>
 
 <template>
@@ -54,14 +36,14 @@ const submit = () => {
         <Head title="Dashboard | Create Blacklist" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Create New Blacklist
+            <template #searching>
+                <h2 class="text-[#DF6951] font-bold text-xl">
+                    Create Blacklist
                 </h2>
             </template>
 
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto sm:px-6 lg:px-8">
+            <template #main>
+                <div class="mx-auto mt-5">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -84,23 +66,12 @@ const submit = () => {
                                         >
                                             Select Username
                                         </label>
-                                        <select
-                                            id="user_id"
-                                            data-te-select-init
-                                            data-te-select-filter="true"
+                                        <ModelSelect
+                                            :options="options"
                                             v-model="form.user_id"
-                                        >
-                                            <option value="-">
-                                                Select username
-                                            </option>
-                                            <option
-                                                v-for="user in users"
-                                                :key="user.id"
-                                                :value="user.id"
-                                            >
-                                                {{ user.name }}
-                                            </option>
-                                        </select>
+                                            placeholder="Select username"
+                                        />
+
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.user_id"
@@ -188,7 +159,7 @@ const submit = () => {
 
                                 <button
                                     type="submit"
-                                    class="mr-4 flex items-center gap-1 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                                    class="mr-4 flex items-center gap-1 text-white bg-[#DF6951] font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
                                 >
                                     Submit
                                 </button>
@@ -196,7 +167,7 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

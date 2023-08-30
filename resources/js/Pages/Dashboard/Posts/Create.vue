@@ -23,14 +23,14 @@ const submit = () => {
         <Head title="Dashboard | Create Post" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <template #searching>
+                <h1 class="text-[#DF6951] font-bold text-xl">
                     Create New Post
-                </h2>
+                </h1>
             </template>
 
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <template #main>
+                <div class="mx-auto mt-5">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -164,7 +164,7 @@ const submit = () => {
 
                                 <button
                                     type="submit"
-                                    class="mr-4 flex items-center gap-1 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                                    class="mr-4 flex items-center gap-1 text-white bg-[#DF6951] font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
                                 >
                                     Submit
                                 </button>
@@ -172,7 +172,7 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

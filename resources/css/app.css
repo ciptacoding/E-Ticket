@@ -33,3 +33,7 @@ html {
 #html5-qrcode-button-camera-stop {
     @apply bg-black text-white rounded-md px-4 py-2 my-2;
 }
+
+.selection {
+    @apply h-[2.6rem];
+}
