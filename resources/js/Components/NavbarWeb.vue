@@ -132,7 +132,9 @@ defineProps({
                                                     $page.props.auth.user
                                                         .role === 'admin'
                                                 "
-                                                :href="route('users.index')"
+                                                :href="
+                                                    route('dashboard.detail')
+                                                "
                                             >
                                                 Dashboard
                                             </DropdownLink>

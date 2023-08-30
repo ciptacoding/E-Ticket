@@ -12,6 +12,7 @@ use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardSuggestionController;
 use App\Http\Controllers\ScanController;
+use App\Http\Controllers\DashboardDetailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,6 +83,10 @@ Route::middleware(['auth','admin','verified'])->group(function (){
 Route::middleware(['auth', 'admin','verified'])->group(function () {
     Route::get('/suggestions', [DashboardSuggestionController::class, 'index'])->name('suggestions.index');
     Route::delete('/suggestions/{id}', [DashboardSuggestionController::class, 'delete'])->name('suggestions.delete');
+});
+
+Route::middleware(['auth', 'admin', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardDetailController::class, 'index'])->name('dashboard.detail');
 });
 
 require __DIR__.'/auth.php';
