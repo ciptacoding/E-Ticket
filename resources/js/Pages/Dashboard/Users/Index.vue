@@ -176,8 +176,8 @@ const deleteUser = (id) => {
                                                 "
                                             >
                                                 <Icon
-                                                    width="24"
-                                                    height="24"
+                                                    width="22"
+                                                    height="22"
                                                     icon="solar:trash-bin-minimalistic-outline"
                                                     color="#ffffff"
                                                 />

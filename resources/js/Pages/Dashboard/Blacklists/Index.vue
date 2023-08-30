@@ -250,7 +250,7 @@ const stripTags = (text) => {
                                             <button
                                                 @click.prevent="
                                                     deleteBlacklist(
-                                                        `${post.id}`
+                                                        `${blacklist.id}`
                                                     )
                                                 "
                                                 class="bg-red-600 py-1 px-2 rounded-lg"

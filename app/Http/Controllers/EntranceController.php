@@ -21,7 +21,7 @@ class EntranceController extends Controller
         ->when($request->input('date'), function($query, $date) {
                 $query->whereDate('check_in', $date);
             })
-        ->paginate(6)->withQueryString();
+        ->paginate(10)->withQueryString();
 
         return Inertia::render('Dashboard/Entrance/Index',
         [

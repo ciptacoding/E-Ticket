@@ -46,21 +46,23 @@ onMounted(() => {
     <div>
         <Head title="Mount Agung | Scan" />
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard Entrance
+            <template #searching>
+                <h2 class="font-semibold text-xl text-[#DF6951] leading-tight">
+                    E-Ticket Scanner
                 </h2>
             </template>
 
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="">
-                        <div class="w-full sm:w-2/4 mx-auto">
-                            <div id="reader" width="600px"></div>
+            <template #main>
+                <div class="py-8">
+                    <div class="mx-auto mt-5">
+                        <div class="">
+                            <div class="w-full sm:w-2/4 mx-auto">
+                                <div id="reader" width="600px"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

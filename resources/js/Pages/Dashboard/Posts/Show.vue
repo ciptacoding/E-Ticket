@@ -17,7 +17,7 @@ const props = defineProps({
 
         <DashboardLayout>
             <template #searching>
-                <h2 class="font-semibold text-xl text-[##DF6951] leading-tight">
+                <h2 class="font-semibold text-xl text-[#DF6951] leading-tight">
                     Show Detail Post
                 </h2>
             </template>

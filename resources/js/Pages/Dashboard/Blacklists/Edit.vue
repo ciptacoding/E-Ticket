@@ -64,24 +64,6 @@ const options = props.users.map((user) => ({
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label
-                                            for="user_id"
-                                            class="block mb-2 text-sm font-medium text-gray-900"
-                                        >
-                                            Select Username
-                                        </label>
-                                        <ModelSelect
-                                            :options="options"
-                                            v-model="form.user_id"
-                                            placeholder="Select username"
-                                        />
-                                        <InputError
-                                            class="mt-2"
-                                            :message="form.errors.user_id"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label
                                             for="full_name"
                                             class="block mb-2 text-sm font-medium text-gray-900"
                                         >
