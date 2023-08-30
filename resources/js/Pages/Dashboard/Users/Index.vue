@@ -86,38 +86,38 @@ const deleteUser = (id) => {
                 />
             </template>
             <template #main>
-                <div class="flex flex-col mt-5">
+                <div class="mx-auto mt-5">
                     <div
                         class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
                     >
                         <div
-                            class="inline-block min-w-full overflow-hidden align-middle border-b bg-white border-gray-200 shadow sm:rounded-lg pb-4"
+                            class="inline-block min-w-full overflow-hidden align-middle bg-white border-b border-gray-200 shadow sm:rounded-lg pb-4"
                         >
                             <table class="min-w-full mb-2">
                                 <thead>
-                                    <tr>
+                                    <tr class="border-b border-gray-200">
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Username
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Email
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Status
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Role
                                         </th>
                                         <th
-                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Actions
                                         </th>
@@ -126,11 +126,12 @@ const deleteUser = (id) => {
 
                                 <tbody class="bg-white">
                                     <tr
+                                        class="border-b border-gray-200"
                                         v-for="user in users.data"
                                         :key="user.id"
                                     >
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div class="flex items-center">
                                                 <div
@@ -142,7 +143,7 @@ const deleteUser = (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div
                                                 class="text-sm leading-5 text-gray-900"
@@ -152,7 +153,7 @@ const deleteUser = (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <span
                                                 class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
@@ -161,13 +162,13 @@ const deleteUser = (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap"
                                         >
                                             {{ user.role }}
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 flex justify-center leading-5 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 flex justify-center leading-5 whitespace-no-wrap"
                                         >
                                             <button
                                                 class="bg-red-600 py-1 px-3 rounded-md"

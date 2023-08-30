@@ -146,35 +146,35 @@ const checkout = async (id) => {
                         >
                             <table class="min-w-full mb-2">
                                 <thead>
-                                    <tr>
+                                    <tr class="border-b border-gray-200">
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Order ID
                                         </th>
 
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Full Name
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Check In Date
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Check Out Date
                                         </th>
                                         <th
-                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Status Entrance
                                         </th>
                                         <th
-                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Actions
                                         </th>
@@ -183,11 +183,12 @@ const checkout = async (id) => {
 
                                 <tbody class="bg-white">
                                     <tr
+                                        class="border-b border-gray-200"
                                         v-for="entrance in entrances.data"
                                         :key="entrance.id"
                                     >
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div class="flex items-center">
                                                 <div
@@ -199,7 +200,7 @@ const checkout = async (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div
                                                 class="text-sm leading-5 text-gray-900"
@@ -209,7 +210,7 @@ const checkout = async (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div
                                                 class="text-sm leading-5 text-gray-900"
@@ -219,7 +220,7 @@ const checkout = async (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div
                                                 class="text-sm leading-5 text-gray-900"
@@ -228,7 +229,7 @@ const checkout = async (id) => {
                                             </div>
                                         </td>
                                         <td
-                                            class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <div
                                                 class="text-sm leading-5 text-gray-900"
@@ -243,7 +244,7 @@ const checkout = async (id) => {
                                         </td>
 
                                         <td
-                                            class="px-6 py-4 gap-1 flex justify-center leading-5 whitespace-no-wrap border-b border-gray-200"
+                                            class="px-6 py-4 gap-1 flex justify-center leading-5 whitespace-no-wrap"
                                         >
                                             <button
                                                 v-if="
