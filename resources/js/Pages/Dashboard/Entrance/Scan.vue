@@ -12,6 +12,7 @@ function scan() {
         /* verbose= */ false
     );
     function onScanSuccess(decodedText, decodedResult) {
+        html5QrcodeScanner.clear();
         // handle the scanned code as you like, for example:
         // console.log(`Code matched = ${decodedText}`, decodedResult);
         router.post(
@@ -21,13 +22,12 @@ function scan() {
             },
             {
                 onSuccess: () => {
-                    html5QrcodeScanner.clear();
                     return Swal.fire({
                         position: "center",
                         icon: "success",
                         title: "Your data has been save",
                         showConfirmButton: false,
-                        timer: 5000,
+                        timer: 2000,
                     });
                 },
             }

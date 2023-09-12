@@ -130,6 +130,7 @@ class BookingController extends Controller
         $booking->update(['order_update' => $strRandom]);
 
         $checkIn = Booking::where('check_in', $booking->check_in)->count();
+        // direvisi variable
         if($checkIn >= 100){
             return redirect()->route('booking.index')->with('message', 'Quota full! please  make sure the check-in date is still available on the Quota menu');
         }

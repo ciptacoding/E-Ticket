@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $nik = $request->nik;
+        $nik = $request->nik; 
         $result = \NikReader::read($nik);
         
         // dd($result);
