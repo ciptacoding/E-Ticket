@@ -16,19 +16,18 @@ const props = defineProps({
         <Head title="Dashboard | Create Post" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <template #searching>
+                <h2 class="font-semibold text-xl text-[#DF6951] leading-tight">
                     Show Detail Post
                 </h2>
             </template>
-
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <template #main>
+                <div class="mx-auto mt-5">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
                         >
-                            <button>
+                            <button class="pl-4">
                                 <Link :href="route('posts.index')">
                                     <Icon
                                         class="ml-2 lg:ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
@@ -60,7 +59,7 @@ const props = defineProps({
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

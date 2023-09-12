@@ -15,23 +15,25 @@ class HomeController extends Controller
 {
     public function index (Request $request)
     {
-        $posts = Post::with('user')->orderByDESC('date_post')->paginate(6);
+        $posts = Post::with('user')->orderByDESC('date_post')->paginate(8);
         $suggestions = Suggestion::with('user')->get();
         $blacklists = Blacklist::query()->with('user');
-        $entrances= Entrance::where('status_entrances', 'Check In')->with('booking')->get();
+        $entrances= Entrance::where('status_entrances', 'Check In')->get();
         
         // dd($suggestions);
         return Inertia::render('Frontend/Home/Index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'entrance' => $entrances, 
+            'total' => $entrances->count(),
+            'male' => $entrances->where('gender', 'Male')->count(),
+            'female' => $entrances->where('gender', 'Female')->count(),
             'posts' => $posts,
             'suggestions' => $suggestions,
             'blacklists' => $blacklists
                 ->when($request->input('search'), function($query, $search){
                     $query->where('full_name', 'like', '%'.$search.'%')
                     ->orWhere('description', 'like', '%'.$search.'%');
-                })->orderByDESC('id')->paginate(6)->withQueryString(),
+                })->orderByDESC('id')->paginate(8)->withQueryString(),
             'filters' => $request->only(['search'])
         ]);
     }

@@ -21,7 +21,7 @@ class TransactionController extends Controller
                 ->when($request->input('date'), function($query, $date) {
                     $query->whereDate('order_date', $date);
                 })
-                ->orderByDesc('order_date')->paginate(6)->withQueryString(),
+                ->orderByDesc('order_date')->paginate(10)->withQueryString(),
                 'filters' => $request->only(['search', 'date'])
             ]
         );

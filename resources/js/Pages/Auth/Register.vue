@@ -42,7 +42,7 @@ const submit = async () => {
     <GuestLayout>
         <Head title="Register" />
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="py-4">
             <div>
                 <InputLabel for="name" value="Username" />
 
@@ -124,21 +124,22 @@ const submit = async () => {
                 />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
+            <div class="flex items-center justify-center mt-8">
                 <PrimaryButton
-                    class="ml-4"
+                    class="w-full"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Register
                 </PrimaryButton>
+            </div>
+            <div class="flex justify-end mt-4">
+                <Link
+                    :href="route('login')"
+                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
+                >
+                    Already registered?
+                </Link>
             </div>
         </form>
     </GuestLayout>

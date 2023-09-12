@@ -22,7 +22,7 @@ class PostController extends Controller
                     $query->where('title', 'like', '%'.$search.'%')
                     ->orWhere('excerpt', 'like', '%'.$search.'%')
                     ->orWhere('body', 'like', '%'.$search.'%');
-                })->orderByDESC('date_post')->paginate(6)->withQueryString(),
+                })->orderByDESC('date_post')->paginate(10)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );
@@ -92,11 +92,10 @@ class PostController extends Controller
     {
         //validate form
         $validated_data = $request->validate([
-            'user_id' => 'required',
-            'title' => 'required|min:20|max:165',
-			'excerpt' => 'required|max:165|min:20',
-			'date_post' => 'required|date',
-			'body' => 'required|min:50'
+            'title' => 'min:20|max:165',
+			'excerpt' => 'max:165|min:20',
+			'date_post' => 'date',
+			'body' => 'min:50'
         ]);
 
 		$post = Post::findOrFail($id);

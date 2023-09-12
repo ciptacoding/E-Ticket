@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Entrance;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class EntranceController extends Controller
 {
-    public function index(Request $request, Booking $booking) 
+    public function index(Request $request) 
     {
         $query = Booking::query()->with('entrance')->orderByDesc('check_in')->where('status', 'Paid');
         $entrances = $query->when($request->input('search'), function ($query, $search) {
@@ -20,7 +21,7 @@ class EntranceController extends Controller
         ->when($request->input('date'), function($query, $date) {
                 $query->whereDate('check_in', $date);
             })
-        ->paginate(6)->withQueryString();
+        ->paginate(10)->withQueryString();
 
         return Inertia::render('Dashboard/Entrance/Index',
         [
@@ -31,24 +32,32 @@ class EntranceController extends Controller
 
     public function checkin(Request $request)
     {
-        Entrance::create(['booking_id'=> $request->id, 'status_entrances' => 'Check In']);
+        Entrance::create(['booking_id'=> $request->id, 'user_id' => $request->userId, 'status_entrances' => 'Check In', 'gender' => $request->gender]);
         return back()->with('message', 'Check-In Successfully!');
     }
 
     public function checkout(Request $request)
     {
-        Booking::where('id', $request->id)->update(['status_entrance' => 'Check Out']);
+        Entrance::where('booking_id', $request->id)->update(['status_entrances' => 'Check Out']);
         return back()->with('message', 'Check-Out Successfully!');
     }
 
-    public function blacklist(Request $request)
+    public function scan()
     {
-        Booking::where('id', $request->id)->update(['status_entrance' => 'Blacklist']);
+        return Inertia::render('Dashboard/Entrance/Scan');
+    }
 
-        $data = Booking::findOrFail($request->id);
-        return Inertia::render('Dashboard/Entrance/Blacklist',
-        [
-            'data' => $data
-        ]);
+    public function store(Request $request)
+    {
+        if(DB::table('entrances')->where('booking_id', $request->bookingNumber)->exists())
+        {
+            Entrance::where('booking_id', $request->bookingNumber)->update(['status_entrances' => 'Check Out']);
+            return redirect('/entrance')->with('message', 'Check-Out Successfully!');
+        }else{
+            $data = Booking::findOrfail($request->bookingNumber);
+            Entrance::create(['booking_id'=> $data->id, 'user_id' => $data->user_id, 'status_entrances' => 'Check In', 'gender' => $data->gender]);
+            return redirect('/entrance')->with('message', 'Check-In Successfully!');
+        }
+
     }
 }

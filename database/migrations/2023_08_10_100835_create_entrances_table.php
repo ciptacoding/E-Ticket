@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('entrances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('booking_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('status_entrances')->nullable();
+            $table->enum('gender', ['Male', 'Female']);
             $table->timestamps();
         });
     }

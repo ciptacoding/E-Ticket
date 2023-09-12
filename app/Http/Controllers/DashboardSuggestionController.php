@@ -17,7 +17,7 @@ class DashboardSuggestionController extends Controller
                 ->when($request->input('search'), function($query, $search) {
                     $query->where('comment', 'like', '%'.$search.'%')
                     ->orWhere('suggestion', 'like', '%'.$search.'%');
-                })->paginate(6)->withQueryString(),
+                })->paginate(10)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );

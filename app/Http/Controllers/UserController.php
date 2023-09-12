@@ -22,7 +22,7 @@ class UserController extends Controller
                 ->when($request->input('search'), function($query, $search){
                     $query->where('name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%');
-                })->paginate(6)->withQueryString(),
+                })->paginate(10)->withQueryString(),
                 'filters' => $request->only(['search'])
             ]
         );

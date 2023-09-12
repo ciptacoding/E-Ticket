@@ -99,122 +99,168 @@ if (usePage().props.flash.message !== null) {
         <Head title="Dashboard | Posts" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard Posts
-                </h2>
+            <template #title> Dashboard Posts </template>
+            <template #searching>
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg
+                        class="w-5 h-5 text-gray-500"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <path
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </span>
+                <input
+                    class="w-32 pl-10 pr-4 rounded-md form-input sm:w-80 focus:ring-black focus:border-black"
+                    type="text"
+                    placeholder="Search"
+                    id="search"
+                    name="search"
+                    v-model="search"
+                />
             </template>
-
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="shadow-md rounded-md">
+            <template #main>
+                <div class="mx-auto">
+                    <div class="my-2 flex justify-start">
+                        <Link
+                            class="flex items-center gap-1 text-white bg-[#DF6951] font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+                            :href="route('posts.create')"
+                            ><Icon
+                                icon="solar:add-circle-linear"
+                                class="text-xl"
+                            />
+                            Add New Post
+                        </Link>
+                    </div>
+                    <div
+                        class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+                    >
                         <div
-                            class="relative overflow-x-auto rounded-md py-6 bg-white"
+                            class="inline-block min-w-full overflow-hidden align-middle border-b bg-white border-gray-200 shadow sm:rounded-lg pb-4"
                         >
-                            <div class="mb-4 flex justify-between">
-                                <input
-                                    id="search"
-                                    name="search"
-                                    type="text"
-                                    v-model="search"
-                                    placeholder="Search..."
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/6 p-2.5 ml-4 h-[41px]"
-                                />
-
-                                <Link
-                                    class="mr-4 flex items-center gap-1 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
-                                    :href="route('posts.create')"
-                                    ><Icon
-                                        icon="solar:add-circle-linear"
-                                        class="text-xl"
-                                    />
-                                    Add New Post
-                                </Link>
-                            </div>
-                            <table
-                                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-                            >
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                                >
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
+                            <table class="min-w-full mb-2">
+                                <thead>
+                                    <tr class="border-b border-gray-200">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Title
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Date
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Excerpt
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Body
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
+                                            Content
                                         </th>
                                         <th
-                                            scope="col"
-                                            class="px-6 py-3 text-center"
+                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
-                                            Action
+                                            Actions
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+
+                                <tbody class="bg-white">
                                     <tr
+                                        class="border-b border-gray-200"
                                         v-for="post in posts.data"
                                         :key="post.id"
-                                        class="bg-white border-b"
                                     >
-                                        <th
-                                            scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
-                                            {{ truncatePostTitle(post) }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ post.date_post }}
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="text-sm font-medium leading-5 text-gray-900"
+                                                >
+                                                    {{
+                                                        truncatePostTitle(post)
+                                                    }}
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{ truncateExcerpt(post) }}
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{ post.date_post }}
+                                            </div>
                                         </td>
-                                        <td class="px-6 py-4">
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{ truncateExcerpt(post) }}
+                                            </div>
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap"
+                                        >
                                             {{ truncatePostBody(post) }}
                                         </td>
+
                                         <td
-                                            class="px-6 py-4 flex justify-center gap-2"
+                                            class="px-6 py-4 gap-1 flex justify-center leading-5 whitespace-no-wrap"
                                         >
                                             <button
+                                                class="bg-black opacity-80 py-1 px-2 rounded-lg"
                                                 @click.prevent="
                                                     showPost(`${post.id}`)
                                                 "
                                             >
                                                 <Icon
-                                                    height="32"
-                                                    width="32"
-                                                    icon="solar:eye-scan-line-duotone"
+                                                    color="#ffffff"
+                                                    height="22"
+                                                    width="22"
+                                                    icon="solar:eye-outline"
                                                 />
                                             </button>
                                             <button
                                                 @click.prevent="
                                                     updatePost(`${post.id}`)
                                                 "
+                                                class="bg-yellow-400 py-1 px-2 rounded-lg"
                                             >
                                                 <Icon
-                                                    height="34"
-                                                    width="34"
+                                                    height="22"
+                                                    width="22"
                                                     icon="mdi:square-edit-outline"
-                                                    color="#f59e0b"
+                                                    color="#ffffff"
                                                 />
                                             </button>
                                             <button
                                                 @click.prevent="
                                                     deletePost(`${post.id}`)
                                                 "
+                                                class="bg-red-600 py-1 px-2 rounded-lg"
                                             >
                                                 <Icon
-                                                    height="32"
-                                                    width="32"
+                                                    height="22"
+                                                    width="22"
                                                     icon="solar:trash-bin-minimalistic-outline"
-                                                    color="#cf1717"
+                                                    color="#ffffff"
                                                 />
                                             </button>
                                         </td>
@@ -225,7 +271,7 @@ if (usePage().props.flash.message !== null) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

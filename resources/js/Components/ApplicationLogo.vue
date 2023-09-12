@@ -1,3 +1,3 @@
 <template>
-    <img src="/img/mountains.png" alt="icon" />
+    <img src="/img/logo.png" alt="icon" />
 </template>

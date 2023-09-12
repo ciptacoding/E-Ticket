@@ -31,4 +31,23 @@ class BookingFactory extends Factory
             'status' => fake()->randomElement(['Unpaid', 'Paid'])
         ];
     }
+
+    public function TodayFactory(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'order_update' => Str::random(30),
+                'user_id' => rand(2,99),
+                'order_date' => date('Y-m-d'),
+                'check_in' => date('Y-m-d'),
+                'check_out' => date('Y-m-d'),
+                'full_name' => fake()->name(),
+                'address' => fake()->address(),
+                'phone' => fake()->phoneNumber(),
+                'gender' => fake()->randomElement(['Male','Female']),
+                'total_price' => 25000,
+                'status' => 'Paid'
+            ];
+        });
+    }
 }

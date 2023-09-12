@@ -1,8 +1,9 @@
 <script setup>
-import NavbarOther from "@/Components/NavbarOther.vue";
+import NavbarWeb from "@/Components/NavbarWeb.vue";
 import MobileNavbar from "@/Components/MobileNavbar.vue";
 import { Head } from "@inertiajs/vue3";
-import Footer from "@/Components/Footer.vue";
+import { ref } from "vue";
+import VueQrcode from "@chenfengyuan/vue-qrcode";
 
 const props = defineProps({
     canLogin: {
@@ -14,7 +15,12 @@ const props = defineProps({
     booking: {
         type: Object,
     },
+    bookingNumber: {
+        type: String,
+    },
 });
+
+const value = ref(props.bookingNumber);
 
 const download = async () => {
     try {
@@ -46,21 +52,24 @@ const download = async () => {
 <template>
     <Head title="Mount Agung | Booking" />
     <div>
-        <div class="bg-gray-50 min-h-screen relative">
+        <div class="bg-gray-50 h-screen relative">
             <!-- navbar mobile view -->
             <MobileNavbar />
             <!-- navbar mobile view -->
-            <NavbarOther :can-login="canLogin" :can-register="canRegister" />
+            <NavbarWeb :can-login="canLogin" :can-register="canRegister" />
 
+            <header
+                class="bg-[url('/img/bg-gunung.png')] bg-center bg-cover h-[300px]"
+            ></header>
             <div
-                class="pt-28 lg:py-32 overflow-x-scroll min-[800px]:overflow-x-hidden"
+                class="mt-[-7rem] mb-20 overflow-x-scroll min-[800px]:overflow-x-hidden pb-20"
             >
                 <div
                     class="max-w-[890px] mx-auto px-4 sm:px-6 w-[800px] lg:w-[890px]"
                 >
                     <button
                         @click="download"
-                        class="flex items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
+                        class="flex items-center text-white bg-[#DF6951] font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4"
                     >
                         Download PDF
                     </button>
@@ -79,15 +88,19 @@ const download = async () => {
                                 >
                                     <div class="flex justify-between">
                                         <img
-                                            src="/img/logo-besakih.png"
-                                            alt="logo"
-                                            class="w-12"
-                                        />
-                                        <img
                                             src="/img/Logo-org-bsk.png"
                                             alt="logo"
-                                            class="w-12"
+                                            class="w-12 h-12"
                                         />
+                                        <img
+                                            src="/img/logo-besakih.png"
+                                            alt="logo"
+                                            class="w-12 h-12"
+                                        />
+                                        <vue-qrcode
+                                            :value="value"
+                                            :options="{ width: 70 }"
+                                        ></vue-qrcode>
                                     </div>
                                     <div>
                                         <h1
@@ -106,7 +119,7 @@ const download = async () => {
                                     >
                                         <div class="text-white">
                                             <p
-                                                class="text-xs text-black w-2/3 px-1 mb-1 pb-1 border border-black bg-white"
+                                                class="text-xs text-black w-[80%] px-1 mb-1 pb-1 border border-black bg-white"
                                             >
                                                 No. {{ booking.id }}
                                             </p>
@@ -129,17 +142,17 @@ const download = async () => {
                                             <img
                                                 src="/img/doorprices.png"
                                                 alt="doorprice"
-                                                class="w-32"
+                                                class="w-28 mt-1"
                                             />
                                             <h1
-                                                class="absolute top-5 pb-1 text-white text-2xl font-bold"
+                                                class="absolute top-5 mb-2 text-white text-2xl font-bold"
                                             >
                                                 Rp. 25.000
                                             </h1>
                                         </div>
                                     </div>
                                     <div
-                                        class="grid grid-cols-3 gap-8 justify-between"
+                                        class="grid grid-cols-3 gap-8 justify-between mb-4"
                                     >
                                         <div>
                                             <p

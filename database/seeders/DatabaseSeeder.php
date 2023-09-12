@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         Post::factory(30)->create();
         Suggestion::factory(20)->create();
         Booking::factory(500)->create();
+        Booking::factory()->TodayFactory()->count(100)->create();
     }
 }

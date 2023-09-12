@@ -11,7 +11,8 @@ use App\Http\Controllers\EntranceController;
 use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardSuggestionController;
-use APp\Http\Controllers\ScanController;
+use App\Http\Controllers\ScanController;
+use App\Http\Controllers\DashboardDetailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,12 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'pay'])->name('booking.pay');
     Route::get('/invoice/{id}', [BookingController::class, 'invoice'])->name('booking.invoice');
-    route::get('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionHistory'])->name('booking.history');
-    route::post('/history/003f90d9-57d2-40{id}da-92fe-55f437a2fe57ae9', [BookingController::class, 'transactionPay'])->name('booking.historyPay');
-});
-
-Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/scan', [ScanController::class, 'index'])->name('scan.index');
+    route::get('/history', [BookingController::class, 'transactionHistory'])->name('booking.history');
+    route::post('/history', [BookingController::class, 'transactionPay'])->name('booking.historyPay');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -79,12 +76,17 @@ Route::middleware(['auth','admin','verified'])->group(function (){
     Route::get('/entrance', [EntranceController::class, 'index'])->name('entrance.index');
     Route::post('/checkin', [EntranceController::class, 'checkin'])->name('entrance.checkin');
     Route::post('/checkout', [EntranceController::class, 'checkout'])->name('entrance.checkout');
-    Route::post('/entrance', [EntranceController::class, 'blacklist'])->name('entrance.blacklist');
+    Route::get('/entrance/scan', [EntranceController::class, 'scan'])->name('entrance.scan');
+    Route::post('/scan', [EntranceController::class, 'store'])->name('entrance.store');
 });
 
 Route::middleware(['auth', 'admin','verified'])->group(function () {
     Route::get('/suggestions', [DashboardSuggestionController::class, 'index'])->name('suggestions.index');
     Route::delete('/suggestions/{id}', [DashboardSuggestionController::class, 'delete'])->name('suggestions.delete');
+});
+
+Route::middleware(['auth', 'admin', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardDetailController::class, 'index'])->name('dashboard.detail');
 });
 
 require __DIR__.'/auth.php';

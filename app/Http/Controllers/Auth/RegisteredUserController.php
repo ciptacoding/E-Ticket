@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $nik = $request->nik;
+        $nik = $request->nik; 
         $result = \NikReader::read($nik);
         
         // dd($result);
@@ -60,6 +60,6 @@ class RegisteredUserController extends Controller
         // Auth::login($user);
         // return redirect(RouteServiceProvider::HOME);
 
-        return redirect('/login')->with('message', 'Registered success! Please check your email address for email verification');
+        return redirect('/login')->with('message', 'Please verify your email address to complete the registration process. Click the link below to confirm your email and gain full access to our platform.');
     }
 }

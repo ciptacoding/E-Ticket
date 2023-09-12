@@ -16,14 +16,14 @@ const props = defineProps({
         <Head title="Dashboard | Detail Transaction" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <template #searching>
+                <h2 class="font-semibold text-xl text-[#DF6951] leading-tight">
                     Detail Transaction
                 </h2>
             </template>
 
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <template #main>
+                <div class="mx-auto mt-5">
                     <div class="shadow-md rounded-md">
                         <div
                             class="relative overflow-x-auto rounded-md py-6 bg-white"
@@ -31,7 +31,7 @@ const props = defineProps({
                             <button>
                                 <Link :href="route('transaction.index')">
                                     <Icon
-                                        class="ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
+                                        class="ml-2 sm:ml-8 font-medium text-4xl hover:bg-black hover:text-white rounded-2xl"
                                         icon="solar:round-arrow-left-outline"
                                     />
                                 </Link>
@@ -39,11 +39,11 @@ const props = defineProps({
                             <div
                                 class="flex flex-col justify-center items-center mx-4 sm:mx-12"
                             >
-                                <h1 class="text-center text-xl font-bold">
+                                <h1 class="text-xl font-bold">
                                     Detail Transaction
                                 </h1>
                                 <table
-                                    class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                                    class="w-full flex justify-center text-sm text-left text-gray-500 dark:text-gray-400"
                                 >
                                     <tbody>
                                         <tr class="bg-white border-b">
@@ -152,7 +152,7 @@ const props = defineProps({
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

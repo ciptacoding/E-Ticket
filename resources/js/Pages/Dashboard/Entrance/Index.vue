@@ -1,8 +1,8 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Head, router, usePage } from "@inertiajs/vue3";
-import { watch, ref, onMounted } from "vue";
+import { Head, router, usePage, Link } from "@inertiajs/vue3";
+import { watch, ref } from "vue";
 import { Icon } from "@iconify/vue";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -38,7 +38,7 @@ watch([search, date], ([searchValue, dateValue]) => {
     );
 });
 
-const checkin = async (id) => {
+const checkin = async (id, gender, userId) => {
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -49,8 +49,8 @@ const checkin = async (id) => {
         confirmButtonText: "Yes, Check-In!",
     }).then(async (result) => {
         if (result.isConfirmed) {
-            router.post(`/checkin`, { id: id });
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            router.post(`/checkin`, { id: id, gender: gender, userId: userId });
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
                 usePage().props.flash.message = null;
@@ -71,27 +71,11 @@ const checkout = async (id) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             router.post(`/checkout`, { id: id });
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             if (usePage().props.flash.message !== null) {
                 notyf.success(usePage().props.flash.message);
                 usePage().props.flash.message = null;
             }
-        }
-    });
-};
-
-const blacklist = (id) => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Blacklist!",
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            router.post("/entrance", { id: id });
         }
     });
 };
@@ -102,178 +86,207 @@ const blacklist = (id) => {
         <Head title="Dashboard | Entrance" />
 
         <DashboardLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard Entrance
-                </h2>
+            <template #title> Dashboard Entrances </template>
+
+            <template #searching>
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg
+                        class="w-5 h-5 text-gray-500"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <path
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </span>
+                <input
+                    class="w-32 pl-10 pr-4 rounded-md form-input sm:w-80 focus:ring-black focus:border-black"
+                    type="text"
+                    placeholder="Search"
+                    id="search"
+                    name="search"
+                    v-model="search"
+                />
             </template>
 
-            <div class="py-8">
-                <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="shadow-md rounded-md">
+            <template #main>
+                <div class="mx-auto">
+                    <div class="my-2 flex items-end gap-2">
+                        <div class="flex flex-col justify-start">
+                            <label for="filter" class="text-[#DF6951] font-bold"
+                                >Date Filter
+                            </label>
+                            <input
+                                v-model="date"
+                                type="date"
+                                id="filter"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-[#DF6951] focus:border-[#DF6951] w-32 lg:w-80 p-2.5 mb-2"
+                                required
+                                placeholder="filter"
+                            />
+                        </div>
+
+                        <Link
+                            class="w-20 h-10 flex items-center gap-1 text-white bg-black hover:bg-gradient-to-br font-medium rounded-lg text-sm p-2.5 text-center mb-2"
+                            :href="route('entrance.scan')"
+                            ><Icon icon="mdi:line-scan" class="text-xl" />
+                            Scan
+                        </Link>
+                    </div>
+                    <div
+                        class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+                    >
                         <div
-                            class="relative overflow-x-auto rounded-md py-6 bg-white"
+                            class="inline-block min-w-full overflow-hidden align-middle border-b bg-white border-gray-200 shadow sm:rounded-lg pb-4"
                         >
-                            <div
-                                class="grid grid-cols-1 md:grid-cols-2 justify-between"
-                            >
-                                <div class="mb-4">
-                                    <input
-                                        id="search"
-                                        name="search"
-                                        type="text"
-                                        v-model="search"
-                                        placeholder="Search..."
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-2/3 p-2.5 ml-4"
-                                    />
-                                </div>
-                                <div class="mb-4 flex md:justify-end">
-                                    <input
-                                        v-model="date"
-                                        type="date"
-                                        id="start_date"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-2/3 lg:w-2/6 p-2.5 ml-4 md:ml-0 md:mr-4"
-                                        required
-                                        placeholder="filter"
-                                    />
-                                </div>
-                            </div>
-                            <table
-                                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-                            >
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                                >
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
+                            <table class="min-w-full mb-2">
+                                <thead>
+                                    <tr class="border-b border-gray-200">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Order ID
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Full Name
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Check In Date
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Check Out Date
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th
+                                            class="px-6 py-4 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
+                                        >
                                             Status Entrance
                                         </th>
                                         <th
-                                            scope="col"
-                                            class="px-6 py-3 text-center"
+                                            class="px-6 py-4 flex justify-center text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50"
                                         >
                                             Actions
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+
+                                <tbody class="bg-white">
                                     <tr
+                                        class="border-b border-gray-200"
                                         v-for="entrance in entrances.data"
                                         :key="entrance.id"
-                                        class="bg-white border-b"
                                     >
-                                        <th
-                                            scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
                                         >
-                                            {{ entrance.id }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ entrance.full_name }}
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="text-sm font-medium leading-5 text-gray-900"
+                                                >
+                                                    {{ entrance.id }}
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{ entrance.check_in }}
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{ entrance.full_name }}
+                                            </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{ entrance.check_out }}
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{ entrance.check_in }}
+                                            </div>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{
-                                                entrance.entrance
-                                                    ? entrance.entrance
-                                                          .status_entrances
-                                                    : "-"
-                                            }}
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{ entrance.check_out }}
+                                            </div>
                                         </td>
-                                        <!-- <td
-                                            class="px-6 py-4 flex gap-2 justify-center"
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap"
+                                        >
+                                            <div
+                                                class="text-sm leading-5 text-gray-900"
+                                            >
+                                                {{
+                                                    entrance.entrance
+                                                        ? entrance.entrance
+                                                              .status_entrances
+                                                        : "-"
+                                                }}
+                                            </div>
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 gap-1 flex justify-center leading-5 whitespace-no-wrap"
                                         >
                                             <button
-                                                :disabled="
+                                                v-if="
+                                                    entrance.entrance === null
+                                                "
+                                                @click.prevent="
+                                                    checkin(
+                                                        entrance.id,
+                                                        entrance.gender,
+                                                        entrance.user_id
+                                                    )
+                                                "
+                                                class="text-xs bg-green-400 text-white px-4 py-2 rounded-lg"
+                                            >
+                                                Check-In
+                                            </button>
+                                            <button
+                                                v-if="
+                                                    entrance.entrance &&
                                                     entrance.entrance
                                                         .status_entrances ==
-                                                    null
-                                                        ? false
-                                                        : true
+                                                        'Check In'
                                                 "
-                                                :class="
+                                                @click.prevent="
+                                                    checkout(entrance.id)
+                                                "
+                                                class="text-xs bg-red-700 text-white px-3 py-2 rounded-lg"
+                                            >
+                                                Check-Out
+                                            </button>
+                                            <p
+                                                v-if="
+                                                    entrance.entrance &&
                                                     entrance.entrance
                                                         .status_entrances ==
-                                                    null
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
+                                                        'Check Out'
                                                 "
-                                                title="Check In"
-                                                @click.prevent="
-                                                    checkin(`${entrance.id}`)
-                                                "
+                                                class="font-medium"
                                             >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-check-outline"
-                                                    color="#26c968"
-                                                />
-                                            </button>
-                                            <button
-                                                :disabled="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? false
-                                                        : true
-                                                "
-                                                :class="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
-                                                "
-                                                title="Check Out"
-                                                @click.prevent="
-                                                    checkout(`${entrance.id}`)
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-minus-outline"
-                                                    color="#cf1717"
-                                                />
-                                            </button>
-                                            <button
-                                                :disabled="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? false
-                                                        : true
-                                                "
-                                                :class="
-                                                    entrance.status_entrance ==
-                                                    'Check In'
-                                                        ? ''
-                                                        : 'opacity-25 cursor-not-allowed'
-                                                "
-                                                title="Blacklist"
-                                                @click.prevent="
-                                                    blacklist(`${entrance.id}`)
-                                                "
-                                            >
-                                                <Icon
-                                                    class="text-3xl"
-                                                    icon="solar:user-block-outline"
-                                                />
-                                            </button>
-                                        </td> -->
+                                                Finished
+                                            </p>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -281,7 +294,7 @@ const blacklist = (id) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </DashboardLayout>
     </div>
 </template>

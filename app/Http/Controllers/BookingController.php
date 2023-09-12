@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Auth;
 
 
 class BookingController extends Controller
@@ -98,13 +99,16 @@ class BookingController extends Controller
         return Inertia::render('Frontend/Booking/Invoice', 
         [
             'booking' => $booking,
+            'bookingNumber' => $id,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
     }
 
-    public function transactionHistory(Request $request, $id){
-        $booking = Booking::where('user_id', $id)->paginate(6);
+    public function transactionHistory(Request $request){
+        $userId = Auth::user()->id;
+        // dd($userId);
+        $booking = Booking::where('user_id', $userId)->paginate(6);
         // dd($booking);
         return Inertia::render('Frontend/Booking/History', [
             'bookings' => $booking,
@@ -114,18 +118,19 @@ class BookingController extends Controller
     }
 
 
-    public function transactionPay(Request $request, $id)
+    public function transactionPay(Request $request)
     {
         if($request->blacklist_id !== null)
         {
             return redirect()->route('booking.index')->with('message', 'Your account has been blacklist');
         }
-
+        $id = $request->id;
         $booking = Booking::find($id);
         $strRandom = Str::random(30);
         $booking->update(['order_update' => $strRandom]);
 
         $checkIn = Booking::where('check_in', $booking->check_in)->count();
+        // direvisi variable
         if($checkIn >= 100){
             return redirect()->route('booking.index')->with('message', 'Quota full! please  make sure the check-in date is still available on the Quota menu');
         }

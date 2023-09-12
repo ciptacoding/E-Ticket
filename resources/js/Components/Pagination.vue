@@ -17,7 +17,7 @@ defineProps({
 <template>
     <div v-if="links.length > 3">
         <!-- web view -->
-        <div class="hidden sm:flex flex-wrap mb-1 mt-2 mr-4 justify-end">
+        <div class="hidden sm:flex flex-wrap mb-1 mt-2 mr-2 justify-end">
             <template v-for="(link, k) in links" :key="k">
                 <div
                     v-if="link.url === null"
@@ -29,7 +29,7 @@ defineProps({
                     class="mr-1 mb-1 px-4 py-3 text-sm leading-3 border rounded focus:border-indigo-500 focus:text-indigo-500"
                     :class="
                         link.active === true
-                            ? 'bg-indigo-400 hover:bg-indigo-500 text-white'
+                            ? 'bg-[#DF6951] hover:bg-[#ec684e] text-white'
                             : 'bg-white'
                     "
                     :href="link.url"
