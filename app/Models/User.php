@@ -47,7 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $attributes = [
-        'role' => 'user'
+        'role' => 'user',
+        'disabled' => 'false'
     ];
 
     public function post()

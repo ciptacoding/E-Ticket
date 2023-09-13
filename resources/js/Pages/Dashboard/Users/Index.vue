@@ -30,7 +30,7 @@ watch(search, (value) => {
     );
 });
 
-const deleteUser = (id) => {
+const disabledUser = (id) => {
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -41,7 +41,8 @@ const deleteUser = (id) => {
         confirmButtonText: "Yes, delete it!",
     }).then((result) => {
         if (result.isConfirmed) {
-            router.delete(`/users/${id}`, {
+            router.post(`/disabled`, {
+                id: id,
                 onFinish: () =>
                     Swal.fire(
                         "Deleted!",
@@ -156,8 +157,14 @@ const deleteUser = (id) => {
                                             class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <span
+                                                v-if="user.disabled == 'false'"
                                                 class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
                                                 >Active</span
+                                            >
+                                            <span
+                                                v-else
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+                                                >Non-Active</span
                                             >
                                         </td>
 
@@ -173,7 +180,7 @@ const deleteUser = (id) => {
                                             <button
                                                 class="bg-red-600 py-1 px-3 rounded-md"
                                                 @click.prevent="
-                                                    deleteUser(`${user.id}`)
+                                                    disabledUser(`${user.id}`)
                                                 "
                                             >
                                                 <Icon

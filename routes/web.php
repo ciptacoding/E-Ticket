@@ -56,7 +56,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/disabled', [UserController::class, 'disabled'])->name('users.disabled');
 });
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {

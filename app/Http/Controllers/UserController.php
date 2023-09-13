@@ -31,9 +31,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function disabled(Request $request)
     {
-        User::findOrFail($id)->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        User::where('id', $request->id)->update(['disabled' => 'true']);
+        return redirect()->route('users.index')->with('success', 'User disabled successfully.');
     }
 }
