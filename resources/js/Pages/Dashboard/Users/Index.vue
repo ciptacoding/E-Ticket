@@ -157,7 +157,7 @@ const disabledUser = (id) => {
                                             class="px-6 py-4 whitespace-no-wrap"
                                         >
                                             <span
-                                                v-if="user.disabled == 'false'"
+                                                v-if="user.disabled == null"
                                                 class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
                                                 >Active</span
                                             >
@@ -186,7 +186,7 @@ const disabledUser = (id) => {
                                                 <Icon
                                                     width="22"
                                                     height="22"
-                                                    icon="solar:trash-bin-minimalistic-outline"
+                                                    icon="solar:user-block-outline"
                                                     color="#ffffff"
                                                 />
                                             </button>

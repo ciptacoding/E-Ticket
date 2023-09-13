@@ -33,15 +33,19 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        if(Auth::user()->blacklist_id !== null){
-            return redirect('/login')->with('message', 'Your Account has been blacklisted');
+        // dd(Auth::user()->blacklist_id);
+        if(Auth::user()->blacklist_id !== null || Auth::user()->disabled == "true"){
+            Auth::logout();
+            return redirect('/login')->with('message', 'Your Account has been blacklisted or disabled by admin');
         }
 
+        // cek role
         if(Auth::user()->role === 'admin'){
             return redirect()->intended(RouteServiceProvider::DASHBOARD);
         }
-        return redirect()->intended(RouteServiceProvider::HOME);
+        else{
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }  
     }
 
     /**

@@ -10,7 +10,7 @@ import "notyf/notyf.min.css";
 import Swal from "sweetalert2";
 
 const notyf = new Notyf({
-    duration: 5000,
+    duration: 3000,
     position: {
         x: "center",
         y: "top",
@@ -40,10 +40,24 @@ const form = useForm({
     remember: false,
 });
 
-const submit = () => {
-    form.post(route("login"), {
-        onFinish: () => form.reset("password"),
-    });
+const submit = async () => {
+    try {
+        form.post(route("login"));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (usePage().props.flash.message !== null) {
+            const notyf = new Notyf({
+                duration: 3000,
+                position: {
+                    x: "center",
+                    y: "top",
+                },
+            });
+            notyf.error(usePage().props.flash.message);
+            usePage().props.flash.message = null; //set props to null after showing notyf
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    }
 };
 </script>
 
