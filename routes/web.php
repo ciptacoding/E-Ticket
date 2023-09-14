@@ -50,7 +50,7 @@ Route::middleware(['auth','verified'])->group(function (){
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile', [ProfileControllepostsr::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -61,6 +61,7 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::resource('posts', PostController::class);
+    Route::post('posts/{id}', [PostController::class, 'updates'])->name('posts.updatess');
 });
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function (){
