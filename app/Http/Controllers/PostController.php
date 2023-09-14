@@ -110,7 +110,9 @@ class PostController extends Controller
 			$image_path = $request->file('image')->store('images');
 			
 			//hapus gambar lama
-            Storage::delete($post->image);
+            if(Storage::exists($post->image)){
+                Storage::delete($post->image);
+            }
 
 			//update data ke database
 			$post->update([
