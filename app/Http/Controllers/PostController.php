@@ -88,35 +88,49 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updates(Request $request, string $id)
     {
         //validate form
-        $validated_data = $request->validate([
-            'title' => 'min:20|max:165',
-			'excerpt' => 'max:165|min:20',
-			'date_post' => 'date',
-			'body' => 'min:50'
+        $request->validate([
+            'title' => 'required|min:20|max:165',
+			'excerpt' => 'required|max:165|min:20',
+			'date_post' => 'required|date',
+			'body' => 'required|min:50'
         ]);
 
 		$post = Post::findOrFail($id);
 		
 		//check if image is uploaded
 		if ($request->hasFile('image')) {
-            $validated_data['image'] = $request->validate([
+            $request->validate([
                 'image' => 'image|file|max:2048|mimes:png,jpg,jpeg',
             ]);
+
 			//upload gambar baru
-			$image = $request->file('image');
-			$image->store('images');
+			$image_path = $request->file('image')->store('images');
 			
 			//hapus gambar lama
-             Storage::delete($post->image);
+            if(Storage::exists($post->image)){
+                Storage::delete($post->image);
+            }
 
 			//update data ke database
-			$post->update($validated_data);
+			$post->update([
+                'title' => $request->title,
+                'excerpt' => $request->excerpt,
+                'date_post' => $request->date_post,
+                'image' => $image_path,
+                'body' => $request->body,
+            ]);
 		} else {
 			//jika tidak ada image baru di upload
-			$post->update($validated_data);
+			$post->update([
+                'title' => $request->title,
+                'excerpt' => $request->excerpt,
+                'date_post' => $request->date_post,
+                'image' => $request->image,
+                'body' => $request->body,
+            ]);
 
 		}
 

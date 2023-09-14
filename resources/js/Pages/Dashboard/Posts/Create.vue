@@ -44,7 +44,11 @@ const submit = () => {
                                 </Link>
                             </button>
 
-                            <form class="mx-8 my-5" @submit.prevent="submit">
+                            <form
+                                class="mx-8 my-5"
+                                @submit.prevent="submit"
+                                enctype="multipart/form-data"
+                            >
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label
